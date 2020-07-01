@@ -37,6 +37,7 @@
             this.employeesBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.customersBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupNavigation = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -51,7 +52,6 @@
             this.employeesLabelControl = new DevExpress.XtraEditors.LabelControl();
             this.customersNavigationPage = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.customersLabelControl = new DevExpress.XtraEditors.LabelControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.officeNavigationBar)).BeginInit();
@@ -126,6 +126,12 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem1)});
             this.barSubItem1.Name = "barSubItem1";
             // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "界面设置";
+            this.barButtonItem1.Id = 47;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
             // ribbonPage
             // 
             this.ribbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -145,7 +151,7 @@
             this.ribbonPageGroup1});
             this.ribbonPage1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("ribbonPage1.ImageOptions.Image")));
             this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "设置";
+            this.ribbonPage1.Text = "设置中心";
             // 
             // ribbonPageGroup1
             // 
@@ -260,12 +266,6 @@
             this.customersLabelControl.Size = new System.Drawing.Size(730, 418);
             this.customersLabelControl.TabIndex = 1;
             this.customersLabelControl.Text = "Customers";
-            // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Caption = "界面设置";
-            this.barButtonItem1.Id = 47;
-            this.barButtonItem1.Name = "barButtonItem1";
             // 
             // MainForm
             // 
