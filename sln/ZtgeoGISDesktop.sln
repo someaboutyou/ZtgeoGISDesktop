@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001Framework", "001Framework", "{CF482086-9B8F-48EF-A26F-332DC4A99B5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abp.Winform", "..\Abp.Winform\Abp.Winform.csproj", "{33F00612-EACB-45BE-80A3-AEEAC74D117F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002Application", "002Application", "{D8EA72D4-7C24-4DDC-880E-468843663B56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop", "..\Application\ZtgeoGISDesktop\ZtgeoGISDesktop.csproj", "{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33F00612-EACB-45BE-80A3-AEEAC74D117F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F00612-EACB-45BE-80A3-AEEAC74D117F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F00612-EACB-45BE-80A3-AEEAC74D117F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F00612-EACB-45BE-80A3-AEEAC74D117F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{33F00612-EACB-45BE-80A3-AEEAC74D117F} = {CF482086-9B8F-48EF-A26F-332DC4A99B5F}
+		{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C} = {D8EA72D4-7C24-4DDC-880E-468843663B56}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD4722C0-94B6-41CA-A7A0-DFACF392431D}
+	EndGlobalSection
+EndGlobal
