@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Abp.Winform.ABPForm
+namespace Ztgeo.Gis.Winform.ABPForm
 {
     /// <summary>
     /// 

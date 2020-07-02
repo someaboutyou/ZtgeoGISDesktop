@@ -1,5 +1,5 @@
 ﻿using Abp.Modules;
-using Abp.Winform.ABPForm;
+using Ztgeo.Gis.Winform.ABPForm;
 using Castle.MicroKernel.Util; 
 using JetBrains.Annotations;
 using System;
@@ -9,8 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
 using System.Windows.Forms;
+using Abp;
 
-namespace Abp.Winform
+namespace Ztgeo.Gis.Winform
 {
     public static class AbpApplicationBuilderExtensions
     {

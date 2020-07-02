@@ -7,8 +7,8 @@
     <ProjectGuid>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Abp.Winform</RootNamespace>
-    <AssemblyName>Abp.Winform</AssemblyName>
+    <RootNamespace>Ztgeo.Gis.Winform</RootNamespace>
+    <AssemblyName>Ztgeo.Gis.Winform</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

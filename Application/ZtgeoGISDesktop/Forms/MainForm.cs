@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using Abp.Winform.ABPForm;
+using Ztgeo.Gis.Winform.ABPForm;
 
 namespace ZtgeoGISDesktop.Forms
 {

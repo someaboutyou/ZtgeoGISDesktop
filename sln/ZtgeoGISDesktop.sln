@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001Framework", "001Framework", "{CF482086-9B8F-48EF-A26F-332DC4A99B5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abp.Winform", "..\Abp.Winform\Abp.Winform.csproj", "{33F00612-EACB-45BE-80A3-AEEAC74D117F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztgeo.Gis.Winform", "..\Abp.Winform\Ztgeo.Gis.Winform.csproj", "{33F00612-EACB-45BE-80A3-AEEAC74D117F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002Application", "002Application", "{D8EA72D4-7C24-4DDC-880E-468843663B56}"
 EndProject

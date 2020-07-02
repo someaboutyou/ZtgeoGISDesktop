@@ -103,7 +103,6 @@ F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\ZtgeoG
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\ZtgeoGISDesktop.exe
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\ZtgeoGISDesktop.pdb
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\ar\ZtgeoGISDesktop.resources.dll
-F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Abp.Winform.dll
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\DevExpress.BonusSkins.v19.1.dll
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\DevExpress.Data.v19.1.dll
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\DevExpress.Images.v19.1.dll
@@ -119,8 +118,6 @@ F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\System
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\System.Memory.dll
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\System.Numerics.Vectors.dll
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\DevExpress.Pdf.v19.1.Core.dll
-F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Abp.Winform.pdb
-F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Abp.Winform.dll.config
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Abp.pdb
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Abp.xml
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Castle.Core.xml
@@ -201,3 +198,6 @@ F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\obj\Debug\ar\Ztg
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\obj\Debug\ZtgeoGISDesktop.csproj.CopyComplete
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\obj\Debug\ZtgeoGISDesktop.exe
 F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\obj\Debug\ZtgeoGISDesktop.pdb
+F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Ztgeo.Gis.Winform.dll
+F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Ztgeo.Gis.Winform.pdb
+F:\SelfResearch\GIS\ZtgeoGISDesktop\Application\ZtgeoGISDesktop\bin\Debug\Ztgeo.Gis.Winform.dll.config

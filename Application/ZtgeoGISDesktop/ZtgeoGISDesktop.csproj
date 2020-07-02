@@ -272,12 +272,11 @@
     <None Include="Resources\Icon1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Abp.Winform\Abp.Winform.csproj">
+    <ProjectReference Include="..\..\Abp.Winform\Ztgeo.Gis.Winform.csproj">
       <Project>{33f00612-eacb-45be-80a3-aeeac74d117f}</Project>
-      <Name>Abp.Winform</Name>
+      <Name>Ztgeo.Gis.Winform</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
