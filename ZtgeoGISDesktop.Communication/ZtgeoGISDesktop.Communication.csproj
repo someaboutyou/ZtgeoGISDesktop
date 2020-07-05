@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{73797661-FE18-45D5-B92F-2AA8C6351B1C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZtgeoGISDesktop.Communication</RootNamespace>
+    <AssemblyName>ZtgeoGISDesktop.Communication</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abp">
+      <HintPath>..\Application\ZtgeoGISDesktop\bin\Debug\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\sln\packages\RestSharp.106.11.4\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\AjaxResponse.cs" />
+    <Compile Include="Ajax\AjaxResponseBase.cs" />
+    <Compile Include="Ajax\AjaxResponseOfTResult.cs" />
+    <Compile Include="Ajax\ErrorInfo.cs" />
+    <Compile Include="Ajax\ValidationErrorInfo.cs" />
+    <Compile Include="Authorization\Permissions\FlatPermissionDto.cs" />
+    <Compile Include="Authorization\Permissions\FlatPermissionWithLevelDto.cs" />
+    <Compile Include="InterceptEvent\AfterRequestInterceptor.cs" />
+    <Compile Include="InterceptEvent\BeforeRequestInterceptor.cs" />
+    <Compile Include="ZtgeoGISDesktopCommunicationMoudle.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="ReadMe.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ztgeo.Gis.Communication\Ztgeo.Gis.Communication.csproj">
+      <Project>{E101E00A-6B39-4178-8C3D-66ED7DF185A8}</Project>
+      <Name>Ztgeo.Gis.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Share.csproj">
+      <Project>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</Project>
+      <Name>ZtgeoGISDesktop.Share</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exception\" />
+    <Folder Include="TokenAuth\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

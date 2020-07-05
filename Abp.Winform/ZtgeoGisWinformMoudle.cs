@@ -1,22 +1,22 @@
-﻿using Abp.Modules;
-using Ztgeo.Gis.Winform;
+﻿using Abp;
+using Abp.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using ZtgeoGISDesktop.Communication;
+using Ztgeo.Gis.Winform.Configuration;
+using Ztgeo.Gis.Winform.Menu;
 
-namespace ZtgeoGISDesktop
+namespace Ztgeo.Gis.Winform
 {
-    [DependsOn(typeof(ZtgeoGisWinformMoudle)
-        ,typeof(ZtgeoGISDesktopCommunicationMoudle))]
-    public class ZtgeoGISDesktopMoudle : AbpModule
+    [DependsOn(typeof(AbpKernelModule))]
+    public class ZtgeoGisWinformMoudle : AbpModule
     {
         public override void PreInitialize()
         {
-
+            IocManager.Register<WinformMenuConfiguration>();
         }
 
         public override void Initialize()
@@ -27,6 +27,7 @@ namespace ZtgeoGISDesktop
         public override void PostInitialize()
         {
 
+            IocManager.Resolve<WinformMenuManager>().Initialize();
         }
     }
 }

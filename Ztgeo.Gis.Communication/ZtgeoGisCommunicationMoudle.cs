@@ -1,20 +1,20 @@
-﻿using Abp;
-using Abp.Modules;
+﻿using Abp.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Communication.Configuration;
 
-namespace Ztgeo.Gis.Winform
+namespace Ztgeo.Gis.Communication
 {
-    [DependsOn(typeof(AbpKernelModule))]
-    public class AbpWinformMoudle : AbpModule
+    [DependsOn()]
+    public class ZtgeoGisCommunicationMoudle: AbpModule
     {
         public override void PreInitialize()
-        {
-
+        { 
+            IocManager.Register<HttpInterceptConfiguration>();
         }
 
         public override void Initialize()

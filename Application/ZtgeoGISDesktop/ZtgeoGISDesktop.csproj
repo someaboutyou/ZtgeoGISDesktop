@@ -276,6 +276,10 @@
       <Project>{33f00612-eacb-45be-80a3-aeeac74d117f}</Project>
       <Name>Ztgeo.Gis.Winform</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ZtgeoGISDesktop.Communication\ZtgeoGISDesktop.Communication.csproj">
+      <Project>{73797661-FE18-45D5-B92F-2AA8C6351B1C}</Project>
+      <Name>ZtgeoGISDesktop.Communication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
