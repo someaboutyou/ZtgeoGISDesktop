@@ -26,63 +26,49 @@ namespace Ztgeo.Gis.Communication
             _httpInterceptConfiguration = httpInterceptConfiguration;
             Logger = NullLogger.Instance;
         }
-        public string Get(Uri url, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        public string Get(Uri url,
+            bool isRequestIntercept=true,
+            bool isResponseIntercept=true, 
+            int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
         {
-            string responseContent= Request(Method.GET, url, timeout, null, null, additionalHeaders);
-            if (this._httpInterceptConfiguration.OnAfterRequest != null)
-            {
-                return this._httpInterceptConfiguration.OnAfterRequest(responseContent);
-            }
-            else
-            {
-                return responseContent;
-            }
+            string responseContent= Request(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders); 
+            return responseContent; 
         }
 
-        public OutModel Get<OutModel>(Uri url, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null) { 
-            string responseContent = Request(Method.GET, url, timeout, null, null, additionalHeaders);
-            if (this._httpInterceptConfiguration.OnAfterRequest != null)
-            {
-                return JsonConvert.DeserializeObject<OutModel>(this._httpInterceptConfiguration.OnAfterRequest(responseContent));
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<OutModel>(responseContent);
-            } 
-        }
-
-        public string Post(Uri uri, string requestContent, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        public OutModel Get<OutModel>(Uri url,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true,
+            int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
         {
-            string responseContent = Request(Method.POST, uri, timeout, requestContent, null, additionalHeaders);
-            if (this._httpInterceptConfiguration.OnAfterRequest != null)
-            {
-                return this._httpInterceptConfiguration.OnAfterRequest(responseContent);
-            }
-            else
-            {
-                return responseContent;
-            }
+            string responseContent = Request(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders);
+            return JsonConvert.DeserializeObject<OutModel>(responseContent);
         }
 
-        public OutModel Post<OutModel>(Uri uri, object inputModel, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null) {
-            string responseContent = Request(Method.POST, uri, timeout, JsonConvert.SerializeObject(inputModel), null, additionalHeaders);
-            if (this._httpInterceptConfiguration.OnAfterRequest != null)
-            {
-                return JsonConvert.DeserializeObject<OutModel>(this._httpInterceptConfiguration.OnAfterRequest(responseContent));
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<OutModel>(responseContent);
-            } 
+        public string Post(Uri uri,
+            string requestContent,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true,int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            string responseContent = Request(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, requestContent, null, additionalHeaders); 
+            return responseContent; 
         }
 
-        private string Request(Method method, Uri uri, int timeout, string requestContent = null, string contentType = null,
+        public OutModel Post<OutModel>(Uri uri, object inputModel,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null) {
+            string responseContent = Request(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, JsonConvert.SerializeObject(inputModel), null, additionalHeaders); 
+            return JsonConvert.DeserializeObject<OutModel>(responseContent); 
+        }
+
+        private string Request(Method method, Uri uri,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, string requestContent = null, string contentType = null,
         IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
         {
             var client = new RestClient(uri);
             client.Timeout =  timeout ;
             var request = new RestRequest(Method.POST);
-            if (this._httpInterceptConfiguration.OnBeforeRequest != null)
+            if (this._httpInterceptConfiguration.OnBeforeRequest != null&& isRequestIntercept)
             {
                 request.OnBeforeRequest = this._httpInterceptConfiguration.OnBeforeRequest;
             }
@@ -100,12 +86,19 @@ namespace Ztgeo.Gis.Communication
             }
             IRestResponse response = client.Execute(request);
             if (!string.IsNullOrEmpty(response.ErrorMessage) || response.ErrorException != null)
-            { 
-                Logger.Error(response.ErrorMessage, response.ErrorException);
-                throw response.ErrorException;
+            {
+                Logger.Error(response.ErrorMessage, response.ErrorException); 
             }
-            Logger.Info(string.Format("Http Response: \r\n{0}", response.Content));
-            return response.Content; 
+            if (this._httpInterceptConfiguration.OnAfterRequest != null && isResponseIntercept)
+            { //异常处理，和正常返回处理
+                this._httpInterceptConfiguration.OnAfterRequest(response);
+                Logger.Info(string.Format("Http Response: \r\n{0}", response.Content));
+                return response.Content;
+            }
+            else { 
+                Logger.Info(string.Format("Http Response: \r\n{0}", response.Content));
+                return response.Content;
+            }  
         }
     }
 }

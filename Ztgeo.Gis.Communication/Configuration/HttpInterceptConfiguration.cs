@@ -13,6 +13,6 @@ namespace Ztgeo.Gis.Communication.Configuration
     public class HttpInterceptConfiguration : IHttpInterceptConfiguration
     {
         public Action<IHttp> OnBeforeRequest { get ; set  ; }
-        public Func<string, string> OnAfterRequest { get ; set  ; }
+        public Action<IRestResponse> OnAfterRequest { get ; set  ; }
     }
 }

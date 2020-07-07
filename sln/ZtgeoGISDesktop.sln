@@ -9,13 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztgeo.Gis.Winform", "..\Abp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002Application", "002Application", "{D8EA72D4-7C24-4DDC-880E-468843663B56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop", "..\Application\ZtgeoGISDesktop\ZtgeoGISDesktop.csproj", "{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Winform", "..\Application\ZtgeoGISDesktop\ZtgeoGISDesktop.Winform.csproj", "{4BBDD6C3-DB2E-4C9E-8699-FBA04329DF5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztgeo.Gis.Communication", "..\Ztgeo.Gis.Communication\Ztgeo.Gis.Communication.csproj", "{E101E00A-6B39-4178-8C3D-66ED7DF185A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Communication", "..\ZtgeoGISDesktop.Communication\ZtgeoGISDesktop.Communication.csproj", "{73797661-FE18-45D5-B92F-2AA8C6351B1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Share", "..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Share.csproj", "{4E17F075-4FAC-40AB-8565-5BFA38FBD626}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Core.Share", "..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Core.Share.csproj", "{4E17F075-4FAC-40AB-8565-5BFA38FBD626}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "003Test", "003Test", "{F8E189EA-3695-483E-A0DC-541468EE99B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConvertTest", "..\JsonConvertTest\JsonConvertTest.csproj", "{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Core", "..\ZtgeoGISDesktop.Core\ZtgeoGISDesktop.Core.csproj", "{91C0853C-D7A7-450C-9125-A09C961B4B27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{4E17F075-4FAC-40AB-8565-5BFA38FBD626}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E17F075-4FAC-40AB-8565-5BFA38FBD626}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E17F075-4FAC-40AB-8565-5BFA38FBD626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C0853C-D7A7-450C-9125-A09C961B4B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C0853C-D7A7-450C-9125-A09C961B4B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C0853C-D7A7-450C-9125-A09C961B4B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C0853C-D7A7-450C-9125-A09C961B4B27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +67,8 @@ Global
 		{E101E00A-6B39-4178-8C3D-66ED7DF185A8} = {CF482086-9B8F-48EF-A26F-332DC4A99B5F}
 		{73797661-FE18-45D5-B92F-2AA8C6351B1C} = {D8EA72D4-7C24-4DDC-880E-468843663B56}
 		{4E17F075-4FAC-40AB-8565-5BFA38FBD626} = {D8EA72D4-7C24-4DDC-880E-468843663B56}
+		{92ACBDCC-1E0B-4FA1-B09A-5CDCCFA9CB6A} = {F8E189EA-3695-483E-A0DC-541468EE99B6}
+		{91C0853C-D7A7-450C-9125-A09C961B4B27} = {D8EA72D4-7C24-4DDC-880E-468843663B56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD4722C0-94B6-41CA-A7A0-DFACF392431D}

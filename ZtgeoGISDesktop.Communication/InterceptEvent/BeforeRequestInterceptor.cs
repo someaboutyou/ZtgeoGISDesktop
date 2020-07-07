@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using ZtgeoGISDesktop.Share.Authorization;
+using ZtgeoGISDesktop.Communication.Share.Authorization;
+using ZtgeoGISDesktop.Core.Share.Constants; 
 
 namespace ZtgeoGISDesktop.Communication.InterceptEvent
 {
@@ -48,7 +49,7 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
         }
         private static void addTenantIdHeader(IHttp http) {
             if (LoginInfo.AuthenticateModel != null && !string.IsNullOrEmpty(LoginInfo.AuthenticateModel.TenantId)) {
-                http.Headers.Add(new HttpHeader(ZtgeoGISDesktop.Share.Constants.Abp.MutitenancyTenantIdKeyName, LoginInfo.AuthenticateModel.TenantId));
+                http.Headers.Add(new HttpHeader(HttpHeaderConstants.MutitenancyTenantIdKeyName, LoginInfo.AuthenticateModel.TenantId));
             }
         }
     }

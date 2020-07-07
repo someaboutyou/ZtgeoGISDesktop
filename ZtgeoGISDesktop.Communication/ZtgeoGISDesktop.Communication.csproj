@@ -34,6 +34,10 @@
     <Reference Include="Abp">
       <HintPath>..\Application\ZtgeoGISDesktop\bin\Debug\Abp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Application\ZtgeoGISDesktop\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=106.11.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\sln\packages\RestSharp.106.11.4\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -55,6 +59,10 @@
     <Compile Include="Ajax\ValidationErrorInfo.cs" />
     <Compile Include="Authorization\Permissions\FlatPermissionDto.cs" />
     <Compile Include="Authorization\Permissions\FlatPermissionWithLevelDto.cs" />
+    <Compile Include="BackendRequest\ServiceProxyBase.cs" />
+    <Compile Include="BackendRequest\TokenAuthServiceProxy.cs" />
+    <Compile Include="Configuration\CommunicationSettingProvider.cs" />
+    <Compile Include="Constants\BackendSettingNames.cs" />
     <Compile Include="InterceptEvent\AfterRequestInterceptor.cs" />
     <Compile Include="InterceptEvent\BeforeRequestInterceptor.cs" />
     <Compile Include="ZtgeoGISDesktopCommunicationMoudle.cs" />
@@ -70,14 +78,17 @@
       <Project>{E101E00A-6B39-4178-8C3D-66ED7DF185A8}</Project>
       <Name>Ztgeo.Gis.Communication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Share.csproj">
+    <ProjectReference Include="..\ZtgeoGISDesktop.Core\ZtgeoGISDesktop.Core.csproj">
+      <Project>{91C0853C-D7A7-450C-9125-A09C961B4B27}</Project>
+      <Name>ZtgeoGISDesktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Core.Share.csproj">
       <Project>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</Project>
-      <Name>ZtgeoGISDesktop.Share</Name>
+      <Name>ZtgeoGISDesktop.Core.Share</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exception\" />
-    <Folder Include="TokenAuth\" />
+    <Folder Include="Exception\Auththorization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

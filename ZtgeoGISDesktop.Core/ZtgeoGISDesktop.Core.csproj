@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</ProjectGuid>
+    <ProjectGuid>{91C0853C-D7A7-450C-9125-A09C961B4B27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZtgeoGISDesktop.Share</RootNamespace>
-    <AssemblyName>ZtgeoGISDesktop.Share</AssemblyName>
+    <RootNamespace>ZtgeoGISDesktop.Core</RootNamespace>
+    <AssemblyName>ZtgeoGISDesktop.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,8 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Abp">
+      <HintPath>..\Application\ZtgeoGISDesktop\bin\Debug\Abp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,11 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AjaxModels\TokenAuth\AuthenticateModel.cs" />
-    <Compile Include="AjaxModels\TokenAuth\AuthenticateResultModel.cs" />
-    <Compile Include="Authorization\LoginInfo.cs" />
-    <Compile Include="Constants\Abp.cs" />
+    <Compile Include="Authorization\AuthorizationManager.cs" />
+    <Compile Include="Authorization\EventDatas\HttpResponseErrorEventData.cs" />
+    <Compile Include="Authorization\EventDatas\ResetPasswordEventData.cs" />
+    <Compile Include="Authorization\IAuthorizationManager.cs" />
+    <Compile Include="Authorization\Local\LocalAuthInfo.cs" />
+    <Compile Include="Communication\ITokenAuthServiceProxy.cs" />
+    <Compile Include="ZtgeoGISDesktopCoreMoudle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Core.Share.csproj">
+      <Project>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</Project>
+      <Name>ZtgeoGISDesktop.Core.Share</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

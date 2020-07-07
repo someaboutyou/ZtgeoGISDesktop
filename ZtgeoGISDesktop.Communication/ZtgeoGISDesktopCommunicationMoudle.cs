@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Communication;
 using Ztgeo.Gis.Communication.Configuration;
+using ZtgeoGISDesktop.Communication.Configuration;
 using ZtgeoGISDesktop.Communication.InterceptEvent;
 
 namespace ZtgeoGISDesktop.Communication
@@ -17,7 +18,10 @@ namespace ZtgeoGISDesktop.Communication
         public override void PreInitialize()
         {
             Configuration.Modules.HttpInterceptEvents().OnAfterRequest = AfterRequestInterceptor.Interceptor;
-            Configuration.Modules.HttpInterceptEvents().OnBeforeRequest =
+            Configuration.Modules.HttpInterceptEvents().OnBeforeRequest = BeforeRequestInterceptor.Interceptor;
+
+            Configuration.Settings.Providers.Add<CommunicationSettingProvider>();
+
         }
 
         public override void Initialize()

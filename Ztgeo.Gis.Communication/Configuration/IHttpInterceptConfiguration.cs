@@ -17,6 +17,6 @@ namespace Ztgeo.Gis.Communication.Configuration
         /// <summary>
         /// 请求之后
         /// </summary>
-        Func<string, string> OnAfterRequest { get; set; }
+        Action<IRestResponse> OnAfterRequest { get; set; }
     }
 }

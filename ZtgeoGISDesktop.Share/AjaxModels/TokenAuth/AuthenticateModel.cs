@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZtgeoGISDesktop.Share.AjaxModels.TokenAuth
+namespace ZtgeoGISDesktop.Core.Share.AjaxModels.TokenAuth
 {
     public class AuthenticateModel
     {
