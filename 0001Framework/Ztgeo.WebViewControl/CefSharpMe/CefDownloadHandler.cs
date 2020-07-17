@@ -36,38 +36,15 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 		{
 			if (downloadItem.IsComplete)
 			{
-				Action<string> downloadCompleted = this.OwnerWebView.DownloadCompleted;
-				if (downloadCompleted != null)
-				{
-					this.OwnerWebView.AsyncExecuteInUI(delegate
-					{
-						downloadCompleted(downloadItem.FullPath);
-					});
-					return;
-				}
+				this.OwnerWebView.DoDownloadCompleted(downloadItem.FullPath); 
 			}
 			else if (downloadItem.IsCancelled)
 			{
-				Action<string> downloadCancelled = this.OwnerWebView.DownloadCancelled;
-				if (downloadCancelled != null)
-				{
-					this.OwnerWebView.AsyncExecuteInUI(delegate
-					{
-						downloadCancelled(downloadItem.FullPath);
-					});
-					return;
-				}
+				this.OwnerWebView.DoDownloadCancelled(downloadItem.FullPath);
 			}
 			else
 			{
-				Action<string, long, long> downloadProgressChanged = this.OwnerWebView.DownloadProgressChanged;
-				if (downloadProgressChanged != null)
-				{
-					this.OwnerWebView.AsyncExecuteInUI(delegate
-					{
-						downloadProgressChanged(downloadItem.FullPath, downloadItem.ReceivedBytes, downloadItem.TotalBytes);
-					});
-				}
+				this.OwnerWebView.DoDownloadProgressChanged(downloadItem.FullPath, downloadItem.ReceivedBytes, downloadItem.TotalBytes); 
 			}
 		}
 

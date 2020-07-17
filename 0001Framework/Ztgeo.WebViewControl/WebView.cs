@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Management;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -118,38 +119,142 @@ namespace Ztgeo.WebViewControl
 		{
 			this.newAssembliesLoaded = true;
 		}
-		#region actions
-		internal Action WebViewInitialized;
-
-		internal Action<CefSharpMe.Request> BeforeNavigate;
-
+		#region Events
+		internal event Action WebViewInitialized;
+		#region BeforeNavigate
+		private event Action<CefSharpMe.Request> BeforeNavigate;
+		internal bool DoBeforeNavigate(IRequest request,string url) {
+			if (this.BeforeNavigate != null) {
+				CefSharpMe.Request wrappedRequest = new Request(request, url);
+				this.ExecuteWithAsyncErrorHandling(()=>
+				{
+					this.BeforeNavigate(wrappedRequest);
+				});
+				return wrappedRequest.Canceled;
+			}
+			return false;
+		}
+		#endregion
+		#region BeforeResourceLoad 加载资源之前执行事件
 		internal event Action<CefSharpMe.ResourceHandler> BeforeResourceLoad;
+		internal void DoBeforeResourceLoad(CefSharpMe.ResourceHandler resourceHandler) {
+			if (BeforeResourceLoad != null)
+			{
+				BeforeResourceLoad(resourceHandler);
+			}
+		}
+		internal void DoBeforeResourceLoadExecuteWithAsyncErrorHandling(CefSharpMe.ResourceHandler resourceHandler) {
+			if (BeforeResourceLoad != null)
+			{
+				this.ExecuteWithAsyncErrorHandling(delegate
+				{
+					this.BeforeResourceLoad(resourceHandler);
+				});
+			}
+		}
+		#endregion
 
 		internal event Action<string> Navigated;
 
-		internal Action<string, int> LoadFailed;
+		internal event Action<string, int> LoadFailed;
 
-		internal Action<string> ResourceLoadFailed;
+		#region ResourceLoadFailed 加载资源失败执行事件
+		internal event Action<string> ResourceLoadFailed;
+		internal void DoResourceLoadFailed(string url) {
+			if (this.ResourceLoadFailed != null)
+			{
+				this.ResourceLoadFailed(url);
+			}
+			else {
+				this.ExecuteWithAsyncErrorHandling(delegate
+				{
+					throw new InvalidOperationException("Resource not found: " + url);
+				});
+			}
+		}
+		#endregion
+		#region DownloadProgressChanged
+		private event Action<string, long, long> DownloadProgressChanged;
+		internal void DoDownloadProgressChanged(string fullPath,long receivedBytesLength,long totalByresLength) {
+			if (DownloadProgressChanged != null) {
+				this.AsyncExecuteInUI(() =>
+				{
+					DownloadProgressChanged(fullPath, receivedBytesLength, totalByresLength);
+				});
+			}
+		}
+		#endregion
+		#region DownloadCompleted
+		private event Action<string> DownloadCompleted;
+		internal void DoDownloadCompleted(string fullPath) {
+			if (this.DownloadCompleted != null) {
+				this.AsyncExecuteInUI(() =>
+				{
+					DownloadCompleted(fullPath);
+				});
+			}
+		}
+		#endregion
+		#region DownloadCancelled
+		private event Action<string> DownloadCancelled;
+		internal void DoDownloadCancelled(string fullPath) {
+			if (this.DownloadCancelled != null) {
+				this.AsyncExecuteInUI(() =>
+				{
+					DownloadCancelled(fullPath);
+				});
+			}
+		}
+		#endregion
+		#region JavascriptContextCreated
+		private event Action JavascriptContextCreated;
+		internal void DoJavascriptContextCreated() { 
+			if (JavascriptContextCreated != null)
+			{
+				this.ExecuteWithAsyncErrorHandling(()=>
+				{
+					JavascriptContextCreated();
+				});
+			}
+		}
+		internal void AddJavascriptContextCreatedEvent(Action actionWant2Add) {
+			JavascriptContextCreated += actionWant2Add;
+		}
+		internal void RemoveJavascriptContextCreatedEvent(Action actionWant2Remove)
+		{
+			JavascriptContextCreated -= actionWant2Remove;
+		}
+		#endregion
 
-		internal Action<string, long, long> DownloadProgressChanged;
-
-		internal Action<string> DownloadCompleted;
-
-		internal Action<string> DownloadCancelled;
-
-		internal Action JavascriptContextCreated;
-
-		internal Action TitleChanged;
+		internal event Action TitleChanged;
 
 		internal event Action<CefException.UnhandledExceptionEventArgs> UnhandledAsyncException;
 
 		internal event Action Disposed;
 
-		internal Action RenderProcessCrashed;
-
-		internal Action JavascriptContextReleased;
-
-		public static Action<WebView> GlobalWebViewInitialized;
+		#region RenderProcessCrashed
+		private event Action RenderProcessCrashed;
+		internal void AddRenderProcessCrashedEvent(Action actionWant2Add) {
+			RenderProcessCrashed += actionWant2Add;
+		}
+		internal void DoRenderProcessCrashed() {
+			if (RenderProcessCrashed != null) {
+				RenderProcessCrashed();
+			}
+		}
+		#endregion
+		#region JavascriptContextReleased
+		private event Action JavascriptContextReleased;
+		internal void DoJavascriptContextReleased() {
+			if (this.JavascriptContextReleased != null) {
+				this.ExecuteWithAsyncErrorHandling(()=>
+				{
+					JavascriptContextReleased();
+				});
+			}
+		}
+        #endregion
+        public static Action<WebView> GlobalWebViewInitialized;
         #endregion
 		/// <summary>
 		/// Form 卸载时的操作
@@ -230,7 +335,7 @@ namespace Ztgeo.WebViewControl
 		{
 			if (!WebView.subscribedApplicationExit)
 			{
-				System.Windows.Application.Current.Exit += WebView.OnApplicationExit;
+				//System.Windows.Application.Current.Exit += WebView.OnApplicationExit;  
 				WebView.subscribedApplicationExit = true;
 			}
 			this.settings = new BrowserSettings();
@@ -263,7 +368,7 @@ namespace Ztgeo.WebViewControl
 			this.chromium.Focus(); 
 		}
 
-		private static void OnApplicationExit(object sender, ExitEventArgs e)
+		public static void OnApplicationExit(object sender, EventArgs e)
 		{
 			WebView.Cleanup();
 		}
@@ -451,7 +556,7 @@ namespace Ztgeo.WebViewControl
 			}
 			if (executeCallsInUI)
 			{
-				Func<Func<object>, object> interceptCall2 = (Func<object> target) => this.Invoke(target);
+				Func<Func<object>, object> interceptCall2 = (target) => this.Invoke(target);
 				return this.RegisterJavascriptObject(name, objectToBind, interceptCall2, bind, false);
 			}
 			BindingOptions bindingOptions = new BindingOptions();

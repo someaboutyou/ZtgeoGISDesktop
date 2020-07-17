@@ -9,6 +9,8 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 {
 	internal class CefResourceHandlerFactory : IResourceHandlerFactory
 	{
+
+		private readonly WebView OwnerWebView;
 		public CefResourceHandlerFactory(WebView webView)
 		{
 			this.OwnerWebView = webView;
@@ -52,35 +54,18 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 						this.OwnerWebView.LoadEmbeddedResource(resourceHandler, urlWithoutQuery.Uri);
 					});
 				}
-				if (this.OwnerWebView.BeforeResourceLoad != null)
-				{
-					this.OwnerWebView.ExecuteWithAsyncErrorHandling(delegate
-					{
-						this.OwnerWebView.BeforeResourceLoad(resourceHandler);
-					});
-				}
+				this.OwnerWebView.DoBeforeResourceLoadExecuteWithAsyncErrorHandling(resourceHandler); //运行加载之前执行事件
 				if (resourceHandler.Handled)
 				{
 					return resourceHandler.Handler;
 				}
 				if (!this.OwnerWebView.IgnoreMissingResources && uri != null && uri.Scheme == "embedded")
 				{
-					if (this.OwnerWebView.ResourceLoadFailed != null)
-					{
-						this.OwnerWebView.ResourceLoadFailed(request.Url);
-					}
-					else
-					{
-						this.OwnerWebView.ExecuteWithAsyncErrorHandling(delegate
-						{
-							throw new InvalidOperationException("Resource not found: " + request.Url);
-						});
-					}
+					this.OwnerWebView.DoResourceLoadFailed(request.Url);  //运行加载失败后执行事件
 				}
 				return null;
 			}
 		} 
 
-		private readonly WebView OwnerWebView;
 	}
 }

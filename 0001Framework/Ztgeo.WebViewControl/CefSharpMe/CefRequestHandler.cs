@@ -57,7 +57,16 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 		{
 			return null;
 		}
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="browserControl"></param>
+		/// <param name="browser"></param>
+		/// <param name="frame"></param>
+		/// <param name="request"></param>
+		/// <param name="userGesture"></param>
+		/// <param name="isRedirect"></param>
+		/// <returns>false 会继续请求</returns>
 		bool IRequestHandler.OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
 		{
 			if (this.OwnerWebView.FilterRequest(request))
@@ -68,17 +77,7 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 			{
 				return true;
 			}
-			bool result = false;
-			if (this.OwnerWebView.BeforeNavigate != null)
-			{
-				 Request wrappedRequest = new  Request(request, this.OwnerWebView.GetRequestUrl(request));
-				this.OwnerWebView.ExecuteWithAsyncErrorHandling(delegate
-				{
-					this.OwnerWebView.BeforeNavigate(wrappedRequest);
-				});
-				result = wrappedRequest.Canceled;
-			}
-			return result;
+			return this.OwnerWebView.DoBeforeNavigate(request, this.OwnerWebView.GetRequestUrl(request)); 
 		}
 
 		CefReturnValue IRequestHandler.OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
@@ -102,11 +101,7 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 
 		void IRequestHandler.OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status)
 		{
-			Action renderProcessCrashed = this.OwnerWebView.RenderProcessCrashed;
-			if (renderProcessCrashed != null)
-			{
-				renderProcessCrashed();
-			}
+			this.OwnerWebView.DoRenderProcessCrashed(); 
 			string reason = "";
 			bool wasKilled = false;
 			switch (status)

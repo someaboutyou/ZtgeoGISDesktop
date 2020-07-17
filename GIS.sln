@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Core.Share"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztgeo.WebViewControl", "0001Framework\Ztgeo.WebViewControl\Ztgeo.WebViewControl.csproj", "{4BBA3BA1-FCC4-43B8-9E30-443941E062B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebViewControlTest", "0009Test\WebViewControlTest\WebViewControlTest.csproj", "{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{4BBA3BA1-FCC4-43B8-9E30-443941E062B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BBA3BA1-FCC4-43B8-9E30-443941E062B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{4BBA3BA1-FCC4-43B8-9E30-443941E062B3}.Release|x86.Build.0 = Release|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Debug|x86.Build.0 = Debug|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +124,7 @@ Global
 		{91C0853C-D7A7-450C-9125-A09C961B4B27} = {09F9AB24-65B6-436B-8CDD-0181B4C6C2F0}
 		{4E17F075-4FAC-40AB-8565-5BFA38FBD626} = {09F9AB24-65B6-436B-8CDD-0181B4C6C2F0}
 		{4BBA3BA1-FCC4-43B8-9E30-443941E062B3} = {4088EA47-CE6B-4686-A713-699BA1C4A3D1}
+		{C0EECEB4-4EC4-44B9-B574-F9D249F9A1A3} = {D8E9F563-6A59-4FC7-B651-BED2EADF1B28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD060146-C25A-4F92-B311-79B00E37B853}

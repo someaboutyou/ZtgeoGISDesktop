@@ -18,14 +18,14 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 	{
 		public JavascriptExecutor(WebView ownerWebView)
 		{
-			this.OwnerWebView = ownerWebView;
-			this.OwnerWebView.JavascriptContextCreated += this.OnJavascriptContextCreated;
-			this.OwnerWebView.RenderProcessCrashed += this.StopFlush;
+			this.OwnerWebView = ownerWebView; 
+			this.OwnerWebView.AddJavascriptContextCreatedEvent(this.OnJavascriptContextCreated);
+			this.OwnerWebView.AddRenderProcessCrashedEvent( this.StopFlush);
 		}
 
 		private void OnJavascriptContextCreated()
-		{
-			this.OwnerWebView.JavascriptContextCreated -= this.OnJavascriptContextCreated;
+		{ 
+			this.OwnerWebView.RemoveJavascriptContextCreatedEvent(this.OnJavascriptContextCreated);
 			Task.Factory.StartNew(new Action(this.FlushScripts), this.flushTaskCancelationToken.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
 		}
 

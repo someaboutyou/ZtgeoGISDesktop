@@ -23,14 +23,7 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 		{
 			if (!CefRenderProcessMessageHandler.IgnoreEvent(frame))
 			{
-				Action javascriptContextCreated = this.OwnerWebView.JavascriptContextCreated;
-				if (javascriptContextCreated != null)
-				{
-					this.OwnerWebView.ExecuteWithAsyncErrorHandling(delegate
-					{
-						javascriptContextCreated();
-					});
-				}
+				this.OwnerWebView.DoJavascriptContextCreated(); 
 			}
 		}
 
@@ -38,14 +31,7 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 		{
 			if (!CefRenderProcessMessageHandler.IgnoreEvent(frame))
 			{
-				Action javascriptContextReleased = this.OwnerWebView.JavascriptContextReleased;
-				if (javascriptContextReleased != null)
-				{
-					this.OwnerWebView.ExecuteWithAsyncErrorHandling(delegate
-					{
-						javascriptContextReleased();
-					});
-				}
+				this.OwnerWebView.DoJavascriptContextReleased(); 
 			}
 		}
 
