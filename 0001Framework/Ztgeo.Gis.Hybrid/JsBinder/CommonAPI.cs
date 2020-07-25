@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Hybrid.JsBinder
 {
-	internal class CommonAPI
+	public class CommonAPI
 	{
 		public CommonAPI(IJSContextProvider jsCtx)
 		{

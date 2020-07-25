@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckExtension.cs" />
     <Compile Include="CollectionsExtensions.cs" />
     <Compile Include="EmptyArray.cs" />
     <Compile Include="IPair.cs" />

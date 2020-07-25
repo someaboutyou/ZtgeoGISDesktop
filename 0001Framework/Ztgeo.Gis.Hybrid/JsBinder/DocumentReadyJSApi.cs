@@ -10,6 +10,13 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
 {
 	public class DocumentReadyJSApi : IBindableJSContextProvider 
 	{
+		private const int TRACKS_BEFORE_GC = 50; 
+		protected bool documentIsReady; 
+		protected Dictionary<string, WeakReference> trackedObjects = new Dictionary<string, WeakReference>(); 
+		private WebView webView; 
+		private Action SetDocumentReady; 
+		private Queue<Action> CallQueue = new Queue<Action>(); 
+		private int trackCounts;
 
 		public DocumentReadyJSApi(WebView webView)
 		{
@@ -100,12 +107,11 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
 				this.trackCounts = num + 1;
 				num2 = num;
 			}
-			if (num2 > 50)
+			if (num2 > TRACKS_BEFORE_GC)
 			{
 				this.GC_TrackedObjects();
 			}
-		}
-
+		} 
 		private void GC_TrackedObjects()
 		{
 			lock (this)
@@ -305,18 +311,6 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
 			this.webView.RegisterJavascriptObjectWithErrorHandling(variableName, objectToBind, true);
 		}
 
- 		private const int TRACKS_BEFORE_GC = 50;
 
- 		protected bool documentIsReady;
-
- 		protected Dictionary<string, WeakReference> trackedObjects = new Dictionary<string, WeakReference>();
-
- 		private WebView webView;
-
- 		private Action SetDocumentReady;
-
- 		private Queue<Action> CallQueue = new Queue<Action>();
-
- 		private int trackCounts;
 	}
 }

@@ -181,10 +181,17 @@
     <Compile Include="Configuration\HybridConfiguration.cs" />
     <Compile Include="Configuration\IHybridConfiguration.cs" />
     <Compile Include="Exception\RegisterJavascriptObjectException.cs" />
+    <Compile Include="HybridBootstrap.cs" />
+    <Compile Include="HybridUserControl\BaseHybridControl.cs" />
+    <Compile Include="JsBinder\BinderInterceptor\App2JsAdapterInterceptor.cs" />
+    <Compile Include="JsBinder\BinderInterceptor\DisAdapterAttribute.cs" />
     <Compile Include="JsBinder\CommonAPI.cs" />
     <Compile Include="JsBinder\DocumentReadyJSApi.cs" />
+    <Compile Include="JsBinder\IApp2JSAdapterApi.cs" />
     <Compile Include="JsBinder\IBindableJSContextProvider.cs" />
+    <Compile Include="JsBinder\ICommonEvents.cs" />
     <Compile Include="JsBinder\IJavascriptObject.cs" />
+    <Compile Include="JsBinder\IJS2AppAdapterApi.cs" />
     <Compile Include="JsBinder\IJSContextProvider.cs" />
     <Compile Include="JsBinder\IJSObject.cs" />
     <Compile Include="JsBinder\ITrackableJSObject.cs" />
@@ -216,6 +223,10 @@
     <ProjectReference Include="..\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
       <Project>{527BE76D-43D8-4FE7-A955-98EE1D3F8D1C}</Project>
       <Name>Ztgeo.Gis.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ztgeo.Gis.Share\Ztgeo.Gis.Share.csproj">
+      <Project>{c8725345-4338-42bb-a1a2-382a826665d8}</Project>
+      <Name>Ztgeo.Gis.Share</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ztgeo.Utils\Ztgeo.Utils.csproj">
       <Project>{62f52fc0-fc60-4237-bdee-89e90646483f}</Project>

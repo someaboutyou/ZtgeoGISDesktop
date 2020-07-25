@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Hybrid.JsBinder
 {
-	internal interface ICommonEvents
+	public interface ICommonEvents
 	{ 
 		void SelectionChanged();
 		 
