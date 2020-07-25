@@ -5,6 +5,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms; 
 using ZtgeoGISDesktop.SplashScreen;
+using System.Threading;
+using Abp.Dependency;
+using ZtgeoGISDesktop.Forms;
+using Ztgeo.Gis.Winform.ABPForm;
+using Abp.Events.Bus;
+using Ztgeo.Gis.Runtime;
 
 namespace ZtgeoGISDesktop
 {
@@ -21,9 +27,18 @@ namespace ZtgeoGISDesktop
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Utils.AppearanceObject.DefaultFont = new Font("Segoe UI", 8);
             //DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
-            Form mainForm = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(), null);
-            if (mainForm != null) { 
-                Application.Run(mainForm);
+            IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(), null);
+            IMainForm mainForm= iocManager.Resolve<IMainForm>();
+            if (mainForm != null) {
+                #region 全局异常处理
+                Application.ThreadException += (object sender, ThreadExceptionEventArgs e)=> {
+                    EventBus.Default.Trigger<UIExceptionEventData>(new UIExceptionEventData { ThreadExceptionEventArgs = e });
+                };
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((object sender, UnhandledExceptionEventArgs e) => {
+                    EventBus.Default.Trigger<NonUIExceptionEventData>(new NonUIExceptionEventData { UnhandledExceptionEventArgs = e });
+                });
+                #endregion
+                Application.Run((Form)mainForm);
             }
         }
     }

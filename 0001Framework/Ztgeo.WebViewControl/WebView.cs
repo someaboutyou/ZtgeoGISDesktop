@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -151,6 +152,9 @@ namespace Ztgeo.WebViewControl
 					this.BeforeResourceLoad(resourceHandler);
 				});
 			}
+		}
+		public void AddBeforeResourceLoadEvent(Action<CefSharpMe.ResourceHandler> handler) {
+			this.BeforeResourceLoad += handler;
 		}
 		#endregion
 
@@ -315,7 +319,13 @@ namespace Ztgeo.WebViewControl
 			{
 				return;
 			}
-			Cef.Shutdown();
+			try
+			{
+				Cef.Shutdown();
+			}
+			catch (Exception ex) {
+				throw ex;
+			}
 			try
 			{
 				DirectoryInfo directoryInfo = new DirectoryInfo(WebView.TempDir);
@@ -616,6 +626,9 @@ namespace Ztgeo.WebViewControl
 			return true;
 		}
 
+		public void RegisterJsObject(string name, object objectToBind) {
+			this.chromium.RegisterJsObject(name, objectToBind);
+		}
 		public T EvaluateScript<T>(string script)
 		{
 			return this.jsExecutor.EvaluateScript<T>(script, null);

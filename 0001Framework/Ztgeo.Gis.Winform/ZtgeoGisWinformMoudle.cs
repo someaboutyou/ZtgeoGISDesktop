@@ -25,8 +25,8 @@ namespace Ztgeo.Gis.Winform
         }
 
         public override void PostInitialize()
-        { 
-            IocManager.Resolve<WinformMenuManager>().Initialize();
+        {  
+            IocManager.Resolve<WinformMenuManager>().Initialize(); //是否可以在runtime 的hook 里面统一初始化。
             IocManager.Resolve<IWinformMenuViewManager>().InitializeMenus();
         }
     }

@@ -240,6 +240,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exception\WinformUIExceptionDeal.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,6 +307,10 @@
     <None Include="Resources\Icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
+      <Project>{527BE76D-43D8-4FE7-A955-98EE1D3F8D1C}</Project>
+      <Name>Ztgeo.Gis.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
       <Project>{33f00612-eacb-45be-80a3-aeeac74d117f}</Project>
       <Name>Ztgeo.Gis.Winform</Name>

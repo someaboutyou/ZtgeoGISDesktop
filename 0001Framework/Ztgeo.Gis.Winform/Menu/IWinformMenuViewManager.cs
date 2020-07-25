@@ -26,5 +26,6 @@ namespace Ztgeo.Gis.Winform.Menu
         /// <returns></returns>
         IList<MenuOrderSetting> GetMenuOrderSettings();
 
+        void SetMenuStatus(WinformMenu menu, MenuStatus menuStatus);
     }
 }

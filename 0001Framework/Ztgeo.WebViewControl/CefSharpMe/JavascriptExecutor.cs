@@ -77,13 +77,15 @@ namespace Ztgeo.WebViewControl.CefSharpMe
 				}
 			});
 		}
-
+		/// <summary>
+		/// 方法内部定义了死循环，用此循环来捕捉需要执行的js 代码
+		/// </summary>
 		private void InnerFlushScripts()
 		{
 			 ScriptTask scriptTask = null;
 			List< ScriptTask> list = new List< ScriptTask>();
 			 ScriptTask scriptTask2;
-			for (; ; )
+			for (; ; )   //
 			{
 				scriptTask2 = this.pendingScripts.Take(this.flushTaskCancelationToken.Token);
 				if (scriptTask2.WaitHandle != null)

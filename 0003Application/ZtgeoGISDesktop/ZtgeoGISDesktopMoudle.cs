@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using ZtgeoGISDesktop.Communication;
 using Ztgeo.Gis.Winform.Configuration;
 using ZtgeoGISDesktop.Menus;
+using Ztgeo.Gis.Runtime;
 
 namespace ZtgeoGISDesktop
 {
     [DependsOn(typeof(ZtgeoGisWinformMoudle)
-        ,typeof(ZtgeoGISDesktopCommunicationMoudle))]
+        ,typeof(ZtgeoGISDesktopCommunicationMoudle)
+        ,typeof(ZtgeoGisRuntimeModule))]
     public class ZtgeoGISDesktopMoudle : AbpModule
     {
         public override void PreInitialize()

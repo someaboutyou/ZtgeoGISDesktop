@@ -127,31 +127,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="x64\CefSharp.BrowserSubprocess.Core.dll" />
-    <Content Include="x64\CefSharp.BrowserSubprocess.Core.pdb" />
-    <Content Include="x64\CefSharp.BrowserSubprocess.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\CefSharp.BrowserSubprocess.pdb" />
-    <Content Include="x64\CefSharp.Core.dll" />
-    <Content Include="x64\CefSharp.Core.pdb" />
-    <Content Include="x64\CefSharp.Core.xml" />
-    <Content Include="x64\CefSharp.dll" />
-    <Content Include="x64\CefSharp.pdb" />
-    <Content Include="x64\CefSharp.XML" />
-    <Content Include="x86\CefSharp.BrowserSubprocess.Core.dll" />
-    <Content Include="x86\CefSharp.BrowserSubprocess.Core.pdb" />
-    <Content Include="x86\CefSharp.BrowserSubprocess.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\CefSharp.BrowserSubprocess.pdb" />
-    <Content Include="x86\CefSharp.Core.dll" />
-    <Content Include="x86\CefSharp.Core.pdb" />
-    <Content Include="x86\CefSharp.Core.xml" />
-    <Content Include="x86\CefSharp.dll" />
-    <Content Include="x86\CefSharp.pdb" />
-    <Content Include="x86\CefSharp.XML" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

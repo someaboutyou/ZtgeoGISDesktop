@@ -7,5 +7,61 @@
 </head>
 <body>
     <span>测试</span>
+    <button id="btn">点击我@</button>
 </body>
+<script type="text/javascript">
+    var btn = document.getElementById("btn"); 
+    btn.onclick = function () {  
+        jsAdapter.close();
+    }
+    ViewAdapterWrapper = (function () {
+        var defaultOptions = {
+            trackCodes: false
+        };
+        var addWrapperMethodFor = function (proxy, obj, methodName, options) {
+            var originalMethod = obj[methodName].bind(obj);
+            var wrapper = originalMethod;
+            if (options.trackCodes) {
+                wrapper = (function (original) {
+                    return function () {
+                        var argsWithTrackCodes = Array.prototype.map.call(arguments, function (arg) {
+                            if (Array.isArray(arg)) {
+                                var arrayArg = arg;
+                                return arrayArg.map(Tracking.GetTrackCode);
+                            }
+                            else {
+                                return Tracking.GetTrackCode(arg);
+                            }
+                        });
+                        return original.apply(this, argsWithTrackCodes);
+                    };
+                })(wrapper).bind(obj);
+            }
+            proxy[methodName] = wrapper;
+        };
+        return function (csViewAdapter, options) {
+            var opts = {};
+            for (var p in defaultOptions) {
+                if (!defaultOptions.hasOwnProperty(p)) {
+                    continue;
+                }
+                if (!options.hasOwnProperty(p)) {
+                    opts[p] = defaultOptions[p];
+                }
+            }
+            for (var p in options) {
+                if (options.hasOwnProperty(p))
+                    opts[p] = options[p];
+            }
+            options = opts;
+            var proxy = Object.create(csViewAdapter);
+            for (var methodName in csViewAdapter) {
+                if (csViewAdapter.hasOwnProperty(methodName)) {
+                    addWrapperMethodFor(proxy, csViewAdapter, methodName, options);
+                }
+            }
+            return proxy;
+        };
+    })()
+</script>
 </html>

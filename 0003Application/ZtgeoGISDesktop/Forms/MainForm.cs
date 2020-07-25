@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Ztgeo.Gis.Winform.ABPForm;
 using DevExpress.XtraBars.Ribbon;
+using Abp.Dependency;
 
 namespace ZtgeoGISDesktop.Forms
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm,IMainForm
     {
-        private RibbonControl menuContainerControl;
+        private RibbonControl menuContainerControl; 
+        public IocManager IocManager { get; set; }
         public Control MenuContainerControl { get {
                 if (menuContainerControl == null) {
                     menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl(); 
@@ -23,9 +25,9 @@ namespace ZtgeoGISDesktop.Forms
                 return menuContainerControl;
         } }
 
-        public MainForm()
+        public MainForm(IocManager iocManager)
         {
-           
+            IocManager = iocManager;
         }
 
         public void StartInitializeComponent() {

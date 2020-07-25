@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,9 @@ namespace WebViewControlTest
             webView = new WebView();
             webView.Dock = DockStyle.Fill;
             this.Controls.Add(webView);
+            webView.RegisterJavascriptObject("jsAdapter", new JsAdapter());
+            //webView.RegisterJsObject("jsAdapter", new JsAdapter());
+            
             webView.LoadResource(new ResourceUrl(typeof(Form1).Assembly, "WebViews", "Common", "webview.html"));
             this.FormClosed += (object sender, FormClosedEventArgs e) =>
             {
@@ -27,6 +31,13 @@ namespace WebViewControlTest
             };
         }
 
-
+        //[System.Runtime.InteropServices.ComVisible(true)]
+        public class JsAdapter {
+            public void close() {
+                if (MessageBox.Show("!") == DialogResult.OK) {
+                    Process.GetCurrentProcess().Kill();
+                } 
+            }
+        }
     }
 }

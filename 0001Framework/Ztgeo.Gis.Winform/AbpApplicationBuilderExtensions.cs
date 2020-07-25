@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using System.Web.UI;
 using System.Windows.Forms;
 using Abp;
+using Abp.Dependency;
 
 namespace Ztgeo.Gis.Winform
 {
     public static class AbpApplicationBuilderExtensions
     {
-        public static Form UseAbp<TStartupModule>(ISplashScreenFormManager splashScreenFormManager = null,
+        public static IIocManager UseAbp<TStartupModule>(ISplashScreenFormManager splashScreenFormManager = null,
             [CanBeNull] Action<AbpBootstrapperOptions> optionsAction = null)
             where TStartupModule : AbpModule
         {
@@ -31,7 +32,7 @@ namespace Ztgeo.Gis.Winform
                 splashScreenFormManager.CloseSplashScreenForm();
             }
             if (mainForm is Form) {
-                return (Form)mainForm;
+                return abpBootstrapper.IocManager;
             }
             else
             {
