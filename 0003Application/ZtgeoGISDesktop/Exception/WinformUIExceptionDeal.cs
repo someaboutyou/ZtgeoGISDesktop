@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.Runtime;
+using Ztgeo.Gis.Share;
 
 namespace ZtgeoGISDesktop
 {
-    public class WinformUIExceptionDeal: UIExceptionDealBase
+    public class WinformUIExceptionDeal: ExceptionDealBase
     { 
         public WinformUIExceptionDeal(string message) : base(message)
         {

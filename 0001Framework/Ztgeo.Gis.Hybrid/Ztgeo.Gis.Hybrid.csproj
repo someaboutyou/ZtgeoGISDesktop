@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FB274CA5-D9E2-4C63-BE0C-6C5E130AA509}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Ztgeo.Gis.Hybrid</RootNamespace>
     <AssemblyName>Ztgeo.Gis.Hybrid</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -14,7 +14,6 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,15 +21,35 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Abp, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -179,12 +198,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\HybridConfiguration.cs" />
+    <Compile Include="Configuration\HybridConfigurationExtensions.cs" />
     <Compile Include="Configuration\IHybridConfiguration.cs" />
     <Compile Include="Exception\RegisterJavascriptObjectException.cs" />
     <Compile Include="HybridBootstrap.cs" />
-    <Compile Include="HybridUserControl\BaseHybridControl.cs" />
+    <Compile Include="HybridUserControl\BaseHybridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="JsBinder\BinderInterceptor\App2JsAdapterInterceptor.cs" />
     <Compile Include="JsBinder\BinderInterceptor\DisAdapterAttribute.cs" />
+    <Compile Include="JsBinder\BinderInterceptor\TrackableJsObjectInterceptor.cs" />
     <Compile Include="JsBinder\CommonAPI.cs" />
     <Compile Include="JsBinder\DocumentReadyJSApi.cs" />
     <Compile Include="JsBinder\IApp2JSAdapterApi.cs" />
@@ -194,7 +217,9 @@
     <Compile Include="JsBinder\IJS2AppAdapterApi.cs" />
     <Compile Include="JsBinder\IJSContextProvider.cs" />
     <Compile Include="JsBinder\IJSObject.cs" />
+    <Compile Include="JsBinder\IJSObjectHelpers.cs" />
     <Compile Include="JsBinder\ITrackableJSObject.cs" />
+    <Compile Include="JsBinder\Js2AppAdapterApiBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebViewExtensions.cs" />
     <Compile Include="ZtgeoGisHybridMoudle.cs" />
@@ -207,7 +232,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

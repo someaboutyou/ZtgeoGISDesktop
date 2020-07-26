@@ -212,6 +212,7 @@
     <Compile Include="Menu\MenuDictionary.cs" />
     <Compile Include="Menu\MenuOrderSetting.cs" />
     <Compile Include="Menu\MenuProvider.cs" />
+    <Compile Include="Menu\MenuStatus.cs" />
     <Compile Include="Menu\WinformMenu.cs" />
     <Compile Include="Menu\WinformMenuManager.cs" />
     <Compile Include="ZtgeoGisWinformMoudle.cs" />

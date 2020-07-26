@@ -21,6 +21,20 @@ namespace Ztgeo.Gis.Hybrid
                     handler.ComponentModel.Interceptors.Add(new InterceptorReference(typeof(App2JsAdapterInterceptor)));
                 }
             };
+            // Trackable TrackableJsObjectInterceptor
+            configuration.IocManager.IocContainer.Kernel.ComponentRegistered += (key, handler) =>
+            {
+                if (typeof(ITrackableJSObject).IsAssignableFrom(handler.ComponentModel.Implementation))
+                {
+                    handler.ComponentModel.Interceptors.Add(new InterceptorReference(typeof(TrackableJsObjectInterceptor)));
+                }
+            };
+            // js 代码控制C# 程序时，需要在组件创建时绑定
+            //configuration.IocManager.IocContainer.Kernel.ComponentCreated += (model, instance) =>
+            //{
+            //    instance.
+            //};
+
         }
     }
 }

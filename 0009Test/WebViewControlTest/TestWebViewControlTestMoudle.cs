@@ -5,23 +5,20 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Ztgeo.Gis.Hybrid.Configuration;
+using Ztgeo.Gis.Hybrid;
 
-namespace Ztgeo.Gis.Hybrid
+namespace WebViewControlTest
 {
-    [DependsOn()]
-    public class ZtgeoGisHybridMoudle:AbpModule
+    [DependsOn(typeof(ZtgeoGisHybridMoudle))]
+    public class TestWebViewControlTestMoudle:AbpModule
     {
         public override void PreInitialize()
-        {
-            IocManager.Register<HybridConfiguration>();
-            HybridBootstrap.Initialize(Configuration);
+        { 
         }
 
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-            WebViewExtensions.HybridConfiguration = IocManager.Resolve<HybridConfiguration>();
         }
 
         public override void PostInitialize()

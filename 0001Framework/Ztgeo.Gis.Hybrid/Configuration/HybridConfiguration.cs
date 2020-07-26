@@ -8,9 +8,9 @@ namespace Ztgeo.Gis.Hybrid.Configuration
 {
     public class HybridConfiguration: IHybridConfiguration
     {
-        public bool DisableWebViewExecutionTimeouts { get; set; }
+        public bool DisableWebViewExecutionTimeouts { get; set; } = false;
 
-        public bool ShowDeveloperTools { get; set; }
+        public bool ShowDeveloperTools { get; set; } = true;
 
         public string CustomWebViewResourcePath { get; set; }
     }

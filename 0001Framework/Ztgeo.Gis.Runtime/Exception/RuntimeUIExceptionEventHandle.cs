@@ -29,10 +29,10 @@ namespace Ztgeo.Gis.Runtime
             if (eventData != null && eventData.ThreadExceptionEventArgs != null && eventData.ThreadExceptionEventArgs.Exception!=null) {
                 var exception = eventData.ThreadExceptionEventArgs.Exception;
                 string errorCode = (Convert.ToDouble(DateTime.UtcNow.Ticks - 621355968000000000) / (10 * 1000 * 1000)).ToString();
-                if (exception is UIExceptionDealBase)
+                if (exception is ExceptionDealBase)
                 { 
                     Logger.Error("ErrorCode:" + errorCode + "。" + exception.Message, exception);
-                    ((UIExceptionDealBase)exception).DealException(eventData.ExceptionType, errorCode);
+                    ((ExceptionDealBase)exception).DealException(eventData.ExceptionType, errorCode);
                 }
                 else {
                     Logger.Error("ErrorCode:" + errorCode + "。" + exception.Message, exception);

@@ -10,12 +10,14 @@ using ZtgeoGISDesktop.Communication;
 using Ztgeo.Gis.Winform.Configuration;
 using ZtgeoGISDesktop.Menus;
 using Ztgeo.Gis.Runtime;
+using Ztgeo.Gis.Hybrid;
 
 namespace ZtgeoGISDesktop
 {
     [DependsOn(typeof(ZtgeoGisWinformMoudle)
         ,typeof(ZtgeoGISDesktopCommunicationMoudle)
-        ,typeof(ZtgeoGisRuntimeModule))]
+        ,typeof(ZtgeoGisRuntimeModule)
+        ,typeof(ZtgeoGisHybridMoudle))]
     public class ZtgeoGISDesktopMoudle : AbpModule
     {
         public override void PreInitialize()

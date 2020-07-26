@@ -3,15 +3,17 @@ using Castle.MicroKernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Ztgeo.Gis.Hybrid.JsBinder;
 using Ztgeo.WebViewControl;
 
 namespace Ztgeo.Gis.Hybrid.HybridUserControl
 {
 
-    public abstract class BaseHybridControl<TApp2JSAdapterApi,TJS2AppAdapterApi>: ITransientDependency, IDisposable
+    public abstract class BaseHybridControl<TApp2JSAdapterApi,TJS2AppAdapterApi>: UserControl,ITransientDependency, IDisposable
         where TApp2JSAdapterApi : IApp2JSAdapterApi, new() 
         where TJS2AppAdapterApi : IJS2AppAdapterApi, new()
     {
@@ -37,9 +39,16 @@ namespace Ztgeo.Gis.Hybrid.HybridUserControl
             );
             js2AppAdapterApi = iocManager.Resolve<TJS2AppAdapterApi>();
             js2AppAdapterApi.JsCtx = bindableJSContextProvider;
+            webView.Dock = DockStyle.Fill;
+            this.Controls.Add(webView); 
         }
 
-        public void Dispose()
+
+        public void LoadResource(Assembly assembly,string[] path)
+        {
+            webView.LoadResource(new ResourceUrl(assembly, path));
+        }
+        public new void Dispose()
         {
             this.webView.Dispose();
         }

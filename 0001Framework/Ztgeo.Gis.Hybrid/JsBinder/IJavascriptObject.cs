@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Ztgeo.Gis.Hybrid.JsBinder
 {
     public interface IJavascriptObject
-    {
+    { 
         Dictionary<string, object> ToJavascriptObject();
     }
 }

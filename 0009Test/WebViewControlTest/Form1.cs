@@ -18,11 +18,6 @@ namespace WebViewControlTest
         public Form1()
         {
             InitializeComponent();
-            webView = new WebView();
-            webView.Dock = DockStyle.Fill;
-            this.Controls.Add(webView);
-            webView.RegisterJavascriptObject("jsAdapter", new JsAdapter());
-            //webView.RegisterJsObject("jsAdapter", new JsAdapter());
             
             webView.LoadResource(new ResourceUrl(typeof(Form1).Assembly, "WebViews", "Common", "webview.html"));
             this.FormClosed += (object sender, FormClosedEventArgs e) =>

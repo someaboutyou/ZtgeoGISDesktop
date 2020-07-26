@@ -162,5 +162,24 @@ namespace ZtgeoGISDesktop.Menus
         {
              
         }
+        /// <summary>
+        /// 设置菜单状态
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <param name="menuStatus"></param>
+        public void SetMenuStatus(WinformMenu menu, MenuStatus menuStatus) {
+            if (menu.UIObject is RibbonPage) {
+                switch (menuStatus) {
+                    case MenuStatus.Available:
+
+                        break;
+                    case MenuStatus.Disable:
+                        break;
+                    case MenuStatus.Hidden:
+                        break;
+                }
+            }
+        }
+
     }
 }

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabbedView = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            //this.MenuRibbonContainerCtl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.barSubItemNavigation = new DevExpress.XtraBars.BarSubItem();
             this.employeesBarButtonItem = new DevExpress.XtraBars.BarButtonItem();
@@ -46,38 +45,14 @@
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.mainSplitContainer = new DevExpress.XtraEditors.SplitContainerControl();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
-             
+            ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
+            this.mainSplitContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // MenuRibbonContainerCtl
-            // 
-            this.menuContainerControl.ExpandCollapseItem.Id = 0;
-            this.menuContainerControl.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.menuContainerControl.ExpandCollapseItem,
-            this.menuContainerControl.SearchEditItem,
-            this.skinRibbonGalleryBarItem,
-            this.barSubItemNavigation,
-            this.employeesBarButtonItem,
-            this.customersBarButtonItem,
-            this.barSubItem1,
-            this.barButtonItem1,
-            this.barButtonItem2,
-            this.barButtonItem3,
-            this.barButtonItem4,
-            this.barSubItem2,
-            this.barSubItem3,
-            this.barButtonItem5,
-            this.barButtonItem6});
-            this.menuContainerControl.Location = new System.Drawing.Point(0, 0);
-            this.menuContainerControl.MaxItemId = 55;
-            this.menuContainerControl.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
-            this.menuContainerControl.Name = "MenuRibbonContainerCtl";
-            this.menuContainerControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
-            this.menuContainerControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
-            this.menuContainerControl.Size = new System.Drawing.Size(922, 50);
-            this.menuContainerControl.StatusBar = this.ribbonStatusBar;
-            this.menuContainerControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // skinRibbonGalleryBarItem
             // 
@@ -184,11 +159,63 @@
             this.ribbonStatusBar.Ribbon = this.menuContainerControl;
             this.ribbonStatusBar.Size = new System.Drawing.Size(922, 31);
             // 
+            // menuContainerControl
+            // 
+            this.menuContainerControl.ExpandCollapseItem.Id = 0;
+            this.menuContainerControl.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.menuContainerControl.ExpandCollapseItem,
+            this.menuContainerControl.SearchEditItem,
+            this.skinRibbonGalleryBarItem,
+            this.barSubItemNavigation,
+            this.employeesBarButtonItem,
+            this.customersBarButtonItem,
+            this.barSubItem1,
+            this.barButtonItem1,
+            this.barButtonItem2,
+            this.barButtonItem3,
+            this.barButtonItem4,
+            this.barSubItem2,
+            this.barSubItem3,
+            this.barButtonItem5,
+            this.barButtonItem6});
+            this.menuContainerControl.Location = new System.Drawing.Point(0, 0);
+            this.menuContainerControl.MaxItemId = 55;
+            this.menuContainerControl.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
+            this.menuContainerControl.Name = "menuContainerControl";
+            this.menuContainerControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
+            this.menuContainerControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
+            this.menuContainerControl.Size = new System.Drawing.Size(922, 50);
+            this.menuContainerControl.StatusBar = this.ribbonStatusBar;
+            this.menuContainerControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
+            // 
+            // mainSplitContainer
+            // 
+            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 50);
+            this.mainSplitContainer.Name = "mainSplitContainer";
+            this.mainSplitContainer.Panel1.Controls.Add(this.button1);
+            this.mainSplitContainer.Panel1.Text = "Panel1";
+            this.mainSplitContainer.Panel2.Text = "Panel2";
+            this.mainSplitContainer.Size = new System.Drawing.Size(922, 564);
+            this.mainSplitContainer.SplitterPosition = 131;
+            this.mainSplitContainer.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "C#2JS";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 645);
+            this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.menuContainerControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -198,6 +225,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
+            this.mainSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,5 +249,7 @@
         private DevExpress.XtraBars.BarSubItem barSubItem3;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
+        private DevExpress.XtraEditors.SplitContainerControl mainSplitContainer;
+        private System.Windows.Forms.Button button1;
     }
 }
