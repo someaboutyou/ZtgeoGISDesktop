@@ -248,6 +248,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Test\TestJs2AppAdapterApi.cs" />
+    <Compile Include="Exception\DefaultExceptionDeal.cs" />
     <Compile Include="Exception\WinformUIExceptionDeal.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -331,6 +332,10 @@
       <Project>{33f00612-eacb-45be-80a3-aeeac74d117f}</Project>
       <Name>Ztgeo.Gis.Winform</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\0002Application\ZtgeoGISDesktop.Hybrid.WebView\ZtgeoGISDesktop.Hybrid.WebView.csproj">
+      <Project>{09D8ACC1-2777-455E-87CA-624F28D99780}</Project>
+      <Name>ZtgeoGISDesktop.Hybrid.WebView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZtgeoGISDesktop.Communication\ZtgeoGISDesktop.Communication.csproj">
       <Project>{73797661-fe18-45d5-b92f-2aa8c6351b1c}</Project>
       <Name>ZtgeoGISDesktop.Communication</Name>
@@ -342,7 +347,6 @@
   <ItemGroup>
     <Content Include="Icons\earth.ico" />
     <Content Include="Icons\earth.png" />
-    <EmbeddedResource Include="WebViews\Common\webview.html" />
     <EmbeddedResource Include="Icons\UIDesign.png" />
     <EmbeddedResource Include="Icons\Setting.png" />
   </ItemGroup>

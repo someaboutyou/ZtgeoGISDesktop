@@ -8,7 +8,7 @@ namespace Ztgeo.Gis.Runtime
     /// <summary>
     /// 基本UI级线程异常处理
     /// </summary>
-    public abstract class ExceptionDealBase : Exception, ITransientDependency
+    public abstract class ExceptionDealBase : Exception, IExceptionDeal 
     {
         public ExceptionDealBase():base() { 
         }

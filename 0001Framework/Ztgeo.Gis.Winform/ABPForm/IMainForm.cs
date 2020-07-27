@@ -14,7 +14,9 @@ namespace Ztgeo.Gis.Winform.ABPForm
     public interface IMainForm : ISingletonDependency
     { 
         IocManager IocManager { get; }
-
+        /// <summary>
+        /// 菜单 容器
+        /// </summary>
         Control MenuContainerControl { get; }
         /// <summary>
         /// 初始化

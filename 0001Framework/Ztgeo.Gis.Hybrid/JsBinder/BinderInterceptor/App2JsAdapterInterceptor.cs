@@ -18,7 +18,7 @@ namespace Ztgeo.Gis.Hybrid.JsBinder.BinderInterceptor
         private void PostProceed(IInvocation invocation) { 
             if (invocation.Method.GetCustomAttributes(typeof(DisAdapterAttribute), false).Length == 0) {
                 if (invocation.Proxy is IApp2JSAdapterApi) {  //在app 上可以访问js 代码
-                    if (invocation.Method.Name.Equals("get_JsCtx")) {
+                    if (invocation.Method.Name.Equals("get_JsCtx") || invocation.Method.Name.Equals("set_JsCtx")) {
                         return;
                     }
                     var api = (IApp2JSAdapterApi)invocation.Proxy;

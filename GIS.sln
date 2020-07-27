@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GisPackaging", "GisPackagin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztgeo.Gis.Share", "0001Framework\Ztgeo.Gis.Share\Ztgeo.Gis.Share.csproj", "{C8725345-4338-42BB-A1A2-382A826665D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtgeoGISDesktop.Hybrid.WebView", "0002Application\ZtgeoGISDesktop.Hybrid.WebView\ZtgeoGISDesktop.Hybrid.WebView.csproj", "{09D8ACC1-2777-455E-87CA-624F28D99780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,14 @@ Global
 		{C8725345-4338-42BB-A1A2-382A826665D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8725345-4338-42BB-A1A2-382A826665D8}.Release|x86.ActiveCfg = Release|Any CPU
 		{C8725345-4338-42BB-A1A2-382A826665D8}.Release|x86.Build.0 = Release|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Debug|x86.Build.0 = Debug|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Release|x86.ActiveCfg = Release|Any CPU
+		{09D8ACC1-2777-455E-87CA-624F28D99780}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +180,7 @@ Global
 		{527BE76D-43D8-4FE7-A955-98EE1D3F8D1C} = {4088EA47-CE6B-4686-A713-699BA1C4A3D1}
 		{6577B786-7C13-46AD-9F30-7F6A0F126BCF} = {4088EA47-CE6B-4686-A713-699BA1C4A3D1}
 		{C8725345-4338-42BB-A1A2-382A826665D8} = {4088EA47-CE6B-4686-A713-699BA1C4A3D1}
+		{09D8ACC1-2777-455E-87CA-624F28D99780} = {09F9AB24-65B6-436B-8CDD-0181B4C6C2F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD060146-C25A-4F92-B311-79B00E37B853}

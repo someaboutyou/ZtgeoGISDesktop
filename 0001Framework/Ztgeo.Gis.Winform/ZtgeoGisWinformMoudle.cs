@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.Configuration;
 using Ztgeo.Gis.Winform.Menu;
 
@@ -25,7 +26,8 @@ namespace Ztgeo.Gis.Winform
         }
 
         public override void PostInitialize()
-        {  
+        {
+            IocManager.Resolve<IMainForm>().StartInitializeComponent();
             IocManager.Resolve<WinformMenuManager>().Initialize(); //是否可以在runtime 的hook 里面统一初始化。
             IocManager.Resolve<IWinformMenuViewManager>().InitializeMenus();
         }

@@ -19,10 +19,12 @@ namespace Ztgeo.Gis.Runtime
     public class RuntimeUIExceptionEventHandle : IEventHandler<UIExceptionEventData>, ITransientDependency
     {  
         public ILogger Logger { get; set; }
-         
 
-        public RuntimeUIExceptionEventHandle() { 
-            Logger = NullLogger.Instance; 
+        private readonly IExceptionDeal exceptionDeal;
+
+        public RuntimeUIExceptionEventHandle(IExceptionDeal _exceptionDeal) { 
+            Logger = NullLogger.Instance;
+            exceptionDeal = _exceptionDeal;
         } 
 
         public void HandleEvent(UIExceptionEventData eventData) {
@@ -36,6 +38,7 @@ namespace Ztgeo.Gis.Runtime
                 }
                 else {
                     Logger.Error("ErrorCode:" + errorCode + "。" + exception.Message, exception);
+                    exceptionDeal.DealException(eventData.ExceptionType, exception.Message);
                 }
             }
         }

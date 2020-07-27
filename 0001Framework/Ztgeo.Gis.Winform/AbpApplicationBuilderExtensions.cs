@@ -25,8 +25,7 @@ namespace Ztgeo.Gis.Winform
             } 
             var abpBootstrapper = AddAbpBootstrapper<TStartupModule>(optionsAction);
             abpBootstrapper.Initialize();
-            IMainForm mainForm= abpBootstrapper.IocManager.Resolve<IMainForm>();
-            mainForm.StartInitializeComponent();
+            IMainForm mainForm= abpBootstrapper.IocManager.Resolve<IMainForm>(); 
             if (splashScreenFormManager != null)
             {
                 splashScreenFormManager.CloseSplashScreenForm();

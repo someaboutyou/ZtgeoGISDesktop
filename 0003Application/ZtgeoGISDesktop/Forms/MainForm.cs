@@ -12,31 +12,33 @@ using Ztgeo.Gis.Winform.ABPForm;
 using DevExpress.XtraBars.Ribbon;
 using Abp.Dependency;
 using ZtgeoGISDesktop.Test;
+using ZtgeoGISDesktop.Hybrid.WebView;
 
 namespace ZtgeoGISDesktop.Forms
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm,IMainForm
-    {
-        private RibbonControl menuContainerControl; 
+    { 
         public IocManager IocManager { get; set; }
-        public Control MenuContainerControl { get {
-                if (menuContainerControl == null) {
-                    menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl(); 
-                }
+        public Control MenuContainerControl
+        {
+            get
+            {
                 return menuContainerControl;
-        } }
+            }
+        }
 
         public MainForm(IocManager iocManager)
         {
             IocManager = iocManager;
         }
         TestHtmlControl testHtmlControl;
-        public void StartInitializeComponent() {
+        public void StartInitializeComponent()
+        {
             InitializeComponent();
-              testHtmlControl= IocManager.Resolve<TestHtmlControl>();
+            testHtmlControl = IocManager.Resolve<TestHtmlControl>();
             testHtmlControl.Dock = DockStyle.Fill;
             mainSplitContainer.Panel2.Controls.Add(testHtmlControl);
-            testHtmlControl.LoadResource(typeof(MainForm).Assembly, new string[]
+            testHtmlControl.LoadResource(typeof(ZtgeoGISDesktopHybridWebViewModule).Assembly, new string[]
             {
                 "WebViews",
                 "Common",

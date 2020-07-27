@@ -12,6 +12,7 @@ using ZtgeoGISDesktop.Menus;
 using Ztgeo.Gis.Runtime;
 using Ztgeo.Gis.Hybrid;
 
+
 namespace ZtgeoGISDesktop
 {
     [DependsOn(typeof(ZtgeoGisWinformMoudle)
@@ -28,6 +29,7 @@ namespace ZtgeoGISDesktop
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+            IocManager.Register<IExceptionDeal, DefaultExceptionDeal>();
         }
 
         public override void PostInitialize()

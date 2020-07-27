@@ -215,6 +215,8 @@
     <Compile Include="Menu\MenuStatus.cs" />
     <Compile Include="Menu\WinformMenu.cs" />
     <Compile Include="Menu\WinformMenuManager.cs" />
+    <Compile Include="ToolBar\enumCommandLineState.cs" />
+    <Compile Include="ToolBar\ICommandLine.cs" />
     <Compile Include="ZtgeoGisWinformMoudle.cs" />
     <Compile Include="ABPForm\IMainForm.cs" />
     <Compile Include="ABPForm\ISplashScreenFormManager.cs" />

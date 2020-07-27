@@ -23,10 +23,11 @@ namespace ZtgeoGISDesktop
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false); 
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Utils.AppearanceObject.DefaultFont = new Font("Segoe UI", 8);
-            //DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
             IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(), null);
             IMainForm mainForm= iocManager.Resolve<IMainForm>();
             if (mainForm != null) {

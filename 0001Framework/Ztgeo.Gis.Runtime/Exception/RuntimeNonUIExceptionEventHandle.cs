@@ -1,4 +1,5 @@
-﻿using Abp.Events.Bus.Handlers;
+﻿using Abp.Dependency;
+using Abp.Events.Bus.Handlers;
 using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Runtime
 {
-    public class RuntimeNonUIExceptionEventHandle : IEventHandler<NonUIExceptionEventData>
+    public class RuntimeNonUIExceptionEventHandle : IEventHandler<NonUIExceptionEventData>, ITransientDependency
     {
         public ILogger Logger { get; set; }
 
-
-        public RuntimeNonUIExceptionEventHandle()
+        private readonly IExceptionDeal exceptionDeal;
+        public RuntimeNonUIExceptionEventHandle(IExceptionDeal _exceptionDeal)
         {
             Logger = NullLogger.Instance;
+            exceptionDeal = _exceptionDeal;
         }
         public void HandleEvent(NonUIExceptionEventData eventData)
         {
@@ -31,6 +33,7 @@ namespace Ztgeo.Gis.Runtime
                 else
                 {
                     Logger.Error("ErrorCode:" + errorCode + "。" + ((ExceptionDealBase)exception).Message, (Exception)exception);
+                    exceptionDeal.DealException(eventData.ExceptionType, ((Exception)exception).Message);
                 }
             }
         }

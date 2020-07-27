@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper\ILicenseInitializer.cs" />
     <Compile Include="Bootstrapper\LicenseInitializer.cs" />
+    <Compile Include="Exception\IExceptionDeal.cs" />
     <Compile Include="Exception\NonUIExceptionEventData.cs" />
     <Compile Include="Exception\RuntimeNonUIExceptionEventHandle.cs" />
     <Compile Include="Exception\ExceptionDealBase.cs" />

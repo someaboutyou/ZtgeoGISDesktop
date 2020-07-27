@@ -1,4 +1,7 @@
-﻿namespace ZtgeoGISDesktop.Forms
+﻿using System.ComponentModel;
+using System.Diagnostics;
+
+namespace ZtgeoGISDesktop.Forms
 {
     partial class MainForm
     {
@@ -19,7 +22,7 @@
             }
             base.Dispose(disposing);
         }
-
+        private DevExpress.XtraBars.Ribbon.RibbonControl menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -234,7 +237,7 @@
 
         #endregion
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView;
-        //private DevExpress.XtraBars.Ribbon.RibbonControl MenuRibbonContainerCtl;
+        //private DevExpress.XtraBars.Ribbon.RibbonControl MenuRibbonContainerCtl; 
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private DevExpress.XtraBars.BarSubItem barSubItemNavigation;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem;
