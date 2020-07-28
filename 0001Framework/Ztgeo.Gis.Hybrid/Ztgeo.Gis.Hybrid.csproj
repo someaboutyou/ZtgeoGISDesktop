@@ -205,6 +205,7 @@
     <Compile Include="HybridUserControl\BaseHybridControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="JsBinder\App2JSAdapterApiBase.cs" />
     <Compile Include="JsBinder\BinderInterceptor\App2JsAdapterInterceptor.cs" />
     <Compile Include="JsBinder\BinderInterceptor\DisAdapterAttribute.cs" />
     <Compile Include="JsBinder\BinderInterceptor\TrackableJsObjectInterceptor.cs" />
@@ -242,6 +243,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.eot" />
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.ttf" />
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.woff" />
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.woff2" />
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
@@ -261,6 +267,68 @@
       <Name>Ztgeo.WebViewControl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\font-awesome.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.builder.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.contrib.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.embed.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.form.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.form.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.full.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.full.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.full.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\formio\formio.utils.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\require.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\requirecss\css-build.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\requirecss\css.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\requirecss\normalize.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\requirecss\text.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\FormIoWebView.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\js\App2JSAdapterApi\TestApp2JSAdapterApi.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\js\Js2AppAdapterApi\TestJs2AppAdapterApi.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

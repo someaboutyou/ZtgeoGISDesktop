@@ -31,14 +31,14 @@ namespace Ztgeo.Gis.Hybrid.HybridUserControl
             webView.SetupWebView<TApp2JSAdapterApi>(out bindableJSContextProvider, 
                 (newJsCtx) => {
                     TApp2JSAdapterApi adapterApi =  iocManager.Resolve<TApp2JSAdapterApi>();
-                    adapterApi.JsCtx = bindableJSContextProvider;
+                    //adapterApi.JsCtx = bindableJSContextProvider; 
                     return adapterApi;
                 },
                 out app2JSAdapterApi,
                 out jsCommonApi
             );
             js2AppAdapterApi = iocManager.Resolve<TJS2AppAdapterApi>();
-            js2AppAdapterApi.JsCtx = bindableJSContextProvider;
+            //js2AppAdapterApi.JsCtx = bindableJSContextProvider;
             webView.Dock = DockStyle.Fill;
             this.Controls.Add(webView); 
         }

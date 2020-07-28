@@ -11,8 +11,11 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
     /// C#到js 适配器
     /// </summary>
     public interface IApp2JSAdapterApi: ITransientDependency
-    {
-        IJSContextProvider JsCtx { get; set; }
-
+    { 
+        IJSContextProvider JsCtx { get;}
+        /// <summary>
+        /// 绑定的Js 在页面上的对象的名
+        /// </summary>
+        string JSBindObjectName { get; }
     }
 }

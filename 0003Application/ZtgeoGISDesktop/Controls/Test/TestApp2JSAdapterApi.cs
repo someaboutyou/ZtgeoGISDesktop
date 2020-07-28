@@ -7,9 +7,9 @@ using Ztgeo.Gis.Hybrid.JsBinder;
 
 namespace ZtgeoGISDesktop.Test
 {
-    public class TestApp2JSAdapterApi: IApp2JSAdapterApi
+    public class TestApp2JSAdapterApi: App2JSAdapterApiBase
     {
-        public IJSContextProvider JsCtx { get; set; }
+        public override string JSBindObjectName { get; protected set; } = "TestApp2JSAdapterApi";
 
         public virtual void AlertMessage(string message) { }
          

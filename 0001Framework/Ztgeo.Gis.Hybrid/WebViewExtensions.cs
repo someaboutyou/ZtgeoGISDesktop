@@ -34,7 +34,7 @@ namespace Ztgeo.Gis.Hybrid
 				"Common",
 				string.Concat(new string[]
 				{
-					"webview",
+					"FormIoWebView",
 					oldApi ? "-old" : "",
 					".html?render=",
 					editorName,

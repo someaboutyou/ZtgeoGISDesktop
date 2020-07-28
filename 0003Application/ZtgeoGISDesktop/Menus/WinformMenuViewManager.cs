@@ -29,9 +29,7 @@ namespace ZtgeoGISDesktop.Menus
         public void InitializeMenus()
         {
             RibbonControl menuContainer = (RibbonControl)mainForm.MenuContainerControl;
-            RibbonPage defaultPage = new RibbonPage();
-            menuContainer.Pages.Add(defaultPage);
-
+             
             IReadOnlyList<WinformMenu> winformMenus = winformMenuManager.GetAllMenus();
             if (winformMenus!=null &&winformMenus.Count > 0) {
                 // var orderSettings = this.GetMenuOrderSettings();
@@ -73,8 +71,8 @@ namespace ZtgeoGISDesktop.Menus
                     };
                     addMenusGroups(pageMenu, ribbonPage, orderSettings);
                     menuContainer.Pages.Add(ribbonPage);
-
                 }
+                menuContainer.SelectPage(menuContainer.Pages[0]);
             }
         } 
         private void addMenusGroups(WinformMenu pageMenu, RibbonPage ribbonPage, IList<MenuOrderSetting> menuOrderSettings) {

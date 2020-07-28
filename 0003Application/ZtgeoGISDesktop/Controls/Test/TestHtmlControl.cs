@@ -19,8 +19,9 @@ namespace ZtgeoGISDesktop.Test
             ) : base(iocManager) {
             testApp2JSAdapterApi = _testApp2JSAdapterApi;
             testJs2AppAdapterApi = _testJs2AppAdapterApi;
-            testApp2JSAdapterApi.JsCtx = this.bindableJSContextProvider;
-            testJs2AppAdapterApi.BindCtx(this.bindableJSContextProvider);
+            //testApp2JSAdapterApi.JsCtx = this.bindableJSContextProvider;
+            testApp2JSAdapterApi.BindCtx4App2Js(this.bindableJSContextProvider);
+            testJs2AppAdapterApi.BindCtx4JS2App(this.bindableJSContextProvider);
         }
 
         public void JsAlert(string message) {

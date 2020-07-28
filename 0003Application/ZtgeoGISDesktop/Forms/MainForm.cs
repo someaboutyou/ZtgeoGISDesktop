@@ -11,8 +11,7 @@ using DevExpress.XtraEditors;
 using Ztgeo.Gis.Winform.ABPForm;
 using DevExpress.XtraBars.Ribbon;
 using Abp.Dependency;
-using ZtgeoGISDesktop.Test;
-using ZtgeoGISDesktop.Hybrid.WebView;
+using ZtgeoGISDesktop.Test; 
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -30,25 +29,11 @@ namespace ZtgeoGISDesktop.Forms
         public MainForm(IocManager iocManager)
         {
             IocManager = iocManager;
-        }
-        TestHtmlControl testHtmlControl;
+        } 
         public void StartInitializeComponent()
         {
             InitializeComponent();
-            testHtmlControl = IocManager.Resolve<TestHtmlControl>();
-            testHtmlControl.Dock = DockStyle.Fill;
-            mainSplitContainer.Panel2.Controls.Add(testHtmlControl);
-            testHtmlControl.LoadResource(typeof(ZtgeoGISDesktopHybridWebViewModule).Assembly, new string[]
-            {
-                "WebViews",
-                "Common",
-                string.Concat(new string[]
-                {
-                    "webview", "", ".html?render=", "",
-                    "&readOnly=",
-                     "false"
-                })
-            });
+            
         }
         void navBarControl_ActiveGroupChanged(object sender, DevExpress.XtraNavBar.NavBarGroupEventArgs e)
         {
@@ -60,7 +45,9 @@ namespace ZtgeoGISDesktop.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            testHtmlControl.JsAlert("JsAlert!");
+            //testHtmlControl.JsAlert("JsAlert!");
+            DialogForm dialogForm = new DialogForm(IocManager);
+            dialogForm.ShowDialog();
         }
     }
 }

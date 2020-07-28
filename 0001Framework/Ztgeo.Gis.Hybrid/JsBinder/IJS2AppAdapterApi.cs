@@ -9,6 +9,8 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
 {
     public interface IJS2AppAdapterApi : ITransientDependency
     {
-        IJSContextProvider JsCtx { get; set; }
+        IJSContextProvider JsCtx { get; }
+
+        string AppBindObjectName { get; }
     }
 }

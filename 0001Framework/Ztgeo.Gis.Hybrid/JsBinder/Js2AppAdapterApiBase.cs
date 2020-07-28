@@ -4,22 +4,28 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Hybrid.JsBinder.BinderInterceptor;
+using Ztgeo.Utils;
 
 namespace Ztgeo.Gis.Hybrid.JsBinder
 {
     public abstract class Js2AppAdapterApiBase : IJS2AppAdapterApi
     {
-        public IJSContextProvider JsCtx { get ; set ; }
+        public IJSContextProvider JsCtx { get ;protected set ; }
 
-        public virtual void BindCtx(IJSContextProvider jsCtx) {
+        public virtual string AppBindObjectName { get; protected set; }
+        [DisAdapter]
+        public virtual void BindCtx4JS2App(IJSContextProvider jsCtx) {
             this.JsCtx = jsCtx;
-            string typeName=this.GetType().Name;
-            jsCtx.BindVariable("__"+ typeName, this);
-            jsCtx.ExecuteScriptFunction(getJsFunctionString(typeName), Array.Empty<object>());
+            string appBindObjectName= AppBindObjectName.IsEmpty()? this.GetType().Name: AppBindObjectName;
+            jsCtx.ExecuteScriptFunction(getJsFunctionString(appBindObjectName), Array.Empty<object>());
+            jsCtx.BindVariable(appBindObjectName, this);
         }
 
-        private string getJsFunctionString(string typeName) {
-            return "(function() { window." + typeName + " = CommonAPI.ViewAdapterWrapper(window.__" + typeName + ",{trackCodes: true,}); })" ;
+        private string getJsFunctionString(string appBindObjectName)
+        {
+            //return "(function() { window." + appBindObjectName + " = CommonAPI.ViewAdapterWrapper(window.__" + appBindObjectName + ",{trackCodes: true,}); })";
+            return "(function() { require([\"./js/Js2AppAdapterApi/" + appBindObjectName + ".js\"]); })";
         }
     }
 }
