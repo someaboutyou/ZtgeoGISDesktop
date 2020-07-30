@@ -14,17 +14,15 @@ namespace Ztgeo.Gis.Winform.Menu
     {
         WinformMenu CreateMenu(
            string name,
-            bool isPage,
-           bool isGroup,
-           bool isNavigation,
+           MenuType menuType,
            string displayName = null,
            string description = null,
            string permission = null,
            Image icon=null,
-            int order = 0,
+           int order = 0,
            MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
            Dictionary<string, object> properties = null
-           );
+        );
 
         WinformMenu GetPermissionOrNull(string name);
          

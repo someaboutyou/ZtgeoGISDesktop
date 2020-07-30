@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Util;
+﻿using Abp.Domain.Repositories;
+using Castle.MicroKernel.Util;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using System;
@@ -9,19 +10,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.Menu;
+using ZtgeoGISDesktop.Core.Menu;
 
-namespace ZtgeoGISDesktop.Menus
+namespace ZtgeoGISDesktop.Core.Menus
 {
+    /// <summary>
+    /// DevExpress 中实现的WinformMenu
+    /// </summary>
     public class WinformMenuViewManager : IWinformMenuViewManager
     {
         private readonly IWinformMenuManager winformMenuManager;
         private readonly IMainForm mainForm;
+        private readonly IRepository<MenuOrder> menuOrderRepository;
 
         public WinformMenuViewManager(IWinformMenuManager _winformMenuManager,
-            IMainForm _mainForm
+            IMainForm _mainForm,
+            IRepository<MenuOrder> _menuOrderRepository
             ) {
             winformMenuManager = _winformMenuManager;
             mainForm = _mainForm;
+            menuOrderRepository = _menuOrderRepository;
         }
         /// <summary>
         /// 初始化菜单
@@ -38,7 +46,38 @@ namespace ZtgeoGISDesktop.Menus
         }
 
         public IList<MenuOrderSetting> GetMenuOrderSettings() {
-            return null;
+            var menuOrders= menuOrderRepository.GetAll().ToList<MenuOrder>();
+            IReadOnlyList<WinformMenu> winformMenus = winformMenuManager.GetAllMenus();
+            IList<MenuOrderSetting> ret = new List<MenuOrderSetting>();
+            foreach (WinformMenu menu in winformMenus)
+            {
+                string meunKey = menu.Name;
+                string parenMenuKey = "";
+                GetMenuKey(menu, ref meunKey, ref parenMenuKey);
+                var ordered = menuOrders.FirstOrDefault(m => m.MenuKey.Equals(meunKey));
+                ret.Add(new MenuOrderSetting
+                {
+                    MenuName =menu.DisplayName,
+                    MenuDescription =menu.Description,
+                    MenuKey= meunKey,
+                    ParentMenuKey =parenMenuKey,
+                    Order= ordered==null? null: (int?)ordered.Order
+                });
+            }
+            return ret;
+        }
+
+        private void GetMenuKey(WinformMenu gettedMenu,ref string menuKey, ref string parentMenuKey) {
+            if (gettedMenu.Parent != null)
+            {
+                menuKey = gettedMenu.Name+"->"+ menuKey;
+                parentMenuKey = gettedMenu.Name + "->" + menuKey;
+                GetMenuKey( gettedMenu.Parent, ref menuKey,ref parentMenuKey);
+            }
+            else {
+                menuKey = gettedMenu.Name;
+                parentMenuKey = string.Empty;
+            }
         }
 
         private IList<WinformMenu> getOrderedMenus(IList<WinformMenu> winformMenus, IList<MenuOrderSetting> orderSettings) {
@@ -158,7 +197,16 @@ namespace ZtgeoGISDesktop.Menus
 
         public void RefeshMenu()
         {
-             
+            RibbonControl menuContainer = (RibbonControl)mainForm.MenuContainerControl;
+            if (menuContainer.Pages.Count > 0) {
+                menuContainer.Pages.Clear();
+            }
+            IReadOnlyList<WinformMenu> winformMenus = winformMenuManager.GetAllMenus();
+            if (winformMenus != null && winformMenus.Count > 0)
+            {
+                // var orderSettings = this.GetMenuOrderSettings();
+                addMenusPages(winformMenus, menuContainer);
+            }
         }
         /// <summary>
         /// 设置菜单状态
@@ -166,17 +214,81 @@ namespace ZtgeoGISDesktop.Menus
         /// <param name="menu"></param>
         /// <param name="menuStatus"></param>
         public void SetMenuStatus(WinformMenu menu, MenuStatus menuStatus) {
-            if (menu.UIObject is RibbonPage) {
-                switch (menuStatus) {
-                    case MenuStatus.Available:
+            if (menu.MenuType == MenuType.Page)
+            {
+                if (menu.UIObject is RibbonPage)
+                {
+                    RibbonPage page = (RibbonPage)menu.UIObject;
+                    switch (menuStatus)
+                    {
+                        case MenuStatus.Available:
+                            page.Visible = true;
+                            break;
+                        case MenuStatus.Disable:
 
-                        break;
-                    case MenuStatus.Disable:
-                        break;
-                    case MenuStatus.Hidden:
-                        break;
+                            page.Visible = false;
+                            break;
+                        case MenuStatus.Hidden:
+                            page.Visible = false;
+                            break;
+                    }
                 }
             }
+            else if (menu.MenuType == MenuType.Group)
+            {
+                if (menu.UIObject is RibbonPageGroup)
+                {
+                    RibbonPageGroup group = (RibbonPageGroup)menu.UIObject;
+                    switch (menuStatus)
+                    {
+                        case MenuStatus.Available:
+                            group.Enabled = true;
+                            group.Visible = true;
+                            break;
+                        case MenuStatus.Disable:
+                            group.Enabled = false;
+                            group.Visible = true;
+                            break;
+                        case MenuStatus.Hidden:
+                            group.Enabled = false;
+                            group.Visible = false;
+                            break;
+                    }
+                }
+            }else if (menu.MenuType == MenuType.Navigation) {
+                if (menu.UIObject is BarSubItem)
+                {
+                    BarSubItem barSubItem = menu.UIObject as BarSubItem;
+                    switch (menuStatus)
+                    {
+                        case MenuStatus.Available:
+                            barSubItem.Enabled = true; 
+                            break;
+                        case MenuStatus.Disable:
+                            barSubItem.Enabled = false; 
+                            break;
+                        case MenuStatus.Hidden:
+                            barSubItem.Enabled = false; 
+                            break;
+                    }
+                }
+                else if (menu.UIObject is BarButtonItem) {
+                    BarButtonItem barButtonItem = menu.UIObject as BarButtonItem;
+                    switch (menuStatus)
+                    {
+                        case MenuStatus.Available:
+                            barButtonItem.Enabled = true; 
+                            break;
+                        case MenuStatus.Disable:
+                            barButtonItem.Enabled = false; 
+                            break;
+                        case MenuStatus.Hidden:
+                            barButtonItem.Enabled = false; 
+                            break;
+                    }
+                }
+            }
+            
         }
 
     }

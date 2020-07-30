@@ -22,9 +22,7 @@ namespace Ztgeo.Gis.Winform.Menu
         }
 
         public WinformMenu CreateMenu(string name,
-            bool isPage,
-            bool isGroup,
-            bool isNavigation,
+            MenuType menuType,
             string displayName = null,
             string description = null,
             string permission = null,
@@ -37,7 +35,7 @@ namespace Ztgeo.Gis.Winform.Menu
             {
                 throw new AbpException("There is already a permission with name: " + name);
             }
-            var menu = new WinformMenu(name, isPage, isGroup, isNavigation, displayName, description, permission, icon, order, multiTenancySides, properties);
+            var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties);
             Menus[menu.Name] = menu;
             return menu;
         }

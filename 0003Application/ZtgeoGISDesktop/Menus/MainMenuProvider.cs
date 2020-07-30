@@ -10,16 +10,15 @@ namespace ZtgeoGISDesktop.Menus
 {
     public class MainMenuProvider : MenuProvider
     {
-        private readonly IEmbeddedResourceManager embeddedResourceManager;
-        public MainMenuProvider(IEmbeddedResourceManager _embeddedResourceManager) {
-            embeddedResourceManager = _embeddedResourceManager;
+        public MainMenuProvider() {
+             
         }
         public override void SetMenus(IMenuDefinitionContext context)
         { 
-            var settingPageMenu = context.CreateMenu(MainFormMenuNames.SettingPageMenu, true, false, false, "设置", "", null,
+            var settingPageMenu = context.CreateMenu(MainFormMenuNames.SettingPageMenu, MenuType.Page, "设置", "", null,
                 GetResourceImage("ZtgeoGISDesktop.Icons.Setting.png"));
-            var systemSettingGroup= settingPageMenu.CreateChildMenu(MainFormMenuNames.SystemSettingGroupMenu, false, true, false, "系统设置");
-            var uiDesign = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_UiDesign, false, false, false, "界面设置", "", null
+            var systemSettingGroup= settingPageMenu.CreateChildMenu(MainFormMenuNames.SystemSettingGroupMenu, MenuType.Group, "系统设置");
+            var uiDesign = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_UiDesign, MenuType.Navigation, "界面设置", "", null
                 , GetResourceImage("ZtgeoGISDesktop.Icons.UIDesign.png"));
         }
 
@@ -32,8 +31,7 @@ namespace ZtgeoGISDesktop.Menus
             else {
                 return null;
             }
-        }
-        
+        } 
     }
 
     public static class MainFormMenuNames{

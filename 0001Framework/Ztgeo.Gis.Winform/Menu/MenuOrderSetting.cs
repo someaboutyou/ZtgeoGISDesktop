@@ -12,6 +12,10 @@ namespace Ztgeo.Gis.Winform.Menu
         /// MenuName
         /// </summary>
         public string MenuName { get; set; }
+
+        public string MenuKey { get; set; }
+
+        public string ParentMenuKey { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
@@ -19,6 +23,6 @@ namespace Ztgeo.Gis.Winform.Menu
         /// <summary>
         /// 排序
         /// </summary>
-        public int Order { get; set; }
+        public int? Order { get; set; }
     }
 }

@@ -71,10 +71,15 @@
     <Compile Include="Authorization\IAuthorizationManager.cs" />
     <Compile Include="Authorization\Local\LocalAuthInfo.cs" />
     <Compile Include="Communication\ITokenAuthServiceProxy.cs" />
+    <Compile Include="Menu\MenuOrder.cs" />
     <Compile Include="ZtgeoGISDesktopCoreMoudle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
+      <Project>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</Project>
+      <Name>Ztgeo.Gis.Winform</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZtgeoGISDesktop.Share\ZtgeoGISDesktop.Core.Share.csproj">
       <Project>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</Project>
       <Name>ZtgeoGISDesktop.Core.Share</Name>

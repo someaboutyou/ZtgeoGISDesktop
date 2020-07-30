@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Ztgeo.Gis.Winform.Menu
 {
     /// <summary>
-    /// winform 菜单显示
+    /// winform 菜单显示管理
     /// </summary>
     public interface IWinformMenuViewManager : ISingletonDependency
     {
@@ -25,7 +25,11 @@ namespace Ztgeo.Gis.Winform.Menu
         /// </summary>
         /// <returns></returns>
         IList<MenuOrderSetting> GetMenuOrderSettings();
-
+        /// <summary>
+        /// 设置菜单状态，可用、不可用、隐藏
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <param name="menuStatus"></param>
         void SetMenuStatus(WinformMenu menu, MenuStatus menuStatus);
     }
 }

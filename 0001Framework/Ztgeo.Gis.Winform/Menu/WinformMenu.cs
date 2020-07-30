@@ -16,9 +16,7 @@ namespace Ztgeo.Gis.Winform.Menu
     {
         public WinformMenu(
             string name,
-            bool isPage,
-            bool isGroup,
-            bool isNavigation, 
+            MenuType menuType,
             string displayName = null,
             string description = null,
             string permission = null,
@@ -29,9 +27,7 @@ namespace Ztgeo.Gis.Winform.Menu
             Action<WinformMenu> menuEvent=null
          ) {
             Name = name;
-            IsPage = isPage;
-            IsGroup= isGroup;
-            IsNavigation = isNavigation;
+            MenuType = menuType;
             DisplayName = displayName;
             Properties = properties;
             Description = description;
@@ -55,21 +51,24 @@ namespace Ztgeo.Gis.Winform.Menu
         /// 图标
         /// </summary>
         public Image Icon { get; set; }
+
+        public MenuType MenuType { get; set; }
+
         /// <summary>
         /// 菜单导航分组
         /// </summary>
-        public bool IsPage { get; set; }
+        public bool IsPage { get {return this.MenuType == MenuType.Page; }   }
         /// <summary>
         /// 是否时分组信息
         /// </summary>
-        public bool IsGroup { get; set; }
+        public bool IsGroup { get { return this.MenuType == MenuType.Group; } }
         /// <summary>
         /// 是否是导航按钮 
         /// </summary>
-        public bool IsNavigation { get; set; }
-         /// <summary>
-         /// 界面对象
-         /// </summary>
+        public bool IsNavigation { get { return this.MenuType == MenuType.Navigation; } }
+        /// <summary>
+        /// 界面对象
+        /// </summary>
         public object UIObject { get; set; }
 
         public Action<WinformMenu> MenuEvent { get; set; }
@@ -87,9 +86,7 @@ namespace Ztgeo.Gis.Winform.Menu
 
         public WinformMenu CreateChildMenu(
               string name, 
-              bool isPage,
-              bool isGroup,
-              bool isNavigation,
+              MenuType menuType,
               string displayName = null,
               string description = null,
               string permission = null,
@@ -98,7 +95,7 @@ namespace Ztgeo.Gis.Winform.Menu
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
               Dictionary<string, object> properties = null
          ) {
-            var menu = new WinformMenu(name, isPage, isGroup, isNavigation, displayName, description, permission, icon, order, multiTenancySides, properties);
+            var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties);
             _children.Add(menu);
             return menu;
         }
