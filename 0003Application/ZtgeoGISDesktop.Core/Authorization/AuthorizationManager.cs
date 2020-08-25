@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Runtime.Authorization;
+using Ztgeo.Gis.Runtime.Authorization.Login;
+using Ztgeo.Gis.Runtime.Authorization.Permissions;
 using ZtgeoGISDesktop.Core.Authorization.EventDatas;
-using ZtgeoGISDesktop.Core.Communication;
-using ZtgeoGISDesktop.Core.Share.AjaxModels.TokenAuth;
+using ZtgeoGISDesktop.Core.Communication; 
 
 namespace ZtgeoGISDesktop.Core.Authorization
 {
@@ -25,17 +27,31 @@ namespace ZtgeoGISDesktop.Core.Authorization
         /// <summary>
         /// 认证
         /// </summary>
-        public bool Authorization(AuthenticateModel authenticateModel) {
+        public AuthenticateResultModel Authorization(AuthenticateModel authenticateModel, bool isLogining)
+        {
             AuthenticateResultModel authenticateResultModel = tokenAuthServiceProxy.Authenticate(authenticateModel);
-            if (authenticateResultModel.ShouldResetPassword) {  //重设密码
-                EventBus.Trigger<ResetPasswordEventData>(new ResetPasswordEventData
-                {
-                    UserNameOrEmailAddress = authenticateModel.UserNameOrEmailAddress,
-                    UserId = authenticateResultModel.UserId
-                });
-                return false;
+            if (!isLogining) { //如果不是登录 
+                
             }
-            return true;
+            LoginInfoCache.SetAuthenticateModelAndAuthenticateResultModel(authenticateModel, authenticateResultModel);
+            return authenticateResultModel;
+        }
+
+        public async Task<AuthenticateResultModel> AuthorizationAsync(AuthenticateModel authenticateModel, bool isLogining)
+        {
+            AuthenticateResultModel authenticateResultModel =await tokenAuthServiceProxy.AuthenticateAsync(authenticateModel);
+            LoginInfoCache.SetAuthenticateModelAndAuthenticateResultModel(authenticateModel, authenticateResultModel);
+            return authenticateResultModel;
+        }
+
+        public IList<FlatPermissionWithLevelDto> GetAllPermissions()
+        {
+            return tokenAuthServiceProxy.GetAllPressions();
+        }
+
+        public async Task<IList<FlatPermissionWithLevelDto>> GetAllPermissionsAsync()
+        {
+            return await tokenAuthServiceProxy.GetAllPressionsAsync();
         }
     }
 }

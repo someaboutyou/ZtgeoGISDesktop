@@ -12,7 +12,7 @@ namespace ZtgeoGISDesktop.Communication.BackendRequest
 {
     public abstract class ServiceProxyBase
     {
-        private readonly IRESTServices _restService;
+        protected readonly IRESTServices _restService;
 
         private readonly CommunicationSettings _communicationSettings;
 

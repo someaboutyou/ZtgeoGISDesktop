@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ztgeo.Gis.AbpExtension.Setting;
+using Ztgeo.Gis.AbpExtension.SettingExtension;
 
 namespace ZtgeoGISDesktop.Communication.Configuration
 {

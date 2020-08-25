@@ -33,7 +33,8 @@ namespace Ztgeo.Gis.Winform.Menu
         {
             if (Menus.ContainsKey(name))
             {
-                throw new AbpException("There is already a permission with name: " + name);
+                //throw new AbpException("There is already a permission with name: " + name);
+                return Menus[name];
             }
             var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties);
             Menus[menu.Name] = menu;
@@ -41,12 +42,12 @@ namespace Ztgeo.Gis.Winform.Menu
         }
          
 
-        public virtual WinformMenu GetPermissionOrNull(string name)
+        public virtual WinformMenu GetMenuOrNull(string name)
         {
             return Menus.GetOrDefault(name);
         }
 
-        public virtual void RemovePermission(string name)
+        public virtual void RemoveMenu(string name)
         {
             Menus.Remove(name);
         }

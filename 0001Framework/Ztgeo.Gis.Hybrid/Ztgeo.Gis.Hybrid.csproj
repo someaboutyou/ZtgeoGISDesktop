@@ -201,6 +201,14 @@
     <Compile Include="Configuration\HybridConfigurationExtensions.cs" />
     <Compile Include="Configuration\IHybridConfiguration.cs" />
     <Compile Include="Exception\RegisterJavascriptObjectException.cs" />
+    <Compile Include="FormIO\FormIOApp2JSAdapterApi.cs" />
+    <Compile Include="FormIO\FormIOControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormIO\FormIOJs2AppAdapterApi.cs" />
+    <Compile Include="FormIO\IFormIOSchemeLocalPriorityClientRepository.cs" />
+    <Compile Include="FormIO\SmartFormScheme.cs" />
+    <Compile Include="FormIO\FormIOSchemeManager.cs" />
     <Compile Include="HybridBootstrap.cs" />
     <Compile Include="HybridUserControl\BaseHybridControl.cs">
       <SubType>UserControl</SubType>
@@ -233,6 +241,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -248,6 +257,7 @@
     <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.woff" />
     <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\fontawesome-webfont.woff2" />
     <EmbeddedResource Include="WebViews\Common\dist\formio\fonts\FontAwesome.otf" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.calendar" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
@@ -307,7 +317,9 @@
     <EmbeddedResource Include="WebViews\Common\dist\formio\formio.utils.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WebViews\Common\dist\require.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\require.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WebViews\Common\dist\requirecss\css-build.js" />
@@ -322,13 +334,164 @@
     <EmbeddedResource Include="WebViews\Common\dist\requirecss\text.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WebViews\Common\FormIoWebView.html" />
+    <EmbeddedResource Include="WebViews\FormIO\FormIoWebView.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WebViews\Common\js\App2JSAdapterApi\TestApp2JSAdapterApi.js" />
+    <EmbeddedResource Include="WebViews\FormIO\js\App2JSAdapterApi\FormIOApp2JSAdapterApi.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WebViews\Common\js\Js2AppAdapterApi\TestJs2AppAdapterApi.js" />
+    <EmbeddedResource Include="WebViews\FormIO\js\Js2AppAdapterApi\FormIOJs2AppAdapterApi.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\jquery.easyui.min.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\jquery.min.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\locale\easyui-lang-zh_CN.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.accordion.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.calendar.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.checkbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.combo.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.combobox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.combogrid.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.combotree.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.combotreegrid.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.datagrid.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.datalist.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.datebox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.datetimebox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.datetimespinner.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.dialog.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.draggable.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.droppable.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.filebox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.form.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.layout.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.linkbutton.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.maskedbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.menu.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.menubutton.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.messager.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.mobile.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.numberbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.numberspinner.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.pagination.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.panel.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.parser.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.passwordbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.progressbar.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.propertygrid.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.radiobutton.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.resizable.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.searchbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.sidemenu.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.slider.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.spinner.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.splitbutton.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.switchbutton.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.tabs.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.tagbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.textbox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.timepicker.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.timespinner.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.tooltip.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.tree.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.treegrid.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.validatebox.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\plugins\jquery.window.js" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icon.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\back.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\blank.gif" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\cancel.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\clear.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\cut.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\down.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\edit_add.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\edit_remove.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\filesave.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\filter.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\help.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\large_chart.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\large_clipart.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\large_picture.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\large_shapes.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\large_smartart.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\lock.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\man.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\mini_add.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\mini_edit.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\mini_refresh.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\more.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\no.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\ok.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\pencil.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\print.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\redo.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\reload.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\search.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\sum.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\tip.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\undo.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\icons\up.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\accordion.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\calendar.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\checkbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\combo.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\combobox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\datagrid.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\datalist.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\datebox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\dialog.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\easyui.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\filebox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\flex.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\accordion_arrows.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\blank.gif" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\calendar_arrows.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\combo_arrow.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\datagrid_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\datebox_arrow.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\layout_arrows.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\linkbutton_bg.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\loading.gif" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\menu_arrows.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\messager_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\pagination_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\panel_tools.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\passwordbox_close.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\passwordbox_open.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\searchbox_button.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\slider_handle.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\spinner_arrows.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\tabs_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\tagbox_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\tree_icons.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\images\validatebox_warning.png" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\layout.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\linkbutton.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\menu.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\menubutton.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\messager.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\numberbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\pagination.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\panel.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\passwordbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\progressbar.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\propertygrid.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\radiobutton.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\searchbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\sidemenu.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\slider.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\spinner.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\splitbutton.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\switchbutton.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\tabs.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\tagbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\textbox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\timepicker.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\tooltip.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\tree.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\validatebox.css" />
+    <EmbeddedResource Include="WebViews\Common\dist\jqueryeasyui\themes\metro\window.css" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

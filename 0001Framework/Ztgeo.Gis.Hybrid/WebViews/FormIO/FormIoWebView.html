@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="../Common/dist/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="../Common/dist/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="../Common/dist/formio/formio.full.min.css" />
+    <script type="text/javascript" src="../Common/dist/formio/formio.full.min.js"></script>
+    <script type="text/javascript" src="../Common/dist/require.js"></script>
+    <script type="text/javascript">
+        // TODO BCS remove MutationObserver initialization after upgrade to CEFSharp 3, as it should already be present on the updated browser version
+        if (!window.MutationObserver) {
+            window.MutationObserver = window.WebKitMutationObserver;
+        }
+        window.ssLoadEditors = true;
+        requirejs.config({
+            baseUrl: '..',
+            // Register require-css plugin
+            map: {
+                '*': {
+                    'css': 'Common/dist/requirecss/css'
+                }
+            }
+        });
+        window.onload = function () {
+            if (window.CefSharp) //winform 环境下
+                window.__setDocumentReady.invoke();
+            else { //测试环境下 
+                Formio.createForm(document.getElementById('formio'), {
+                    components: [
+                        {
+                            type: 'textfield',
+                            key: 'firstName',
+                            label: 'First Name',
+                            placeholder: 'Enter your first name.',
+                            input: true
+                        },
+                        {
+                            type: 'textfield',
+                            key: 'lastName',
+                            label: 'Last Name',
+                            placeholder: 'Enter your last name',
+                            input: true
+                        },
+                        {
+                            type: 'button',
+                            action: 'submit',
+                            label: 'Submit',
+                            theme: 'primary'
+                        }
+                    ],
+                }).then(form => {
+                    form.submission = {
+                        data: {
+                            firstName: 'Joe',
+                            lastName: 'Smith',
+                            email: 'joe@example.com'
+                        }
+                    };
+                    form.on("submit", (e) => {
+                        __FormIOJs2AppAdapterApi.Save(e);
+                    }); 
+                })
+            }
+        }
+        // 添加这个通知后台Ready。页面和后端会绑定一些交互对象  
+    </script>
+</head>
+<body>
+    <div id='formio'></div> 
+</body>
+ 
+</html>

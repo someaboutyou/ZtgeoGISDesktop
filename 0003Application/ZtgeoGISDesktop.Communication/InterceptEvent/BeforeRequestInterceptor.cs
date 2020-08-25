@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Communication;
-using ZtgeoGISDesktop.Communication.Share.Authorization;
+using Ztgeo.Gis.Runtime.Authorization.Login; 
 using ZtgeoGISDesktop.Core.Share.Constants; 
 
 namespace ZtgeoGISDesktop.Communication.InterceptEvent

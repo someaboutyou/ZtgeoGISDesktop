@@ -11,11 +11,14 @@ using DevExpress.XtraEditors;
 using Ztgeo.Gis.Winform.ABPForm;
 using DevExpress.XtraBars.Ribbon;
 using Abp.Dependency;
-using ZtgeoGISDesktop.Test; 
+using ZtgeoGISDesktop.Test;
+using DevExpress.XtraBars;
+using Ztgeo.Gis.Runtime.Authorization.Login;
+using Ztgeo.Gis.Hybrid.FormIO;
 
 namespace ZtgeoGISDesktop.Forms
 {
-    public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm,IMainForm
+    public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm, IMainForm 
     { 
         public IocManager IocManager { get; set; }
         public Control MenuContainerControl
@@ -25,29 +28,34 @@ namespace ZtgeoGISDesktop.Forms
                 return menuContainerControl;
             }
         }
+         
+        public Object ToolBarManager
+        {
+            get
+            {
+                return this.mainFormBarManager;
+            }
+        }
 
-        public MainForm(IocManager iocManager)
+        public Control StandaloneBarDockControl {
+            get {
+                return this.MainFormStandaloneBarDockControl;
+            }
+        }
+         
+        public MainForm(IocManager iocManager, IFormIOSchemeManager formIOSchemeManager)
         {
             IocManager = iocManager;
+            var loginManager= iocManager.Resolve<ILoginManager>();
+            if (!loginManager.IsLogined()) {
+                LoginForm.ShowDialog(iocManager, formIOSchemeManager);
+            }
         } 
         public void StartInitializeComponent()
         {
-            InitializeComponent();
-            
-        }
-        void navBarControl_ActiveGroupChanged(object sender, DevExpress.XtraNavBar.NavBarGroupEventArgs e)
-        {
-        }
-        void barButtonNavigation_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            int barItemIndex = barSubItemNavigation.ItemLinks.IndexOf(e.Link);
-        }
+            InitializeComponent(); 
+        }  
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //testHtmlControl.JsAlert("JsAlert!");
-            DialogForm dialogForm = new DialogForm(IocManager);
-            dialogForm.ShowDialog();
-        }
+        
     }
 }

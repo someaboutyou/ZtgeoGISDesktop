@@ -12,10 +12,15 @@ using Ztgeo.WebViewControl;
 
 namespace Ztgeo.Gis.Hybrid.HybridUserControl
 {
+    public interface IHybridControl: ITransientDependency
+    {
+        void LoadResource(Assembly assembly, string[] path);
 
-    public abstract class BaseHybridControl<TApp2JSAdapterApi,TJS2AppAdapterApi>: UserControl,ITransientDependency, IDisposable
-        where TApp2JSAdapterApi : IApp2JSAdapterApi, new() 
-        where TJS2AppAdapterApi : IJS2AppAdapterApi, new()
+        DockStyle Dock { get; set; } 
+    }
+    public abstract class BaseHybridControl<TApp2JSAdapterApi,TJS2AppAdapterApi>: UserControl, IHybridControl, IDisposable
+        where TApp2JSAdapterApi : IApp2JSAdapterApi 
+        where TJS2AppAdapterApi : IJS2AppAdapterApi 
     {
         protected WebView webView;
 
@@ -38,9 +43,12 @@ namespace Ztgeo.Gis.Hybrid.HybridUserControl
                 out jsCommonApi
             );
             js2AppAdapterApi = iocManager.Resolve<TJS2AppAdapterApi>();
+            app2JSAdapterApi = iocManager.Resolve<TApp2JSAdapterApi>();
             //js2AppAdapterApi.JsCtx = bindableJSContextProvider;
             webView.Dock = DockStyle.Fill;
-            this.Controls.Add(webView); 
+            this.Controls.Add(webView);
+            app2JSAdapterApi.BindCtx4App2Js(this.bindableJSContextProvider);
+            js2AppAdapterApi.BindCtx4JS2App(this.bindableJSContextProvider);
         }
 
 

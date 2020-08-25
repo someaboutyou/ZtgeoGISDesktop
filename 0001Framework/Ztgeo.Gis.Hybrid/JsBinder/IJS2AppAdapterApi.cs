@@ -12,5 +12,7 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
         IJSContextProvider JsCtx { get; }
 
         string AppBindObjectName { get; }
+
+        void BindCtx4JS2App(IJSContextProvider jsCtx);
     }
 }

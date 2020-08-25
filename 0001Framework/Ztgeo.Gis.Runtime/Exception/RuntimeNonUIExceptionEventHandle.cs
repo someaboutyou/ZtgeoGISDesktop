@@ -32,7 +32,7 @@ namespace Ztgeo.Gis.Runtime
                 }
                 else
                 {
-                    Logger.Error("ErrorCode:" + errorCode + "。" + ((ExceptionDealBase)exception).Message, (Exception)exception);
+                    Logger.Error("ErrorCode:" + errorCode + "。" + ((Exception)exception).Message, (Exception)exception);
                     exceptionDeal.DealException(eventData.ExceptionType, ((Exception)exception).Message);
                 }
             }

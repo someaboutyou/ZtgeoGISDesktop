@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.Configuration;
 using Ztgeo.Gis.Winform.Menu;
+using Ztgeo.Gis.Winform.ToolBar;
 
 namespace Ztgeo.Gis.Winform
 {
@@ -18,6 +19,7 @@ namespace Ztgeo.Gis.Winform
         public override void PreInitialize()
         {
             IocManager.Register<WinformMenuConfiguration>();
+            IocManager.Register<WinformToolbarConfiguration>();
         }
 
         public override void Initialize()
@@ -28,8 +30,10 @@ namespace Ztgeo.Gis.Winform
         public override void PostInitialize()
         {
             IocManager.Resolve<IMainForm>().StartInitializeComponent();
-            IocManager.Resolve<WinformMenuManager>().Initialize(); //是否可以在runtime 的hook 里面统一初始化。
+            IocManager.Resolve<WinformMenuManager>().Initialize(); //菜单初始化，会将provider中的所有菜单加载进来  thinking :::是否可以在runtime 的hook 里面统一初始化。
+            IocManager.Resolve<WinformToolbarManager>().Initialize();// toolbar初始化，会将provider 中的所有toolbar 加载进来
             IocManager.Resolve<IWinformMenuViewManager>().InitializeMenus();
+            IocManager.Resolve<IWinformToolbarViewManager>().InitialzeToolbars(); 
         }
     }
 }

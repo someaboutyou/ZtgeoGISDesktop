@@ -63,11 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AjaxModels\TokenAuth\AuthenticateModel.cs" />
-    <Compile Include="AjaxModels\TokenAuth\AuthenticateResultModel.cs" />
-    <Compile Include="Authorization\LoginInfoCache.cs" />
     <Compile Include="Constants\HttpHeaderConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AjaxModels\TokenAuth\" />
+    <Folder Include="Authorization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

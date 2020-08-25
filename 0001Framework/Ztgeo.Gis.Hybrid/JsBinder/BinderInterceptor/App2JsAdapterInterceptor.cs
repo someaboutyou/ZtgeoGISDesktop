@@ -26,7 +26,7 @@ namespace Ztgeo.Gis.Hybrid.JsBinder.BinderInterceptor
                     api.JsCtx.MustBeSet();
                     var jsCtx = api.JsCtx;
                     string jsApiObjectName = invocation.TargetType.Name;
-                     jsCtx.ExecuteScriptFunction(jsApiObjectName+"."+ invocation.Method.Name, invocation.Arguments.Select(arg=> {
+                     jsCtx.ExecuteScriptFunction(CreateExcuteJsString(jsApiObjectName ,invocation.Method.Name, invocation.Arguments.Length), invocation.Arguments.Select(arg=> {
                          if (arg is IEnumerable<IJSObject>)
                          {
                              return jsCtx.EscapeArray((IEnumerable<IJSObject>)arg);
@@ -71,6 +71,33 @@ namespace Ztgeo.Gis.Hybrid.JsBinder.BinderInterceptor
         {
             invocation.Proceed();
             PostProceed(invocation);
+        }
+
+        private string CreateExcuteJsString(string jsObjectName,string MethodName,int argsNum) {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (argsNum == 0)
+            {
+                stringBuilder.Append("(function(){ require([\"./js/App2JSAdapterApi/" + jsObjectName + ".js\"],function(app2JsAdapter){ " +
+                " return app2JsAdapter['" + jsObjectName + "']['" + MethodName + "']();}) })");
+                return stringBuilder.ToString();
+            }
+            else if (argsNum == 1)
+            {
+                stringBuilder.Append("(function(args){ require([\"./js/App2JSAdapterApi/" + jsObjectName + ".js\"],function(app2JsAdapter){ " +
+              " return app2JsAdapter['" + jsObjectName + "']['" + MethodName + "'](args);}) })");
+                return stringBuilder.ToString();
+            }
+            else {
+                IList<string> argArray = new List<string>();
+                for (int i = 0; i < argsNum; i++) {
+                    argArray.Add("arg" + i);
+                }
+                string argstring = string.Join(",", argArray);
+                stringBuilder.Append("(function("+ argstring + "){ require([\"./js/App2JSAdapterApi/" + jsObjectName + ".js\"],function(app2JsAdapter){ " +
+              " return app2JsAdapter['" + jsObjectName + "']['" + MethodName + "'](" + argstring + ");}) })");
+                return stringBuilder.ToString();
+            }
+            
         }
     }
 }

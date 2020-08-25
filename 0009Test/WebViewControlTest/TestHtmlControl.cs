@@ -20,7 +20,7 @@ namespace WebViewControlTest
             testApp2JSAdapterApi = _testApp2JSAdapterApi;
             testJs2AppAdapterApi = _testJs2AppAdapterApi;
             testApp2JSAdapterApi.JsCtx = this.bindableJSContextProvider;
-            testJs2AppAdapterApi.BindCtx(this.bindableJSContextProvider);
+            testJs2AppAdapterApi.BindCtx4JS2App(this.bindableJSContextProvider);
         } 
     }
 }

@@ -205,6 +205,7 @@
     <Compile Include="Configuration\IWinformMenuConfiguration.cs" />
     <Compile Include="Configuration\WinformMenuConfiguration.cs" />
     <Compile Include="Configuration\WinformMenuConfigurationExtensions.cs" />
+    <Compile Include="Configuration\WinformToolbarConfigurationExtensions.cs" />
     <Compile Include="Menu\IMenuDefinitionContext.cs" />
     <Compile Include="Menu\IWinformMenuManager.cs" />
     <Compile Include="Menu\IWinformMenuViewManager.cs" />
@@ -218,6 +219,16 @@
     <Compile Include="Menu\WinformMenuManager.cs" />
     <Compile Include="ToolBar\enumCommandLineState.cs" />
     <Compile Include="ToolBar\ICommandLine.cs" />
+    <Compile Include="ToolBar\IToolbarDefinitionContext.cs" />
+    <Compile Include="Configuration\IWinformToolbarConfiguration.cs" />
+    <Compile Include="ToolBar\IWinformToolbarManager.cs" />
+    <Compile Include="ToolBar\IWinformToolbarViewManager.cs" />
+    <Compile Include="ToolBar\ToolbarDefinitionContextBase.cs" />
+    <Compile Include="ToolBar\ToolbarProvider.cs" />
+    <Compile Include="ToolBar\WinformToolbar.cs" />
+    <Compile Include="Configuration\WinformToolbarConfiguration.cs" />
+    <Compile Include="ToolBar\WinformToolbarGroup.cs" />
+    <Compile Include="ToolBar\WinformToolbarManager.cs" />
     <Compile Include="ZtgeoGisWinformMoudle.cs" />
     <Compile Include="ABPForm\IMainForm.cs" />
     <Compile Include="ABPForm\ISplashScreenFormManager.cs" />

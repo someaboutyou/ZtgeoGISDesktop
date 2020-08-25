@@ -13,6 +13,6 @@ namespace ZtgeoGISDesktop.Core.Menu
     public class MenuOrder: Entity<int>
     { 
         public virtual string MenuKey { get; set; } 
-        public virtual int Order { get; set; }
+        public virtual int? Order { get; set; }
     }
 }

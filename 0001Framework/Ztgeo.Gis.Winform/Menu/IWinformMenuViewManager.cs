@@ -1,4 +1,5 @@
-﻿using Abp.Dependency;
+﻿using Abp.Application.Services;
+using Abp.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Ztgeo.Gis.Winform.Menu
     /// <summary>
     /// winform 菜单显示管理
     /// </summary>
-    public interface IWinformMenuViewManager : ISingletonDependency
+    public interface IWinformMenuViewManager : IApplicationService
     {
         /// <summary>
         /// 初始化菜单

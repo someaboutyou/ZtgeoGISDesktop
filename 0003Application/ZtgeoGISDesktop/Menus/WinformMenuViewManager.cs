@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.Menu;
+using Ztgeo.Utils;
 using ZtgeoGISDesktop.Core.Menu;
 
 namespace ZtgeoGISDesktop.Core.Menus
@@ -46,38 +47,64 @@ namespace ZtgeoGISDesktop.Core.Menus
         }
 
         public IList<MenuOrderSetting> GetMenuOrderSettings() {
-            var menuOrders= menuOrderRepository.GetAll().ToList<MenuOrder>();
-            IReadOnlyList<WinformMenu> winformMenus = winformMenuManager.GetAllMenus();
+            //return null;
+            var menuOrders= menuOrderRepository.GetAll().ToList<MenuOrder>(); 
             IList<MenuOrderSetting> ret = new List<MenuOrderSetting>();
+            IReadOnlyList<WinformMenu> winformMenus = winformMenuManager.GetAllMenus();
             foreach (WinformMenu menu in winformMenus)
             {
-                string meunKey = menu.Name;
-                string parenMenuKey = "";
-                GetMenuKey(menu, ref meunKey, ref parenMenuKey);
+                string key = string.Empty;
+                string desc = string.Empty;
+                GetMenuKey(menu, ref key, ref desc);
+                string meunKey="";
+                string menuDescription = "";
+                if (!key.IsEmpty()) {
+                    meunKey = key + "->" + menu.Name; 
+                } 
+                else {
+                    meunKey = menu.Name;
+                }
+                if (!desc.IsEmpty())
+                {
+                    menuDescription = desc + "->" + menu.DisplayName;
+                }
+                else
+                {
+                    menuDescription = menu.DisplayName;
+                }
                 var ordered = menuOrders.FirstOrDefault(m => m.MenuKey.Equals(meunKey));
+                if(ordered!=null)
+                    menu.Order = ordered.Order==null ?999 : (int)ordered.Order;
                 ret.Add(new MenuOrderSetting
                 {
-                    MenuName =menu.DisplayName,
-                    MenuDescription =menu.Description,
-                    MenuKey= meunKey,
-                    ParentMenuKey =parenMenuKey,
-                    Order= ordered==null? null: (int?)ordered.Order
-                });
+                    MenuId = menu.Name,
+                    MenuName = menu.DisplayName,
+                    MenuDescription = menuDescription,
+                    MenuKey = meunKey,
+                    ParentMenuKey = key,
+                    Order = ordered == null ? null : (int?)ordered.Order
+                }); ;
             }
             return ret;
         }
 
-        private void GetMenuKey(WinformMenu gettedMenu,ref string menuKey, ref string parentMenuKey) {
+        private void GetMenuKey(WinformMenu gettedMenu,ref string menuKey,ref string desc) {
             if (gettedMenu.Parent != null)
             {
-                menuKey = gettedMenu.Name+"->"+ menuKey;
-                parentMenuKey = gettedMenu.Name + "->" + menuKey;
-                GetMenuKey( gettedMenu.Parent, ref menuKey,ref parentMenuKey);
+                if (!menuKey.IsEmpty())
+                    menuKey = gettedMenu.Parent.Name + "->" + menuKey;
+                else
+                    menuKey = gettedMenu.Parent.Name;
+                if (!desc.IsEmpty())
+                    desc = gettedMenu.Parent.DisplayName + "->" + desc;
+                else
+                    desc = gettedMenu.Parent.DisplayName;
+                GetMenuKey( gettedMenu.Parent, ref menuKey, ref desc);
             }
-            else {
-                menuKey = gettedMenu.Name;
-                parentMenuKey = string.Empty;
-            }
+            //else {
+            //    menuKey = gettedMenu.Name;
+            //    parentMenuKey = string.Empty;
+            //}
         }
 
         private IList<WinformMenu> getOrderedMenus(IList<WinformMenu> winformMenus, IList<MenuOrderSetting> orderSettings) {
@@ -87,7 +114,7 @@ namespace ZtgeoGISDesktop.Core.Menus
             }
             else {
                 var SettedWinformMenus= winformMenus.Where(m => orderSettings.Any(orderSetting => orderSetting.MenuName.Equals(m.Name)));
-                var orderedSettedWinformMenus= SettedWinformMenus.OrderBy(m => orderSettings.First(o => o.MenuName.Equals(m.Name)).Order);
+                var orderedSettedWinformMenus= SettedWinformMenus.OrderBy(m => m.Order);
                 var UnSettedWinformMenus = winformMenus.Where(m => !orderSettings.Any(orderSetting => orderSetting.MenuName.Equals(m.Name))).OrderBy(m=>m.Order);
                 return orderedSettedWinformMenus.Concat(UnSettedWinformMenus).ToList();
             }
@@ -157,6 +184,12 @@ namespace ZtgeoGISDesktop.Core.Menus
                         };
                         if (button.Icon != null)
                             newButton.ImageOptions.LargeImage = button.Icon;
+                        if (button.MenuEvent != null) {
+                            newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
+                            {
+                                button.MenuEvent(button);
+                            };
+                        }
                         pageGroup.ItemLinks.Add(newButton);
                     }
                 }

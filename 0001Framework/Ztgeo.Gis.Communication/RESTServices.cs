@@ -34,7 +34,14 @@ namespace Ztgeo.Gis.Communication
             string responseContent= Request(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders); 
             return responseContent; 
         }
-
+        public async Task<string> GetAsync(Uri url,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true,
+            int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            string responseContent =await RequestAsync(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders);
+            return responseContent;
+        }
         public OutModel Get<OutModel>(Uri url,
             bool isRequestIntercept = true,
             bool isResponseIntercept = true,
@@ -43,7 +50,14 @@ namespace Ztgeo.Gis.Communication
             string responseContent = Request(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders);
             return JsonConvert.DeserializeObject<OutModel>(responseContent);
         }
-
+        public async Task<OutModel> GetAsync<OutModel>(Uri url,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true,
+            int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            string responseContent = await RequestAsync(Method.GET, url, isRequestIntercept, isResponseIntercept, timeout, null, null, additionalHeaders);
+            return JsonConvert.DeserializeObject<OutModel>(responseContent);
+        }
         public string Post(Uri uri,
             string requestContent,
             bool isRequestIntercept = true,
@@ -52,14 +66,27 @@ namespace Ztgeo.Gis.Communication
             string responseContent = Request(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, requestContent, null, additionalHeaders); 
             return responseContent; 
         }
-
+        public async Task<string> PostAsync(Uri uri,
+            string requestContent,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            string responseContent = await RequestAsync(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, requestContent, null, additionalHeaders);
+            return responseContent;
+        }
         public OutModel Post<OutModel>(Uri uri, object inputModel,
             bool isRequestIntercept = true,
             bool isResponseIntercept = true, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null) {
-            string responseContent = Request(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, JsonConvert.SerializeObject(inputModel), null, additionalHeaders); 
+            string responseContent = Request(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, inputModel == null ? string.Empty : JsonConvert.SerializeObject(inputModel), null, additionalHeaders); 
             return JsonConvert.DeserializeObject<OutModel>(responseContent); 
         }
-
+        public async Task<OutModel> PostAsync<OutModel>(Uri uri, object inputModel,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            string responseContent = await RequestAsync(Method.POST, uri, isRequestIntercept, isResponseIntercept, timeout, inputModel==null? string.Empty:JsonConvert.SerializeObject(inputModel), null, additionalHeaders);
+            return JsonConvert.DeserializeObject<OutModel>(responseContent);
+        }
         private string Request(Method method, Uri uri,
             bool isRequestIntercept = true,
             bool isResponseIntercept = true, int timeout = 30, string requestContent = null, string contentType = null,
@@ -114,6 +141,69 @@ namespace Ztgeo.Gis.Communication
             }  
         }
 
+        private async Task<string> RequestAsync(Method method, Uri uri,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, string requestContent = null, string contentType = null,
+        IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            var client = new RestClient(uri);
+            client.Timeout = timeout;
+            var request = new RestRequest(Method.POST);
+            var context = new CommunicationContext
+            {
+                Method = method,
+                Uri = uri,
+                IsRequestIntercept = isRequestIntercept,
+                IsResponseIntercept = isResponseIntercept,
+                TimeOut = timeout,
+                RequestContent = requestContent,
+                ContentType = contentType,
+                AdditionalHeaders = additionalHeaders
+            };
+            if (this._httpInterceptConfiguration.OnBeforeRequest != null && isRequestIntercept)
+            {
+                request.OnBeforeRequest = (IHttp http) => {
+                    this._httpInterceptConfiguration.OnBeforeRequest(context, http);
+                };
+            }
+            request.AddHeader("Content-Type", contentType ?? "application/json");
+            Logger.Info(string.Format("Http Request: \r\n{0}", requestContent));
+            if (!string.IsNullOrEmpty(contentType))
+                request.AddParameter(contentType ?? "application/json", requestContent, ParameterType.RequestBody);
+            if (additionalHeaders != null)
+            {
+                Logger.Info(string.Format("Http Request Header: \r\n{0}", JsonConvert.SerializeObject(additionalHeaders)));
+                foreach (KeyValuePair<string, string> additionHeader in additionalHeaders)
+                {
+                    request.AddHeader(additionHeader.Key, additionHeader.Value);
+                }
+            }
+            IRestResponse response =await client.ExecuteAsync(request);
+            if (!string.IsNullOrEmpty(response.ErrorMessage) || response.ErrorException != null)
+            {
+                Logger.Error(response.ErrorMessage, response.ErrorException);
+            }
+            if (this._httpInterceptConfiguration.OnAfterRequest != null && isResponseIntercept)
+            { //异常处理，和正常返回处理 
+                Logger.Info(string.Format("Http Response: \r\n{0}", response.Content));
+                if (this._httpInterceptConfiguration.OnAfterRequest(context, response))
+                {
+                    return response.Content;
+                }
+                else
+                {
+                    Logger.Error("Response filter error");
+                    return string.Empty;
+                }
+
+            }
+            else
+            {
+                Logger.Info(string.Format("Http Response: \r\n{0}", response.Content));
+                return response.Content;
+            }
+        }
+
         public IRestResponse GetResponse(Method method, Uri uri,
             bool isRequestIntercept = true,
             bool isResponseIntercept = true, int timeout = 30, string requestContent = null, string contentType = null,
@@ -158,12 +248,63 @@ namespace Ztgeo.Gis.Communication
             }
             return response;
         }
-
+        public async Task<IRestResponse> GetResponseAsync(Method method, Uri uri,
+            bool isRequestIntercept = true,
+            bool isResponseIntercept = true, int timeout = 30, string requestContent = null, string contentType = null,
+        IEnumerable<KeyValuePair<string, string>> additionalHeaders = null)
+        {
+            var client = new RestClient(uri);
+            client.Timeout = timeout;
+            var request = new RestRequest(Method.POST);
+            var context = new CommunicationContext
+            {
+                Method = method,
+                Uri = uri,
+                IsRequestIntercept = isRequestIntercept,
+                IsResponseIntercept = isResponseIntercept,
+                TimeOut = timeout,
+                RequestContent = requestContent,
+                ContentType = contentType,
+                AdditionalHeaders = additionalHeaders
+            };
+            if (this._httpInterceptConfiguration.OnBeforeRequest != null && isRequestIntercept)
+            {
+                request.OnBeforeRequest = (IHttp http) => {
+                    this._httpInterceptConfiguration.OnBeforeRequest(context, http);
+                };
+            }
+            request.AddHeader("Content-Type", contentType ?? "application/json");
+            Logger.Info(string.Format("Http Request: \r\n{0}", requestContent));
+            if (!string.IsNullOrEmpty(contentType))
+                request.AddParameter(contentType ?? "application/json", requestContent, ParameterType.RequestBody);
+            if (additionalHeaders != null)
+            {
+                Logger.Info(string.Format("Http Request Header: \r\n{0}", JsonConvert.SerializeObject(additionalHeaders)));
+                foreach (KeyValuePair<string, string> additionHeader in additionalHeaders)
+                {
+                    request.AddHeader(additionHeader.Key, additionHeader.Value);
+                }
+            }
+            IRestResponse response = await client.ExecuteAsync(request);
+            if (!string.IsNullOrEmpty(response.ErrorMessage) || response.ErrorException != null)
+            {
+                Logger.Error(response.ErrorMessage, response.ErrorException);
+            }
+            return response;
+        }
         public IRestResponse GetResponse(CommunicationContext communicationContext) {
             return GetResponse(communicationContext.Method, communicationContext.Uri,
             communicationContext.IsRequestIntercept,
             communicationContext.IsResponseIntercept, communicationContext.TimeOut, communicationContext.RequestContent, communicationContext.ContentType,
             communicationContext.AdditionalHeaders);
         }
+        public async Task<IRestResponse> GetResponseAsync(CommunicationContext communicationContext)
+        {
+            return await GetResponseAsync(communicationContext.Method, communicationContext.Uri,
+            communicationContext.IsRequestIntercept,
+            communicationContext.IsResponseIntercept, communicationContext.TimeOut, communicationContext.RequestContent, communicationContext.ContentType,
+            communicationContext.AdditionalHeaders);
+        }
+ 
     }
 }

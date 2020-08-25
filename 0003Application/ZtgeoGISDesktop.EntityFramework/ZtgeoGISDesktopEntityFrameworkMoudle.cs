@@ -1,14 +1,16 @@
-﻿using Abp.Modules;
+﻿using Abp.EntityFramework;
+using Abp.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ZtgeoGISDesktop.Core;
 
 namespace ZtgeoGISDesktop.EntityFramework
 {
-    [DependsOn( )]
+    [DependsOn(typeof(AbpEntityFrameworkModule))]
     public class ZtgeoGISDesktopEntityFrameworkMoudle:AbpModule
     {
         public override void PreInitialize()
@@ -20,7 +22,8 @@ namespace ZtgeoGISDesktop.EntityFramework
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly()); 
+            IocManager.RegisterAssemblyByConvention(typeof(ZtgeoGISDesktopEntityFrameworkMoudle).Assembly);
+            
         }
 
         public override void PostInitialize()

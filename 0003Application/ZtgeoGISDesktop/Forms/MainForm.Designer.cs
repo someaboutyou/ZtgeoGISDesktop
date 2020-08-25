@@ -50,11 +50,23 @@ namespace ZtgeoGISDesktop.Forms
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.mainSplitContainer = new DevExpress.XtraEditors.SplitContainerControl();
-            this.button1 = new System.Windows.Forms.Button();
+            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
+            this.MainFormStandaloneBarDockControl = new DevExpress.XtraBars.StandaloneBarDockControl();
+            this.mainFormBarManager = new DevExpress.XtraBars.BarManager(this.components);
+            this.bar4 = new DevExpress.XtraBars.Bar();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.bar1 = new DevExpress.XtraBars.Bar();
+            this.bar2 = new DevExpress.XtraBars.Bar();
+            this.bar3 = new DevExpress.XtraBars.Bar();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
+            this.splitContainerControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainFormBarManager)).BeginInit();
             this.SuspendLayout();
             // 
             // skinRibbonGalleryBarItem
@@ -74,17 +86,13 @@ namespace ZtgeoGISDesktop.Forms
             // 
             // employeesBarButtonItem
             // 
-            this.employeesBarButtonItem.Caption = "Employees";
-            this.employeesBarButtonItem.Id = 44;
+            this.employeesBarButtonItem.Id = 55;
             this.employeesBarButtonItem.Name = "employeesBarButtonItem";
-            this.employeesBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonNavigation_ItemClick);
             // 
             // customersBarButtonItem
             // 
-            this.customersBarButtonItem.Caption = "Customers";
-            this.customersBarButtonItem.Id = 45;
+            this.customersBarButtonItem.Id = 56;
             this.customersBarButtonItem.Name = "customersBarButtonItem";
-            this.customersBarButtonItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonNavigation_ItemClick);
             // 
             // barSubItem1
             // 
@@ -157,10 +165,10 @@ namespace ZtgeoGISDesktop.Forms
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 614);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 700);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.menuContainerControl;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(922, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1323, 31);
             // 
             // menuContainerControl
             // 
@@ -182,45 +190,132 @@ namespace ZtgeoGISDesktop.Forms
             this.barButtonItem5,
             this.barButtonItem6});
             this.menuContainerControl.Location = new System.Drawing.Point(0, 0);
-            this.menuContainerControl.MaxItemId = 55;
+            this.menuContainerControl.MaxItemId = 57;
             this.menuContainerControl.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.menuContainerControl.Name = "menuContainerControl";
             this.menuContainerControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
             this.menuContainerControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
-            this.menuContainerControl.Size = new System.Drawing.Size(922, 50);
+            this.menuContainerControl.Size = new System.Drawing.Size(1323, 50);
             this.menuContainerControl.StatusBar = this.ribbonStatusBar;
             this.menuContainerControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // mainSplitContainer
             // 
             this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainSplitContainer.Location = new System.Drawing.Point(0, 50);
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.mainSplitContainer.Name = "mainSplitContainer";
-            this.mainSplitContainer.Panel1.Controls.Add(this.button1);
             this.mainSplitContainer.Panel1.Text = "Panel1";
             this.mainSplitContainer.Panel2.Text = "Panel2";
-            this.mainSplitContainer.Size = new System.Drawing.Size(922, 564);
-            this.mainSplitContainer.SplitterPosition = 131;
+            this.mainSplitContainer.Size = new System.Drawing.Size(1323, 613);
+            this.mainSplitContainer.SplitterPosition = 181;
             this.mainSplitContainer.TabIndex = 2;
             // 
-            // button1
+            // splitContainerControl1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "C#2JS";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerControl1.Horizontal = false;
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 50);
+            this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.Controls.Add(this.MainFormStandaloneBarDockControl);
+            this.splitContainerControl1.Panel1.Text = "Panel1";
+            this.splitContainerControl1.Panel2.Controls.Add(this.mainSplitContainer);
+            this.splitContainerControl1.Panel2.Text = "Panel2";
+            this.splitContainerControl1.Size = new System.Drawing.Size(1323, 650);
+            this.splitContainerControl1.SplitterPosition = 32;
+            this.splitContainerControl1.TabIndex = 5;
+            // 
+            // MainFormStandaloneBarDockControl
+            // 
+            this.MainFormStandaloneBarDockControl.AutoSize = true;
+            this.MainFormStandaloneBarDockControl.CausesValidation = false;
+            this.MainFormStandaloneBarDockControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainFormStandaloneBarDockControl.Location = new System.Drawing.Point(0, 0);
+            this.MainFormStandaloneBarDockControl.Manager = this.mainFormBarManager;
+            this.MainFormStandaloneBarDockControl.Name = "MainFormStandaloneBarDockControl";
+            this.MainFormStandaloneBarDockControl.Size = new System.Drawing.Size(1323, 32);
+            this.MainFormStandaloneBarDockControl.Text = "standaloneBarDockControl1";
+            // 
+            // mainFormBarManager
+            // 
+            this.mainFormBarManager.AllowQuickCustomization = false;
+            this.mainFormBarManager.DockControls.Add(this.MainFormStandaloneBarDockControl);
+            this.mainFormBarManager.DockControls.Add(this.barDockControlBottom);
+            this.mainFormBarManager.DockControls.Add(this.barDockControlLeft);
+            this.mainFormBarManager.DockControls.Add(this.barDockControlRight);
+            this.mainFormBarManager.Form = this;
+            this.mainFormBarManager.MaxItemId = 1;
+            // 
+            // bar4
+            // 
+            this.bar4.BarName = "Custom 2";
+            this.bar4.DockCol = 0;
+            this.bar4.DockRow = 0;
+            this.bar4.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.bar4.FloatLocation = new System.Drawing.Point(145, 147);
+            this.bar4.Offset = 11;
+            this.bar4.StandaloneBarDockControl = this.MainFormStandaloneBarDockControl;
+            this.bar4.Text = "Custom 2";
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 731);
+            this.barDockControlBottom.Manager = this.mainFormBarManager;
+            this.barDockControlBottom.Size = new System.Drawing.Size(1323, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Manager = this.mainFormBarManager;
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 731);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(1323, 0);
+            this.barDockControlRight.Manager = this.mainFormBarManager;
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 731);
+            // 
+            // bar1
+            // 
+            this.bar1.BarName = "Tools";
+            this.bar1.DockCol = 0;
+            this.bar1.DockRow = 0;
+            this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.bar1.FloatLocation = new System.Drawing.Point(157, 186);
+            this.bar1.Offset = 106;
+            this.bar1.StandaloneBarDockControl = this.MainFormStandaloneBarDockControl;
+            this.bar1.Text = "Tools";
+            // 
+            // bar2
+            // 
+            this.bar2.BarName = "Custom 3";
+            this.bar2.DockCol = 0;
+            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar2.Text = "Custom 3";
+            // 
+            // bar3
+            // 
+            this.bar3.BarName = "Custom 2";
+            this.bar3.DockCol = 0;
+            this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar3.Text = "Custom 2";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 645);
-            this.Controls.Add(this.mainSplitContainer);
+            this.ClientSize = new System.Drawing.Size(1323, 731);
+            this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.menuContainerControl);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Ribbon = this.menuContainerControl;
@@ -230,6 +325,9 @@ namespace ZtgeoGISDesktop.Forms
             ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
+            this.splitContainerControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainFormBarManager)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,6 +351,15 @@ namespace ZtgeoGISDesktop.Forms
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
         private DevExpress.XtraEditors.SplitContainerControl mainSplitContainer;
-        private System.Windows.Forms.Button button1;
+        private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1; 
+        private DevExpress.XtraBars.StandaloneBarDockControl MainFormStandaloneBarDockControl;
+        private DevExpress.XtraBars.BarManager mainFormBarManager;
+        private DevExpress.XtraBars.Bar bar1;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.Bar bar4;
+        private DevExpress.XtraBars.Bar bar2;
+        private DevExpress.XtraBars.Bar bar3;
     }
 }

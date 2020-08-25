@@ -11,19 +11,26 @@ using Ztgeo.Gis.Winform.Configuration;
 using ZtgeoGISDesktop.Menus;
 using Ztgeo.Gis.Runtime;
 using Ztgeo.Gis.Hybrid;
-
+using ZtgeoGISDesktop.Core;
+using ZtgeoGISDesktop.EntityFramework;
+using ZtgeoGISDesktop.Toolbars;
+using CadastralManagementDataSync;
 
 namespace ZtgeoGISDesktop
 {
     [DependsOn(typeof(ZtgeoGisWinformMoudle)
         ,typeof(ZtgeoGISDesktopCommunicationMoudle)
         ,typeof(ZtgeoGisRuntimeModule)
-        ,typeof(ZtgeoGisHybridMoudle))]
+        ,typeof(ZtgeoGisHybridMoudle)
+        ,typeof(ZtgeoGISDesktopCoreMoudle)
+        ,typeof(ZtgeoGISDesktopEntityFrameworkMoudle)
+        ,typeof(CadastralManagementDataSyncMoudle))]
     public class ZtgeoGISDesktopMoudle : AbpModule
     {
         public override void PreInitialize()
         {
             Configuration.Modules.WinformMenus().Providers.Add(typeof(MainMenuProvider));
+            Configuration.Modules.WinformToolbars().Providers.Add(typeof(MainToolbarProvider));
         }
 
         public override void Initialize()

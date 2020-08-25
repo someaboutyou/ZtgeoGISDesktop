@@ -56,6 +56,7 @@
       <HintPath>..\ZtgeoGISDesktop\bin\Debug\Abp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,7 +69,6 @@
     <Compile Include="Authorization\AuthorizationManager.cs" />
     <Compile Include="Authorization\EventDatas\HttpResponseErrorEventData.cs" />
     <Compile Include="Authorization\EventDatas\ResetPasswordEventData.cs" />
-    <Compile Include="Authorization\IAuthorizationManager.cs" />
     <Compile Include="Authorization\Local\LocalAuthInfo.cs" />
     <Compile Include="Communication\ITokenAuthServiceProxy.cs" />
     <Compile Include="Menu\MenuOrder.cs" />
@@ -76,6 +76,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
+      <Project>{527BE76D-43D8-4FE7-A955-98EE1D3F8D1C}</Project>
+      <Name>Ztgeo.Gis.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
       <Project>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</Project>
       <Name>Ztgeo.Gis.Winform</Name>
@@ -84,6 +88,10 @@
       <Project>{4E17F075-4FAC-40AB-8565-5BFA38FBD626}</Project>
       <Name>ZtgeoGISDesktop.Core.Share</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hybird\FormIO\" />
+    <Folder Include="Runtime\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

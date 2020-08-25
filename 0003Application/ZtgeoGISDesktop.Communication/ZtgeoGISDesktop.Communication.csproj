@@ -84,8 +84,8 @@
     <Compile Include="Ajax\AjaxResponseOfTResult.cs" />
     <Compile Include="Ajax\ErrorInfo.cs" />
     <Compile Include="Ajax\ValidationErrorInfo.cs" />
-    <Compile Include="Authorization\Permissions\FlatPermissionDto.cs" />
-    <Compile Include="Authorization\Permissions\FlatPermissionWithLevelDto.cs" />
+    <Compile Include="BackendRequest\LocalPriorityVersionProxy.cs" />
+    <Compile Include="BackendRequest\PermissionServiceProxy.cs" />
     <Compile Include="BackendRequest\ServiceProxyBase.cs" />
     <Compile Include="BackendRequest\TokenAuthServiceProxy.cs" />
     <Compile Include="Configuration\CommunicationSettings.cs" />
@@ -109,6 +109,10 @@
       <Project>{E101E00A-6B39-4178-8C3D-66ED7DF185A8}</Project>
       <Name>Ztgeo.Gis.Communication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Runtime\Ztgeo.Gis.Runtime.csproj">
+      <Project>{527BE76D-43D8-4FE7-A955-98EE1D3F8D1C}</Project>
+      <Name>Ztgeo.Gis.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZtgeoGISDesktop.Core\ZtgeoGISDesktop.Core.csproj">
       <Project>{91C0853C-D7A7-450C-9125-A09C961B4B27}</Project>
       <Name>ZtgeoGISDesktop.Core</Name>
@@ -119,7 +123,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exception\Auththorization\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

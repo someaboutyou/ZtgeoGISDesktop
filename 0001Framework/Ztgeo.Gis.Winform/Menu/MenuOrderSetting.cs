@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Winform.Menu
-{
+{ 
     public class MenuOrderSetting
     {
+        public string MenuId { get; set; }
         /// <summary>
         /// MenuName
         /// </summary>

@@ -8,6 +8,6 @@ namespace Ztgeo.Gis.Winform.Menu
 {
     public enum MenuType
     {
-        Page,Group, Navigation
+        Page, Group, Navigation, Button
     }
 }

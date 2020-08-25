@@ -17,5 +17,7 @@ namespace Ztgeo.Gis.Hybrid.JsBinder
         /// 绑定的Js 在页面上的对象的名
         /// </summary>
         string JSBindObjectName { get; }
+
+        void BindCtx4App2Js(IJSContextProvider jsCtx);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Abp.Dependency;
 using Abp.Events.Bus;
+using Abp.Extensions;
 using Castle.Core.Logging;
 using Newtonsoft.Json;
 using RestSharp;
@@ -12,9 +13,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Management;
 using Ztgeo.Gis.Communication;
+using Ztgeo.Gis.Runtime.Authorization;
+using Ztgeo.Gis.Runtime.Authorization.Login;
 using ZtgeoGISDesktop.Communication.Ajax;
-using ZtgeoGISDesktop.Communication.BackendRequest;
-using ZtgeoGISDesktop.Communication.Share.Authorization;
+using ZtgeoGISDesktop.Communication.BackendRequest; 
 using ZtgeoGISDesktop.Core.Authorization;
 using ZtgeoGISDesktop.Core.Authorization.EventDatas; 
 
@@ -114,7 +116,9 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
                     )
                 { // 从缓存中重新认证
                     var authorizationManager = IocManager.Resolve<IAuthorizationManager>();
-                    if (!authorizationManager.Authorization(LoginInfoCache.AuthenticateModel))
+                    var authenticateResultModel = authorizationManager.Authorization(LoginInfoCache.AuthenticateModel, false);
+
+                    if (authenticateResultModel!=null&&authenticateResultModel.AccessToken.IsNullOrEmpty())
                     { 
                         restResponse = null;
                         return false;
@@ -124,7 +128,6 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
                     {
                         var restService = IocManager.Resolve<IRESTServices>();
                         restResponse = restService.GetResponse(context);
-
                     }
                     else {
                         AuthorizeCount = 0;

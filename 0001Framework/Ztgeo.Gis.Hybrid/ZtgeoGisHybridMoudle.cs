@@ -14,7 +14,7 @@ namespace Ztgeo.Gis.Hybrid
     {
         public override void PreInitialize()
         {
-            IocManager.Register<HybridConfiguration>();
+            IocManager.Register<HybridConfiguration>(); 
             HybridBootstrap.Initialize(Configuration);
         }
 

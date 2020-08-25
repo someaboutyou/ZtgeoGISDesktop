@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/jqueryeasyui/themes/metro/easyui.css" />
+    <link rel="stylesheet" href="embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/jqueryeasyui/themes/icon.css" />
+    <!--<script type="text/javascript" src="../Common/dist/require.js"></script>-->
+    <!--embedded://webview{0}/ZtgeoGISDesktop/WebViews/MenuSetting/index.html-->
+    <script type="text/javascript" src="embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/require.js"></script>
+    <script type="text/javascript">
+        if (!window.MutationObserver) {
+            window.MutationObserver = window.WebKitMutationObserver;
+        }
+        requirejs.config({
+            baseUrl: '..',
+            paths: {
+                //引入的js文件不需要带入后缀'.js'
+                jquery: 'embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/jqueryeasyui/jquery.min',
+                easyui: 'embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/jqueryeasyui/jquery.easyui.min',
+                zhCN: 'embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/jqueryeasyui/locale/easyui-lang-zh_CN'
+            },
+            shim: {
+                'zhCN': ['jquery'],
+                'easyui': ['jquery']
+            },
+            map: {
+                '*': {
+                    'css': 'embedded://webview.0/assembly:Ztgeo.Gis.Hybrid;Ztgeo.Gis.Hybrid/WebViews/Common/dist/requirecss/css'
+                }
+            }
+        });
+        window.onload = function () {
+            if (window.CefSharp) //winform 环境下
+                __setDocumentReady.invoke();
+        };
+        if (window.CefSharp) {
+            require(['MenuSetting/js/MenuSettingOperator'])
+        } else {
+            require(['MenuSetting/js/MenuSettingOperator'])
+            // 加载测试数据
+            require(['MenuSetting/js/App2JSAdapterApi/MenuSettingApp2JSAdapterApi'], function (adapterApi) {
+                MenuSettingApp2JSAdapterApi.SetMenuSettingData([{
+                    "MenuId": "MainForm_SettingPage",
+                    "MenuName": "设置",
+                    "MenuKey": "MainForm_SettingPage",
+                    "ParentMenuKey": "",
+                    "MenuDescription": "设置",
+                    "Order": null
+                }, {
+                    "MenuId": "MainForm_SettingPage_SystemSettingGroup",
+                    "MenuName": "系统设置",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup",
+                    "ParentMenuKey": "MainForm_SettingPage",
+                    "MenuDescription": "设置->系统设置",
+                    "Order": 0
+                }, {
+                    "MenuId": "MainForm_SettingPage_SystemSettingGroup_UiDesign",
+                    "MenuName": "界面设置",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup->MainForm_SettingPage_SystemSettingGroup_UiDesign",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup",
+                    "MenuDescription": "设置->系统设置->界面设置",
+                    "Order": 2
+                }, {
+                    "MenuId": "MainForm_SettingPage_SystemSettingGroup_Backend",
+                    "MenuName": "后台设置",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup->MainForm_SettingPage_SystemSettingGroup_Backend",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup",
+                    "MenuDescription": "设置->系统设置->后台设置",
+                    "Order": null
+                }, {
+                    "MenuId": "MainForm_SettingPage_SystemSettingGroup_MenuOrderSetting",
+                    "MenuName": "菜单设置",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup->MainForm_SettingPage_SystemSettingGroup_MenuOrderSetting",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_SystemSettingGroup",
+                    "MenuDescription": "设置->系统设置->菜单设置",
+                    "Order": 3
+                }, {
+                    "MenuId": "MainForm_SettingPage_CommonSettingGroup",
+                    "MenuName": "一般设置",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup",
+                    "ParentMenuKey": "MainForm_SettingPage",
+                    "MenuDescription": "设置->一般设置",
+                    "Order": 0
+                },
+                {
+                    "MenuId": "MainForm_SettingPage_CommonSettingGroup_UiDesign",
+                    "MenuName": "界面设置-common",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup->MainForm_SettingPage_CommonSettingGroup_UiDesign",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup",
+                    "MenuDescription": "设置->系统设置->界面设置-common",
+                    "Order": 2
+                }, {
+                    "MenuId": "MainForm_SettingPage_CommonSettingGroup_Backend",
+                    "MenuName": "后台设置-common",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup->MainForm_SettingPage_CommonSettingGroup_Backend",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup",
+                    "MenuDescription": "设置->系统设置->后台设置-common",
+                    "Order": null
+                }, {
+                    "MenuId": "MainForm_SettingPage_CommonSettingGroup_MenuOrderSetting",
+                    "MenuName": "菜单设置-common",
+                    "MenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup->MainForm_SettingPage_CommonSettingGroup_MenuOrderSetting",
+                    "ParentMenuKey": "MainForm_SettingPage->MainForm_SettingPage_CommonSettingGroup",
+                    "MenuDescription": "设置->系统设置->菜单设置-common",
+                    "Order": 3
+                }]
+                );
+            });
+        }
+    </script>
+</head>
+    <body>
+        <div style="float:right;">
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+               onclick="javascript:MenuSettingOperator.save()">确定</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
+               onclick="javascript:__MenuSettingJs2AppAdapterApi.Close()">关闭</a>
+        </div>
+        <div style="float:right;padding:0 20px">
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-up'"
+               onclick="javascript:MenuSettingOperator.rowUp()">上移</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-down'"
+               onclick="javascript:MenuSettingOperator.rowDown()">下移</a>
+        </div>
+        <table id="MenuTreeGrid" style="width:100%;height:360px;"></table> 
+    </body>
+</html>

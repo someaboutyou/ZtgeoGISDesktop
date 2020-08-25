@@ -11,8 +11,13 @@ namespace WebViewControlTest
     {
         public IJSContextProvider JsCtx { get; set; }
 
+        public string JSBindObjectName => throw new NotImplementedException();
+
         public virtual void AlertMessage(string message) { }
 
-       
+        public void BindCtx4App2Js(IJSContextProvider jsCtx)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

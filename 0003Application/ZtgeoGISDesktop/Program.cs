@@ -11,6 +11,8 @@ using ZtgeoGISDesktop.Forms;
 using Ztgeo.Gis.Winform.ABPForm;
 using Abp.Events.Bus;
 using Ztgeo.Gis.Runtime;
+using Castle.Facilities.Logging;
+using Abp.Castle.Logging.Log4Net;
 
 namespace ZtgeoGISDesktop
 {
@@ -29,6 +31,9 @@ namespace ZtgeoGISDesktop
             DevExpress.Utils.AppearanceObject.DefaultFont = new Font("Segoe UI", 8);
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
             IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(), null);
+            iocManager.IocContainer.AddFacility<LoggingFacility>(
+                    f => f.UseAbpLog4Net().WithConfig("log4net.config")
+                );
             IMainForm mainForm= iocManager.Resolve<IMainForm>();
             if (mainForm != null) {
                 #region 全局异常处理

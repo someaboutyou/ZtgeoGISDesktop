@@ -24,8 +24,8 @@ namespace Ztgeo.Gis.Winform.Menu
            Dictionary<string, object> properties = null
         );
 
-        WinformMenu GetPermissionOrNull(string name);
+        WinformMenu GetMenuOrNull(string name);
          
-        void RemovePermission(string name);
+        void RemoveMenu(string name);
     }
 }

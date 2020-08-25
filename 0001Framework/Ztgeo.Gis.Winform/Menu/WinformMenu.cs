@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Features;
 using Abp.Authorization;
 using Abp.MultiTenancy;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -34,8 +35,8 @@ namespace Ztgeo.Gis.Winform.Menu
             Permission = permission;
             Icon = icon;
             Order = order;
-            MultiTenancySides = multiTenancySides; 
-
+            MultiTenancySides = multiTenancySides;
+            MenuEvent = menuEvent;
             _children = new List<WinformMenu>();
 
         }
@@ -93,11 +94,23 @@ namespace Ztgeo.Gis.Winform.Menu
               Image icon =null,
               int order = 0,
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
-              Dictionary<string, object> properties = null
+              Dictionary<string, object> properties = null,
+              Action<WinformMenu> menuEvent = null 
          ) {
-            var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties);
-            _children.Add(menu);
-            return menu;
+            WinformMenu menu = null;
+            if (_children.Any(c => c.Name.Equals(name)))
+            {
+                menu = _children.First(c => c.Name.Equals(name));
+                menu.Parent = this;
+                return menu;
+            }
+            else
+            {
+                menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties, menuEvent);
+                _children.Add(menu);
+                menu.Parent = this;
+                return menu;
+            }
         }
 
         public void RemoveChildMenu(string name) {
