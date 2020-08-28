@@ -1,0 +1,13 @@
+{
+  "DirtyField": "DIRTY", //脏数据标识
+  "InnerDBOutputs": [ //内网数据导出
+    {
+      "TableName": "YW_FJMC", //表名 
+      "Columns": "YWH,FJMC", //字段
+      "KeyColumn": "ID"
+    }
+  ],
+  "OutDBOutputs": [ //外网数据导出
+
+  ]
+}

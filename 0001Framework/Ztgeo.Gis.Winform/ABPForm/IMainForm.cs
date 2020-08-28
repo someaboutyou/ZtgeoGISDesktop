@@ -30,5 +30,11 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// 初始化
         /// </summary>
         void StartInitializeComponent();
+        /// <summary>
+        /// 在主文档界面添加一个文档
+        /// </summary>
+        /// <returns></returns>
+        Control AddADocument();
+
     }
 }

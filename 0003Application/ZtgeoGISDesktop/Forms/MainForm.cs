@@ -19,7 +19,8 @@ using Ztgeo.Gis.Hybrid.FormIO;
 namespace ZtgeoGISDesktop.Forms
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm, IMainForm 
-    { 
+    {
+        private readonly IFormIOSchemeManager formIOSchemeManager;
         public IocManager IocManager { get; set; }
         public Control MenuContainerControl
         {
@@ -43,19 +44,24 @@ namespace ZtgeoGISDesktop.Forms
             }
         }
          
-        public MainForm(IocManager iocManager, IFormIOSchemeManager formIOSchemeManager)
+        public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager)
         {
             IocManager = iocManager;
-            var loginManager= iocManager.Resolve<ILoginManager>();
-            if (!loginManager.IsLogined()) {
-                LoginForm.ShowDialog(iocManager, formIOSchemeManager);
-            }
+            formIOSchemeManager = _formIOSchemeManager;
         } 
         public void StartInitializeComponent()
         {
-            InitializeComponent(); 
-        }  
+            InitializeComponent();
+            var loginManager = IocManager.Resolve<ILoginManager>();
+            if (!loginManager.IsLogined())
+            {
+                 LoginForm.ShowDialog(IocManager, formIOSchemeManager, loginManager);
+            } 
+        }
 
-        
+        public Control AddADocument()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -202,6 +202,7 @@
     <Compile Include="Configuration\HttpInterceptConfiguration.cs" />
     <Compile Include="Configuration\HttpInterceptConfigurationExtensions.cs" />
     <Compile Include="Configuration\IHttpInterceptConfiguration.cs" />
+    <Compile Include="CommunicationException\HttpRequestException.cs" />
     <Compile Include="IRESTServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTServices.cs" />

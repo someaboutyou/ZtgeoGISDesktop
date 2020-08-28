@@ -21,5 +21,11 @@ namespace Ztgeo.Utils
                 return null;
             }
         }
+
+        public static Stream GetResourceStream(Assembly assembly, string fileName)
+        {
+            Stream stream = assembly.GetManifestResourceStream(fileName);
+            return stream;
+        }
     }
 }

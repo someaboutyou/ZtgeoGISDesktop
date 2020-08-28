@@ -44,14 +44,22 @@ namespace ZtgeoGISDesktop.Core.Authorization
             return authenticateResultModel;
         }
 
-        public IList<FlatPermissionWithLevelDto> GetAllPermissions()
+        public IEnumerable<FlatPermissionWithLevelDto> GetAllPermissions()
         {
-            return tokenAuthServiceProxy.GetAllPressions();
+            var dto = tokenAuthServiceProxy.GetAllPressions();
+            if (dto != null)
+                return dto.Items;
+            else
+                return new List<FlatPermissionWithLevelDto>();
         }
 
-        public async Task<IList<FlatPermissionWithLevelDto>> GetAllPermissionsAsync()
+        public async Task<IEnumerable<FlatPermissionWithLevelDto>> GetAllPermissionsAsync()
         {
-            return await tokenAuthServiceProxy.GetAllPressionsAsync();
+            var dto = await tokenAuthServiceProxy.GetAllPressionsAsync();
+            if (dto != null)
+                return dto.Items;
+            else
+                return new List<FlatPermissionWithLevelDto>();
         }
     }
 }

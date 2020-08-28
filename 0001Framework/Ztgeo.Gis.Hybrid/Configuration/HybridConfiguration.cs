@@ -10,7 +10,7 @@ namespace Ztgeo.Gis.Hybrid.Configuration
     {
         public bool DisableWebViewExecutionTimeouts { get; set; } = false;
 
-        public bool ShowDeveloperTools { get; set; } = true;
+        public bool ShowDeveloperTools { get; set; } = false;
 
         public string CustomWebViewResourcePath { get; set; }
     }

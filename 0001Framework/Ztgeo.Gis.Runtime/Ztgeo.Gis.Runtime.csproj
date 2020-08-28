@@ -229,8 +229,10 @@
     <Compile Include="Authorization\Login\ILoginManager.cs" />
     <Compile Include="Authorization\Login\LoginInfoCache.cs" />
     <Compile Include="Authorization\Login\LoginManager.cs" />
+    <Compile Include="Authorization\Login\ServerlessConfig.cs" />
     <Compile Include="Authorization\Permissions\FlatPermissionDto.cs" />
     <Compile Include="Authorization\Permissions\FlatPermissionWithLevelDto.cs" />
+    <Compile Include="Authorization\ZtgeoAbpSession.cs" />
     <Compile Include="Bootstrapper\ILicenseInitializer.cs" />
     <Compile Include="Bootstrapper\LicenseInitializer.cs" />
     <Compile Include="Configuration\RuntimeSetting.cs" />

@@ -14,9 +14,9 @@ namespace Ztgeo.Gis.Runtime.Authorization.Login
         /// <summary>
         /// 获取本地的登录信息
         /// </summary>
-        AuthenticateResultModel Login(AuthenticateModel authenticateModel);
+        AuthenticateResultModel Login(AuthenticateModel authenticateModel,bool isServerless);
 
-        Task<AuthenticateResultModel> LoginAsync(AuthenticateModel authenticateModel);
+        Task<AuthenticateResultModel> LoginAsync(AuthenticateModel authenticateModel, bool isServerless);
         /// <summary>
         /// 登出
         /// </summary>

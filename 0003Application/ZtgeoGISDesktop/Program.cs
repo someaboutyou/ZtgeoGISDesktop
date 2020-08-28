@@ -30,17 +30,25 @@ namespace ZtgeoGISDesktop
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Utils.AppearanceObject.DefaultFont = new Font("Segoe UI", 8);
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
-            IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(), null);
-            iocManager.IocContainer.AddFacility<LoggingFacility>(
+            DevExpress.Skins.SkinManager.EnableMdiFormSkins(); 
+            IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(),
+                optionAction =>
+                {
+                    optionAction.IocManager.IocContainer.AddFacility<LoggingFacility>(
                     f => f.UseAbpLog4Net().WithConfig("log4net.config")
                 );
-            IMainForm mainForm= iocManager.Resolve<IMainForm>();
-            if (mainForm != null) {
+                });
+
+            IMainForm mainForm = iocManager.Resolve<IMainForm>();
+            if (mainForm != null)
+            {
                 #region 全局异常处理
-                Application.ThreadException += (object sender, ThreadExceptionEventArgs e)=> {
+                Application.ThreadException += (object sender, ThreadExceptionEventArgs e) =>
+                {
                     EventBus.Default.Trigger<UIExceptionEventData>(new UIExceptionEventData { ThreadExceptionEventArgs = e });
                 };
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((object sender, UnhandledExceptionEventArgs e) => {
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((object sender, UnhandledExceptionEventArgs e) =>
+                {
                     EventBus.Default.Trigger<NonUIExceptionEventData>(new NonUIExceptionEventData { UnhandledExceptionEventArgs = e });
                 });
                 #endregion

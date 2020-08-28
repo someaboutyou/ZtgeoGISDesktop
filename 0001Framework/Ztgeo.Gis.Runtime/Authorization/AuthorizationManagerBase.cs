@@ -19,7 +19,7 @@ namespace Ztgeo.Gis.Runtime.Authorization
             return new AuthenticateResultModel { };
         }
 
-        public IList<FlatPermissionWithLevelDto> GetAllPermissions()
+        public IEnumerable<FlatPermissionWithLevelDto> GetAllPermissions()
         {
             Logger.Warn("IAuthorizationManager was not inheritance.未实现IAuthorizationManager");
             return new List<FlatPermissionWithLevelDto>();
@@ -30,7 +30,7 @@ namespace Ztgeo.Gis.Runtime.Authorization
             return await Task.Run(()=>new AuthenticateResultModel { });
         }
 
-        public async Task<IList<FlatPermissionWithLevelDto>> GetAllPermissionsAsync() {
+        public async Task<IEnumerable<FlatPermissionWithLevelDto>> GetAllPermissionsAsync() {
             Logger.Warn("IAuthorizationManager was not inheritance.未实现IAuthorizationManager");
             return await Task.Run(() => new List<FlatPermissionWithLevelDto> { });
         }

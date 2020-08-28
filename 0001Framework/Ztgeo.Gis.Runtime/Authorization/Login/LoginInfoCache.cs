@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Abp.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +24,11 @@ namespace Ztgeo.Gis.Runtime.Authorization.Login
             {
                 AuthenticateModel = authenticateModel;
                 AuthenticateResultModel = authenticateResultModel;
+                IsLogined = authenticateModel != null && authenticateResultModel != null &&!authenticateResultModel.AccessToken.IsNullOrEmpty();
             }
         }
 
-        public static void SetPermissions(IList<FlatPermissionWithLevelDto> permissions)
+        public static void SetPermissions(IEnumerable<FlatPermissionWithLevelDto> permissions)
         {
             lock (_lockObject)
             {
@@ -49,8 +52,10 @@ namespace Ztgeo.Gis.Runtime.Authorization.Login
         /// <summary>
         /// 权限字符串
         /// </summary>
-        public static IList<FlatPermissionWithLevelDto> Permissions { get; private set; }
+        public static IEnumerable<FlatPermissionWithLevelDto> Permissions { get; private set; }
 
+        public static bool IsLogined { get;private set; }
+          
         public static string CultureInfo { get; set; }
          
     }

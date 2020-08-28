@@ -11,6 +11,7 @@ using System.Web.UI;
 using System.Windows.Forms;
 using Abp;
 using Abp.Dependency;
+using Castle.Facilities.Logging;
 
 namespace Ztgeo.Gis.Winform
 {
@@ -24,6 +25,7 @@ namespace Ztgeo.Gis.Winform
                 splashScreenFormManager.ShowSplashScreenForm();
             } 
             var abpBootstrapper = AddAbpBootstrapper<TStartupModule>(optionsAction);
+
             abpBootstrapper.Initialize();
             IMainForm mainForm= abpBootstrapper.IocManager.Resolve<IMainForm>(); 
             if (splashScreenFormManager != null)

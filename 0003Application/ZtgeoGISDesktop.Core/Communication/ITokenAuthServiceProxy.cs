@@ -1,4 +1,5 @@
-﻿using Abp.Dependency;
+﻿using Abp.Application.Services.Dto;
+using Abp.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace ZtgeoGISDesktop.Core.Communication
         AuthenticateResultModel Authenticate(AuthenticateModel authenticateModel);
         Task<AuthenticateResultModel> AuthenticateAsync(AuthenticateModel authenticateModel);
 
-        IList<FlatPermissionWithLevelDto> GetAllPressions();
+        IListResult<FlatPermissionWithLevelDto> GetAllPressions();
 
-        Task<IList<FlatPermissionWithLevelDto>> GetAllPressionsAsync();
+        Task<IListResult<FlatPermissionWithLevelDto>> GetAllPressionsAsync();
     }
 }

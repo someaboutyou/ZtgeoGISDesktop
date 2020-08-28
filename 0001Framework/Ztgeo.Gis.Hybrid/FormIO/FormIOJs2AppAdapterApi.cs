@@ -14,7 +14,7 @@ namespace Ztgeo.Gis.Hybrid.FormIO
 
         public FormIOControl Host { get; set; }
         public virtual void OnSave(string SaveData) {
-            Host.OnSave?.Invoke(SaveData);
+            Host.OnSave?.Invoke(Host,SaveData);
         }
     }
 }

@@ -29,19 +29,19 @@ namespace CadastralManagementDataSync.Setting
             {
                 InnerSyncSetting = new
                 {
-                    Address = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Address"))?? dataSyncSettings.InnerSyncSetting_Address,
-                    Port = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Port")) ?? dataSyncSettings.InnerSyncSetting_Port,
-                    SID = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_SID")) ?? dataSyncSettings.InnerSyncSetting_SID,
-                    User = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_User")) ?? dataSyncSettings.InnerSyncSetting_User,
-                    Password = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Password")) ?? dataSyncSettings.InnerSyncSetting_Password
+                    Address = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Address"))?? dataSyncSettings.InnerSyncSetting_Address,
+                    Port = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Port")) ?? dataSyncSettings.InnerSyncSetting_Port,
+                    SID = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_SID")) ?? dataSyncSettings.InnerSyncSetting_SID,
+                    User = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_User")) ?? dataSyncSettings.InnerSyncSetting_User,
+                    Password = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "InnerSyncSetting_Password")) ?? dataSyncSettings.InnerSyncSetting_Password
                 },
                 OutNetworkSyncSetting = new
                 {
-                    Address = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Address"))?? dataSyncSettings.OutNetworkSyncSetting_Address,
-                    Port = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Port"))?? dataSyncSettings.OutNetworkSyncSetting_Port,
-                    SID = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_SID")) ?? dataSyncSettings.OutNetworkSyncSetting_SID,
-                    User = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_User")) ?? dataSyncSettings.OutNetworkSyncSetting_User,
-                    Password = settingManager.GetSettingValue(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Password")) ?? dataSyncSettings.OutNetworkSyncSetting_Password
+                    Address = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Address"))?? dataSyncSettings.OutNetworkSyncSetting_Address,
+                    Port = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Port"))?? dataSyncSettings.OutNetworkSyncSetting_Port,
+                    SID = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_SID")) ?? dataSyncSettings.OutNetworkSyncSetting_SID,
+                    User = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_User")) ?? dataSyncSettings.OutNetworkSyncSetting_User,
+                    Password = settingManager.GetSettingValueForApplication(AutoSettingsUtils.CreateSettingName(typeof(DataSyncSettings), "OutNetworkSyncSetting_Password")) ?? dataSyncSettings.OutNetworkSyncSetting_Password
                 }
             });
         }
@@ -52,11 +52,11 @@ namespace CadastralManagementDataSync.Setting
             dataSyncSettings.InnerSyncSetting_Port = data.data.InnerSyncSetting.Port;
             dataSyncSettings.InnerSyncSetting_SID = data.data.InnerSyncSetting.SID;
             dataSyncSettings.InnerSyncSetting_User = data.data.InnerSyncSetting.User; 
-            dataSyncSettings.OutNetworkSyncSetting_Address = data.data.InnerSyncSetting.Address;
-            dataSyncSettings.OutNetworkSyncSetting_Password = data.data.InnerSyncSetting.Password;
-            dataSyncSettings.OutNetworkSyncSetting_Port = data.data.InnerSyncSetting.Port;
-            dataSyncSettings.OutNetworkSyncSetting_SID = data.data.InnerSyncSetting.SID;
-            dataSyncSettings.OutNetworkSyncSetting_User = data.data.InnerSyncSetting.User;
+            dataSyncSettings.OutNetworkSyncSetting_Address = data.data.OutNetworkSyncSetting.Address;
+            dataSyncSettings.OutNetworkSyncSetting_Password = data.data.OutNetworkSyncSetting.Password;
+            dataSyncSettings.OutNetworkSyncSetting_Port = data.data.OutNetworkSyncSetting.Port;
+            dataSyncSettings.OutNetworkSyncSetting_SID = data.data.OutNetworkSyncSetting.SID;
+            dataSyncSettings.OutNetworkSyncSetting_User = data.data.OutNetworkSyncSetting.User;
         }
     }
 }

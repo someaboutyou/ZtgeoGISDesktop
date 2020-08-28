@@ -9,7 +9,10 @@
                     if(data)
                         form.submission = { data: JSON.parse(data) };
                     form.on("submit", (e) => { 
-                        __FormIOJs2AppAdapterApi.Save(e);
+                        debugger 
+                        __FormIOJs2AppAdapterApi.Save(e); 
+                        form.triggerRedraw();
+                        console.log(form)
                     });
                 }
             ); 

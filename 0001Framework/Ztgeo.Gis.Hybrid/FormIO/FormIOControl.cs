@@ -21,7 +21,8 @@ namespace Ztgeo.Gis.Hybrid.FormIO
             this.app2JSAdapterApi.SetFormIOComponentAndData(component, data);
         }
 
-        public Action<string> OnSave { get; set; }
+        public Action<FormIOControl,string> OnSave { get; set; }
+         
          
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Abp;
+using Abp.Application.Services.Dto;
 using Abp.Dependency;
 using System;
 using System.Collections.Generic;
@@ -20,20 +21,20 @@ namespace ZtgeoGISDesktop.Communication.BackendRequest
             permissionServiceProxy = _permissionServiceProxy;
         }
         public AuthenticateResultModel Authenticate(AuthenticateModel authenticateModel) {
-            return _restService.Post<AuthenticateResultModel>(this.GetRequestUri("Authenticate"), authenticateModel, false, false); // false false 说明请求不拦截
+            return _restService.Post<AuthenticateResultModel>(this.GetRequestUri("Authenticate"), authenticateModel, false); // false false 说明请求不拦截
         }
 
         public async Task<AuthenticateResultModel> AuthenticateAsync(AuthenticateModel authenticateModel)
         {
-            return await _restService.PostAsync<AuthenticateResultModel>(this.GetRequestUri("Authenticate"), authenticateModel, false, false); // false false 说明请求不拦截
+            return await _restService.PostAsync<AuthenticateResultModel>(this.GetRequestUri("Authenticate"), authenticateModel, false); // false false 说明请求不拦截
         }
 
-        public IList<FlatPermissionWithLevelDto> GetAllPressions()
+        public IListResult<FlatPermissionWithLevelDto> GetAllPressions()
         {
             return permissionServiceProxy.GetAllPressions();
         }
 
-        public async Task<IList<FlatPermissionWithLevelDto>> GetAllPressionsAsync()
+        public async Task<IListResult<FlatPermissionWithLevelDto>> GetAllPressionsAsync()
         {
             return await permissionServiceProxy.GetAllPressionsAsync();
         }

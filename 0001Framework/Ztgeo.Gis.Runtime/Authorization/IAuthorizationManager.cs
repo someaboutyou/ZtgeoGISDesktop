@@ -21,7 +21,7 @@ namespace Ztgeo.Gis.Runtime.Authorization
         /// 获得所有权限
         /// </summary>
         /// <returns></returns>
-        IList<FlatPermissionWithLevelDto> GetAllPermissions();
-        Task<IList<FlatPermissionWithLevelDto>> GetAllPermissionsAsync();
+        IEnumerable<FlatPermissionWithLevelDto> GetAllPermissions();
+        Task<IEnumerable<FlatPermissionWithLevelDto>> GetAllPermissionsAsync();
     }
 }

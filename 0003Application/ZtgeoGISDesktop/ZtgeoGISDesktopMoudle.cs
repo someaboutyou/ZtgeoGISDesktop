@@ -15,6 +15,8 @@ using ZtgeoGISDesktop.Core;
 using ZtgeoGISDesktop.EntityFramework;
 using ZtgeoGISDesktop.Toolbars;
 using CadastralManagementDataSync;
+using Abp.Dependency;
+using Castle.Core.Logging;
 
 namespace ZtgeoGISDesktop
 {
@@ -30,7 +32,7 @@ namespace ZtgeoGISDesktop
         public override void PreInitialize()
         {
             Configuration.Modules.WinformMenus().Providers.Add(typeof(MainMenuProvider));
-            Configuration.Modules.WinformToolbars().Providers.Add(typeof(MainToolbarProvider));
+            Configuration.Modules.WinformToolbars().Providers.Add(typeof(MainToolbarProvider)); 
         }
 
         public override void Initialize()

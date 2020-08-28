@@ -53,10 +53,10 @@ namespace ZtgeoGISDesktop.Forms
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.MainFormStandaloneBarDockControl = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.mainFormBarManager = new DevExpress.XtraBars.BarManager(this.components);
-            this.bar4 = new DevExpress.XtraBars.Bar();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.bar4 = new DevExpress.XtraBars.Bar();
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -190,7 +190,7 @@ namespace ZtgeoGISDesktop.Forms
             this.barButtonItem5,
             this.barButtonItem6});
             this.menuContainerControl.Location = new System.Drawing.Point(0, 0);
-            this.menuContainerControl.MaxItemId = 57;
+            this.menuContainerControl.MaxItemId = 58;
             this.menuContainerControl.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.menuContainerControl.Name = "menuContainerControl";
             this.menuContainerControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
@@ -245,17 +245,6 @@ namespace ZtgeoGISDesktop.Forms
             this.mainFormBarManager.Form = this;
             this.mainFormBarManager.MaxItemId = 1;
             // 
-            // bar4
-            // 
-            this.bar4.BarName = "Custom 2";
-            this.bar4.DockCol = 0;
-            this.bar4.DockRow = 0;
-            this.bar4.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
-            this.bar4.FloatLocation = new System.Drawing.Point(145, 147);
-            this.bar4.Offset = 11;
-            this.bar4.StandaloneBarDockControl = this.MainFormStandaloneBarDockControl;
-            this.bar4.Text = "Custom 2";
-            // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
@@ -279,6 +268,17 @@ namespace ZtgeoGISDesktop.Forms
             this.barDockControlRight.Location = new System.Drawing.Point(1323, 0);
             this.barDockControlRight.Manager = this.mainFormBarManager;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 731);
+            // 
+            // bar4
+            // 
+            this.bar4.BarName = "Custom 2";
+            this.bar4.DockCol = 0;
+            this.bar4.DockRow = 0;
+            this.bar4.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.bar4.FloatLocation = new System.Drawing.Point(145, 147);
+            this.bar4.Offset = 11;
+            this.bar4.StandaloneBarDockControl = this.MainFormStandaloneBarDockControl;
+            this.bar4.Text = "Custom 2";
             // 
             // bar1
             // 
@@ -317,6 +317,7 @@ namespace ZtgeoGISDesktop.Forms
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.Name = "MainForm";
             this.Ribbon = this.menuContainerControl;
             this.StatusBar = this.ribbonStatusBar;

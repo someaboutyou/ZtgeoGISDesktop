@@ -1,4 +1,5 @@
-﻿using Abp.Dependency;
+﻿using Abp.Application.Services.Dto;
+using Abp.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,21 @@ namespace ZtgeoGISDesktop.Communication.BackendRequest
 {
     public interface IPermissionServiceProxy : ISingletonDependency
     {
-        IList<FlatPermissionWithLevelDto> GetAllPressions();
-        Task<IList<FlatPermissionWithLevelDto>> GetAllPressionsAsync();
+        IListResult<FlatPermissionWithLevelDto> GetAllPressions();
+        Task<IListResult<FlatPermissionWithLevelDto>> GetAllPressionsAsync();
     }
     public class PermissionServiceProxy : ServiceProxyBase, IPermissionServiceProxy
     {
         public PermissionServiceProxy (IocManager iocManager):base(iocManager, "api/services/app/Permission") { 
         
         }
-        public IList<FlatPermissionWithLevelDto> GetAllPressions() {
-            return _restService.Post<List<FlatPermissionWithLevelDto>>(this.GetRequestUri("GetAllPermissions"), null);
+        public IListResult<FlatPermissionWithLevelDto> GetAllPressions() {
+            return _restService.Get<ListResultDto<FlatPermissionWithLevelDto>>(this.GetRequestUri("GetAllPermissions"));
         }
 
-        public async Task<IList<FlatPermissionWithLevelDto>> GetAllPressionsAsync()
+        public async Task<IListResult<FlatPermissionWithLevelDto>> GetAllPressionsAsync()
         {
-            return await _restService.PostAsync<List<FlatPermissionWithLevelDto>>(this.GetRequestUri("GetAllPermissions"), null);
+            return await _restService.GetAsync<ListResultDto<FlatPermissionWithLevelDto>>(this.GetRequestUri("GetAllPermissions"));
         }
     }
 }

@@ -863,10 +863,10 @@ namespace Ztgeo.Gis.AbpExtension.SettingExtension
                 {
                     var dictionary = new Dictionary<string, SettingInfo>();
 
-                    if (!_multiTenancyConfig.IsEnabled && _tenantStore.Find(tenantId) == null)
-                    {
-                        return dictionary;
-                    }
+                    //if (!_multiTenancyConfig.IsEnabled && _tenantStore.Find(tenantId) == null)
+                    //{
+                    //    return dictionary;
+                    //}
 
                     var settingValues = SettingStore.GetAllList(tenantId, null);
                     foreach (var settingValue in settingValues)

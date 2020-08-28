@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Management;
 using Ztgeo.Gis.Communication;
+using Ztgeo.Gis.Communication.CommunicationException;
 using Ztgeo.Gis.Runtime.Authorization;
 using Ztgeo.Gis.Runtime.Authorization.Login;
 using ZtgeoGISDesktop.Communication.Ajax;
@@ -75,8 +76,8 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
                             Message = ajaxResponse.Error.Message,
                             Details = ajaxResponse.Error.Details
                         });
-                        IocManager.Resolve<ILogger>();
-                        return false;
+                        IocManager.Resolve<ILogger>(); 
+                        throw new HttpRequestException(restResponse, "后台请求发生错误", ex);
                     }
                 }
                 else {
@@ -85,7 +86,9 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
                         Message = ajaxResponse.Error.Message,
                         Details = ajaxResponse.Error.Details
                     });
-                    return false;
+
+                    throw new HttpRequestException(restResponse, ajaxResponse.Error.Message);
+
                 }
             }
             else {
@@ -93,8 +96,8 @@ namespace ZtgeoGISDesktop.Communication.InterceptEvent
                 {
                     Message = "None response content",
                     Details = "response content is empty" 
-                }); 
-                return false;
+                });
+                throw new HttpRequestException(restResponse, "无内容返回");
             }
         }
 
