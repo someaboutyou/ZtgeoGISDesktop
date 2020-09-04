@@ -1,6 +1,7 @@
 ﻿using Abp.Dependency;
 using Abp.MultiTenancy;
 using CadastralManagementDataSync.DataOperation;
+using CadastralManagementDataSync.DBOperation;
 using CadastralManagementDataSync.Setting;
 using Castle.Core.Logging;
 using System;
@@ -29,18 +30,21 @@ namespace CadastralManagementDataSync.Menus
         private readonly IDataSyncSettingsManager dataSyncSettingManager;
         private readonly DataSyncOperator dataSyncOperator;
         private readonly DataCapture dataCapture;
+        private readonly TriggerOperation triggerOperation;
         private ILogger Logger { get; set; }
         public DataSyncMenuProvider(IocManager _iocManager,
             IFormIOSchemeManager _formIOSchemeManager,
             IDataSyncSettingsManager _dataSyncSettingManager,
             DataSyncOperator _dataSyncOperator,
-            DataCapture _dataCapture
+            DataCapture _dataCapture,
+            TriggerOperation _triggerOperation
             ) {
             iocManager = _iocManager;
             formIOSchemeManager = _formIOSchemeManager;
             dataSyncSettingManager = _dataSyncSettingManager;
             dataSyncOperator = _dataSyncOperator;
             dataCapture = _dataCapture;
+            triggerOperation = _triggerOperation;
             Logger = NullLogger.Instance;
         }
         public override void SetMenus(IMenuDefinitionContext context)
@@ -61,10 +65,16 @@ namespace CadastralManagementDataSync.Menus
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.DataSync16.png"));
             var DataSynvSqlCreateMenu = DataSyncPageMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageSqlCreateGroupMenu, MenuType.Group, "数据同步");
             DataSynvSqlCreateMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageSqlCreateGroupInnerDataInitMenu, MenuType.Button,"内网数据库初始化", "内网数据库初始化",null,
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.innerDB32.png"), 0, MultiTenancySides.Host | MultiTenancySides.Tenant, null,null
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.innerDB32.png"), 0, MultiTenancySides.Host | MultiTenancySides.Tenant, null,
+                m => {
+                    MenuActions.DoDBTriggerOperationCilck(iocManager, DataSyncDirection.InnerDataSync, triggerOperation, Logger);
+                }
                 );
             DataSynvSqlCreateMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageSqlCreateGroupOuterDataInitMenu, MenuType.Button, "外网数据库初始化", "外网数据库初始化", null,
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.outDB32.png"), 0, MultiTenancySides.Host | MultiTenancySides.Tenant, null, null
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.outDB32.png"), 0, MultiTenancySides.Host | MultiTenancySides.Tenant, null,
+                m => {
+                    MenuActions.DoDBTriggerOperationCilck(iocManager, DataSyncDirection.OuterDataSync, triggerOperation, Logger);
+                }
                 );
              
             var DataSynvDoDataSyncMenu = DataSyncPageMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageDoDataSyncGroupMenu, MenuType.Group, "同步操作");

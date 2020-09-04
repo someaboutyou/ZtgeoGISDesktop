@@ -33,6 +33,24 @@ namespace CadastralManagementDataSync.DataOperation
             }
             return path +"/" + Timestamp(); 
         }
+        public string GetDataCaptureSaveDirectory(DataSyncDirection dataSyncDirection)
+        {
+            string rootPath = System.Environment.CurrentDirectory;
+            string path = string.Empty;
+            if (dataSyncDirection == DataSyncDirection.InnerDataSync)
+            {
+                path = rootPath + "/CurrentDataSync/InnerDataSync";
+            }
+            else
+            {
+                path = rootPath + "/CurrentDataSync/OuterDataSync";
+            }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path  ;
+        }
         private string Timestamp()
         {
             long ts = ConvertDateTimeToInt(DateTime.Now);

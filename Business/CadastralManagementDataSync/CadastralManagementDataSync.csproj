@@ -71,6 +71,13 @@
     <Compile Include="DataOperation\DataSyncOperator.cs" />
     <Compile Include="DataOperation\Model\DataSyncConfig.cs" />
     <Compile Include="DBOperation\TriggerOperation.cs" />
+    <Compile Include="DeleteOperation\HisTableOperation.cs" />
+    <Compile Include="Forms\TextShowDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TextShowDialog.Designer.cs">
+      <DependentUpon>TextShowDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\DataSyncSettings.cs" />
     <Compile Include="Menus\DataSyncMenuProvider.cs" />
     <Compile Include="Menus\MenuActions.cs" />
@@ -78,6 +85,9 @@
     <Compile Include="Setting\DataSyncSettingsManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\TextShowDialog.resx">
+      <DependentUpon>TextShowDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Icons\Setting16.png" />
     <EmbeddedResource Include="Icons\DataSync.png" />
     <EmbeddedResource Include="Icons\Setting.png" />
@@ -88,6 +98,7 @@
     <EmbeddedResource Include="Icons\innerDB32.png" />
     <EmbeddedResource Include="Icons\outDB32.png" />
     <EmbeddedResource Include="Icons\DataIn32.png" />
+    <EmbeddedResource Include="Icons\recycle32.png" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -118,13 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="Forms\" />
     <Folder Include="WebViews\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="DataOperation\DataCaptureConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

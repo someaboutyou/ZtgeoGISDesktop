@@ -63,7 +63,9 @@ namespace CadastralManagementDataSync.DataOperation
                     foreach (DBOutput dbOutput in dBOutputs) {
                         string sql = JointCaptureSql(dbOutput.TableName,dbOutput.Columns,dbOutput.KeyColumn, dataSyncConfig.DirtyField);
                         string connstr = connectStringCreator.GetOracleConstr(dataSyncDirection);
-                        dataSet.Tables.Add(OracleHelper.ExecuteDataTable(connstr, sql));
+                        DataTable dt= OracleHelper.ExecuteDataTable(connstr, sql);
+                        dt.TableName = dbOutput.TableName;
+                        dataSet.Tables.Add(dt);
                     }
                 }
             }
@@ -96,7 +98,7 @@ namespace CadastralManagementDataSync.DataOperation
             }
         }
         private void SetUnDirty(string table,string fildName,string connstr) {
-            string sql = string.Format("Update {0} Set {1}=0 Where {1}=1", table, fildName);
+            string sql = string.Format("Update {0} Set {1}=-1 Where {1}=1", table, fildName);
             OracleHelper.ExecuteNonQuery(connstr, sql);
         }
         /// <summary>
@@ -119,7 +121,10 @@ namespace CadastralManagementDataSync.DataOperation
             
         }
         private string JointCaptureSql(string tableName,string cloumns,string keyColumn, string dirtyField) {
-            return "Select " + keyColumn +","+ cloumns + " from " + tableName + " where " + dirtyField + " = 1";
+            if(!cloumns.Split(',').Any(c=>c.Equals(keyColumn)))
+                return "Select " + keyColumn +","+ cloumns + " from " + tableName + " where " + dirtyField + " = 1";
+            else
+                return "Select " + cloumns + " from " + tableName + " where " + dirtyField + " = 1";
         }
 
         

@@ -10,6 +10,7 @@ using System.Globalization;
 using CadastralManagementDataSync.DataOperation.Model;
 using CadastralManagementDataSync.DataOperation.Dal;
 using Castle.Core.Logging;
+using DevExpress.Utils.Extensions;
 
 namespace CadastralManagementDataSync.DataOperation
 {
@@ -33,20 +34,24 @@ namespace CadastralManagementDataSync.DataOperation
             if (dataSyncDirection == DataSyncDirection.InnerDataSync)
             {
                 //内网同步时，获取外网文件夹下面是否有需要同步的文件
-                outerCurrentPath = dataPathManager.GetDataSyncedSaveDirectory(DataSyncDirection.OuterDataSync);
+                outerCurrentPath = dataPathManager.GetDataCaptureSaveDirectory(DataSyncDirection.OuterDataSync);
                 OutdBOutputs = dataSyncConfig.OutDBOutputs;
             }
             else {
-                outerCurrentPath = dataPathManager.GetDataSyncedSaveDirectory(DataSyncDirection.InnerDataSync);
+                outerCurrentPath = dataPathManager.GetDataCaptureSaveDirectory(DataSyncDirection.InnerDataSync);
                 OutdBOutputs = dataSyncConfig.InnerDBOutputs;
             }
+            
             string[] filePaths = Directory.GetFiles(outerCurrentPath);
             if (filePaths.Length > 0) {
-                foreach (string filePath in filePaths) {
+                foreach (string filePath in filePaths)
+                {
+                    Logger.Debug("开发同步到" + (DataSyncDirection.InnerDataSync == dataSyncDirection ? "内网" : "外网") + "。同步文件路径：" + filePath);
                     DataSet ds= DatasetSerialize.DataSetDeserialize(filePath);
                     if(ds!=null && ds.Tables.Count > 0)
                     {
                         for (int i = 0; i < ds.Tables.Count; i++) {
+                            Logger.Debug("开发" + ds.Tables[i].TableName);
                             string tableName = ds.Tables[i].TableName;
                             DBOutput dBOutput = GetConfigByTableName(OutdBOutputs, tableName);
                             for (int j = 0; j < ds.Tables[i].Rows.Count; j++) {
@@ -61,32 +66,53 @@ namespace CadastralManagementDataSync.DataOperation
                         }
                     }
                     //数据同步之后，再将文件移入已同步
-                    File.Move(filePath, dataPathManager.GetDataSyncedSaveDirectory(dataSyncDirection) + Path.GetFileName(filePath));
+                    File.Move(filePath, dataPathManager.GetDataSyncedSaveDirectory(dataSyncDirection) +"//"+ Path.GetFileName(filePath));
                 }
             }
         }
 
         private void CreateInsertATableRow(DataSyncDirection dataSyncDirection, DataTable dataTable,int rowNum,DBOutput dBOutput,string dirtyField) {
             string[] cols = dBOutput.Columns.Split(',');
-            string sql = string.Format("Insert into {0}({1},{3}) values({2},0)", dBOutput.TableName, dBOutput.Columns, string.Join(",", cols.Select(col => ":" + col)), dirtyField); 
-            Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[cols.Length];
-            for (int i = 0; i < cols.Length; i++) {
-                oracleParameters[i] = new Oracle.ManagedDataAccess.Client.OracleParameter(cols[i], dataTable.Rows[rowNum][cols[i]]);
+            string sql = string.Empty;
+            if (cols.Contains(dBOutput.KeyColumn)) {
+                sql = string.Format("Insert into {0}({1},{3}) values({2},-1)", dBOutput.TableName, dBOutput.Columns, string.Join(",", cols.Select(col => ":" + col)), dirtyField);
+                Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[cols.Length];
+                for (int i = 0; i < cols.Length; i++)
+                {
+                    oracleParameters[i] = new Oracle.ManagedDataAccess.Client.OracleParameter(cols[i], dataTable.Rows[rowNum][cols[i]]);
+                }
+                string connStr = GetconStrByDirection(dataSyncDirection);
+                OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
             }
-            string connStr= GetconStrByDirection(dataSyncDirection);
-            OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
+            else
+            {
+                sql = string.Format("Insert into {0}({1},{3},{4}) values({2},-1,:{4})", dBOutput.TableName, dBOutput.Columns, string.Join(",", cols.Select(col => ":" + col)), dirtyField, dBOutput.KeyColumn);
+                Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[cols.Length+1];
+                for (int i = 0; i < cols.Length; i++)
+                {
+                    oracleParameters[i] = new Oracle.ManagedDataAccess.Client.OracleParameter(cols[i], dataTable.Rows[rowNum][cols[i]]);
+                }
+                oracleParameters[cols.Length] = new Oracle.ManagedDataAccess.Client.OracleParameter(dBOutput.KeyColumn, dataTable.Rows[rowNum][dBOutput.KeyColumn]);
+                string connStr = GetconStrByDirection(dataSyncDirection);
+                OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
+            } 
+            
         }
 
         private void CreateUpdateATableRow(DataSyncDirection dataSyncDirection, DataTable dataTable, int rowNum, DBOutput dBOutput, string dirtyField) {
-            string[] cols = dBOutput.Columns.Split(','); 
-            string sql = string.Format("Update {0} Set {1},{3} Where {2} =:{2}", dBOutput.TableName, cols.Select(col => " " + col + "=:" + col + " "), 
-                dBOutput.KeyColumn, dirtyField+":"+ dirtyField);
-            Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[cols.Length+1];
+            string[] cols = dBOutput.Columns.Split(',');
+            if (cols.Any(c => c.Equals(dBOutput.KeyColumn))) {
+                cols.Remove(c => c.Equals(dBOutput.KeyColumn));
+            }
+            string sql = string.Format("Update {0} Set {1},{3} Where {2} =:{2}", dBOutput.TableName,string.Join(",", cols.Select(col => " " + col + "=:" + col + " ")), 
+                dBOutput.KeyColumn, dirtyField+"=:"+ dirtyField);
+            Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[cols.Length+2];
             for (int i = 0; i < cols.Length; i++)
             {
                 oracleParameters[i] = new Oracle.ManagedDataAccess.Client.OracleParameter(cols[i], dataTable.Rows[rowNum][cols[i]]);
             }
-            oracleParameters[cols.Length] = new Oracle.ManagedDataAccess.Client.OracleParameter(dirtyField, 0);
+            oracleParameters[cols.Length] = new Oracle.ManagedDataAccess.Client.OracleParameter(dirtyField, (object)-1);
+            oracleParameters[cols.Length+1] = new Oracle.ManagedDataAccess.Client.OracleParameter(dBOutput.KeyColumn, dataTable.Rows[rowNum][dBOutput.KeyColumn]);
             string connStr = GetconStrByDirection(dataSyncDirection);
             OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
         }

@@ -1,5 +1,8 @@
 ﻿using Abp.Dependency;
+using Abp.Hangfire.Configuration;
 using Abp.Modules;
+using Hangfire;
+using Hangfire.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,10 @@ namespace ZtgeoGISDesktop.Core
         public override void PreInitialize()
         {
             IocManager.RegisterIfNot<IAuthorizationManager, AuthorizationManager>();
+            Configuration.BackgroundJobs.UseHangfire(configuration =>
+            {
+                configuration.GlobalConfiguration.UseSQLiteStorage(".\db\desktopSqlite.db");
+            });
         }
         public override void Initialize()
         {

@@ -36,7 +36,7 @@ namespace CadastralManagementDataSync.DataOperation.Dal
             {
                 conn.Open();
                 using (OracleCommand cmd = conn.CreateCommand())
-                {
+                { 
                     cmd.CommandText = sql;
                     cmd.Parameters.AddRange(parameters);
                     OracleDataAdapter adapter = new OracleDataAdapter(cmd);
@@ -46,6 +46,7 @@ namespace CadastralManagementDataSync.DataOperation.Dal
                 }
             }
         }
+         
         #endregion
 
     }

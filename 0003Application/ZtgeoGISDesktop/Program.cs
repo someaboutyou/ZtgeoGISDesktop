@@ -39,6 +39,7 @@ namespace ZtgeoGISDesktop
                 );
                 });
 
+
             IMainForm mainForm = iocManager.Resolve<IMainForm>();
             if (mainForm != null)
             {
