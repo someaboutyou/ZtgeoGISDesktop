@@ -206,6 +206,12 @@
     <Compile Include="Configuration\WinformMenuConfiguration.cs" />
     <Compile Include="Configuration\WinformMenuConfigurationExtensions.cs" />
     <Compile Include="Configuration\WinformToolbarConfigurationExtensions.cs" />
+    <Compile Include="MainFormDocument\IDocument.cs" />
+    <Compile Include="MainFormDocument\IDocumentControl.cs" />
+    <Compile Include="MainFormDocument\IDocumentManager.cs" />
+    <Compile Include="MainFormLayer\ILayerControl.cs" />
+    <Compile Include="MainFormResources\IMainFormResourcesControl.cs" />
+    <Compile Include="MainFormResources\IMainFormResourcesManager.cs" />
     <Compile Include="Menu\IMenuDefinitionContext.cs" />
     <Compile Include="Menu\IWinformMenuManager.cs" />
     <Compile Include="Menu\IWinformMenuViewManager.cs" />
@@ -217,6 +223,7 @@
     <Compile Include="Menu\MenuType.cs" />
     <Compile Include="Menu\WinformMenu.cs" />
     <Compile Include="Menu\WinformMenuManager.cs" />
+    <Compile Include="MainFormProperty\IPropertiesControl.cs" />
     <Compile Include="ToolBar\enumCommandLineState.cs" />
     <Compile Include="ToolBar\ICommandLine.cs" />
     <Compile Include="ToolBar\IToolbarDefinitionContext.cs" />

@@ -14,6 +14,7 @@ namespace Ztgeo.Gis.Winform.ABPForm
     public interface IMainForm : ISingletonDependency
     {
         IocManager IocManager { get; }
+        #region 主界面容器
         /// <summary>
         /// 菜单 容器
         /// </summary>
@@ -25,16 +26,32 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// <summary>
         /// tool bar 容器管理 
         /// </summary>
-        Control StandaloneBarDockControl { get; }
+        Control StandaloneBarDockControl { get; } 
+        /// <summary>
+        /// 主界面 图层Panel
+        /// </summary>
+        Control LayerPanel { get; }
+        /// <summary>
+        /// 主界面 属性Panel
+        /// </summary>
+        Control PropertiesPanel { get; }
+        /// <summary>
+        /// 主界面 资源管理
+        /// </summary>
+        Control ResourcesPanel { get; }
+        #endregion
+
+        #region 主界面方法
         /// <summary>
         /// 初始化
         /// </summary>
         void StartInitializeComponent();
+
         /// <summary>
         /// 在主文档界面添加一个文档
         /// </summary>
         /// <returns></returns>
         Control AddADocument();
-
+        #endregion
     }
 }

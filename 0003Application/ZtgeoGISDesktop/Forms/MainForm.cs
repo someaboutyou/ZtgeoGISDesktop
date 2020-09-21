@@ -43,7 +43,13 @@ namespace ZtgeoGISDesktop.Forms
                 return this.MainFormStandaloneBarDockControl;
             }
         }
-         
+
+        public Control LayerPanel => throw new NotImplementedException();
+
+        public Control PropertiesPanel => throw new NotImplementedException();
+
+        public Control ResourcesPanel => throw new NotImplementedException();
+
         public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager)
         {
             IocManager = iocManager;

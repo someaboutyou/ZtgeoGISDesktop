@@ -46,12 +46,12 @@ namespace CadastralManagementDataSync.DataOperation
             if (filePaths.Length > 0) {
                 foreach (string filePath in filePaths)
                 {
-                    Logger.Debug("开发同步到" + (DataSyncDirection.InnerDataSync == dataSyncDirection ? "内网" : "外网") + "。同步文件路径：" + filePath);
+                    Logger.Debug("开始同步到" + (DataSyncDirection.InnerDataSync == dataSyncDirection ? "内网" : "外网") + "。同步文件路径：" + filePath);
                     DataSet ds= DatasetSerialize.DataSetDeserialize(filePath);
                     if(ds!=null && ds.Tables.Count > 0)
                     {
                         for (int i = 0; i < ds.Tables.Count; i++) {
-                            Logger.Debug("开发" + ds.Tables[i].TableName);
+                            Logger.Debug("开始" + ds.Tables[i].TableName);
                             string tableName = ds.Tables[i].TableName;
                             DBOutput dBOutput = GetConfigByTableName(OutdBOutputs, tableName);
                             for (int j = 0; j < ds.Tables[i].Rows.Count; j++) {

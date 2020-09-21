@@ -15,9 +15,11 @@ namespace ZtgeoGISDesktop.EntityFramework
 {
     public class ZtgeoGISDesktopDbContext: AbpDbContext
     { 
-        public ZtgeoGISDesktopDbContext() : base(new SQLiteConnection(
-            @"Data Source=.\db\desktopSqlite.db;Initial Catalog=sqlite;Integrated Security=True;Max Pool Size=10"
-            ), true)
+        public ZtgeoGISDesktopDbContext() : 
+            base("Default")
+            //base(new SQLiteConnection( 
+            // @"Data Source=.\db\desktopSqlite.db;Initial Catalog=sqlite;Integrated Security=True;Max Pool Size=10"
+            //), true)
         {
 
         }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ztgeo.Gis.Runtime.Bootstrapper
+namespace Ztgeo.Gis.Base.Bootstrapper
 {
     public class LicenseInitializer: ILicenseInitializer
     {

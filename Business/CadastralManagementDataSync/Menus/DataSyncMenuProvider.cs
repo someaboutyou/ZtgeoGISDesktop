@@ -1,5 +1,7 @@
-﻿using Abp.Dependency;
+﻿using Abp.BackgroundJobs;
+using Abp.Dependency;
 using Abp.MultiTenancy;
+using Abp.Threading.BackgroundWorkers;
 using CadastralManagementDataSync.DataOperation;
 using CadastralManagementDataSync.DBOperation;
 using CadastralManagementDataSync.Setting;
@@ -10,6 +12,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.Hybrid;
@@ -31,7 +34,7 @@ namespace CadastralManagementDataSync.Menus
         private readonly DataSyncOperator dataSyncOperator;
         private readonly DataCapture dataCapture;
         private readonly TriggerOperation triggerOperation;
-        private ILogger Logger { get; set; }
+        public ILogger Logger { get; set; }
         public DataSyncMenuProvider(IocManager _iocManager,
             IFormIOSchemeManager _formIOSchemeManager,
             IDataSyncSettingsManager _dataSyncSettingManager,
@@ -107,6 +110,5 @@ namespace CadastralManagementDataSync.Menus
           public const string DataSyncPageDoDataSyncGroupMenu = "MainForm_DataSyncPage_DataSyncPageDoDataSyncGroup"; // 同步操作
             public const string DataSyncPageDoDataSyncGroupInnerDoDataSyncMenu = "MainForm_DataSyncPage_DataSyncPageDoDataSync_InnerDoDataSync"; // 内网数据同步
             public const string DataSyncPageDoDataSyncGroupOuterDoDataSyncMenu = "MainForm_DataSyncPage_DataSyncPageDoDataSync_OutDoDataSync"; // 外网数据同步
-
-    }
+    } 
 }

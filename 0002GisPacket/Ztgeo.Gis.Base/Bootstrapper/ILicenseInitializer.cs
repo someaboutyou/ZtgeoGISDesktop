@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ztgeo.Gis.Runtime.Bootstrapper
+namespace Ztgeo.Gis.Base.Bootstrapper
 {
-    public interface ILicenseInitializer :  ISingletonDependency
+    public interface ILicenseInitializer : ISingletonDependency
     {
         bool InitializeApplication(esriLicenseProductCode[] productCodes, esriLicenseExtensionCode[] extensionLics);
     }

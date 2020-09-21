@@ -86,10 +86,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ESRI.ArcGIS.System, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="ESRI.ArcGIS.Version, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
     <Reference Include="JetBrains.Annotations, Version=2019.1.3.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\..\packages\JetBrains.Annotations.2019.1.3\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -233,9 +229,8 @@
     <Compile Include="Authorization\Permissions\FlatPermissionDto.cs" />
     <Compile Include="Authorization\Permissions\FlatPermissionWithLevelDto.cs" />
     <Compile Include="Authorization\ZtgeoAbpSession.cs" />
-    <Compile Include="Bootstrapper\ILicenseInitializer.cs" />
-    <Compile Include="Bootstrapper\LicenseInitializer.cs" />
     <Compile Include="Configuration\RuntimeSetting.cs" />
+    <Compile Include="Context\AppShutdownEventData.cs" />
     <Compile Include="Exception\IExceptionDeal.cs" />
     <Compile Include="Exception\NonUIExceptionEventData.cs" />
     <Compile Include="Exception\RuntimeNonUIExceptionEventHandle.cs" />
@@ -250,6 +245,7 @@
     <Compile Include="LocalPriority\LocalPriorityClientRepositoryBase.cs" />
     <Compile Include="LocalPriority\LocalPriorityVersionManager.cs" />
     <Compile Include="LocalPriority\Proxy\ILocalPriorityProxy.cs" />
+    <Compile Include="Context\RuntimeContext.cs" />
     <Compile Include="RuntimeStatus.cs" />
     <Compile Include="ZtgeoGisRuntimeModule.cs" />
     <Compile Include="Exception\RuntimeUIExceptionEventHandle.cs" />

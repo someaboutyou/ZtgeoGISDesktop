@@ -13,6 +13,7 @@ using Abp.Events.Bus;
 using Ztgeo.Gis.Runtime;
 using Castle.Facilities.Logging;
 using Abp.Castle.Logging.Log4Net;
+using Abp.Logging;
 
 namespace ZtgeoGISDesktop
 {
@@ -41,6 +42,7 @@ namespace ZtgeoGISDesktop
 
 
             IMainForm mainForm = iocManager.Resolve<IMainForm>();
+
             if (mainForm != null)
             {
                 #region 全局异常处理
@@ -53,7 +55,7 @@ namespace ZtgeoGISDesktop
                     EventBus.Default.Trigger<NonUIExceptionEventData>(new NonUIExceptionEventData { UnhandledExceptionEventArgs = e });
                 });
                 #endregion
-                Application.Run((Form)mainForm);
+                Application.Run((Form)mainForm); 
             }
         }
     }

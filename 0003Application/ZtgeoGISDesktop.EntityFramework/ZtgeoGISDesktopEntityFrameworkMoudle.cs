@@ -17,6 +17,7 @@ namespace ZtgeoGISDesktop.EntityFramework
         {
             //IocManager.Register<IZtgeoGISDesktopConnectStringConfigure, ZtgeoGISDesktopConnectStringConfigure>();
             Configuration.DefaultNameOrConnectionString = "Default";
+            //Configuration.DefaultNameOrConnectionString = "Data Source=./db/desktopSqlite.db";
             Configuration.UnitOfWork.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted; 
         }
 

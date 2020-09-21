@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using ZtgeoGISDesktop.Controls;
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -48,22 +49,21 @@ namespace ZtgeoGISDesktop.Forms
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
             this.menuContainerControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.mainSplitContainer = new DevExpress.XtraEditors.SplitContainerControl();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.MainFormStandaloneBarDockControl = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.mainFormBarManager = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.documentManagerDocking = new ZtgeoGISDesktop.Controls.DocumentManagerDocking();
             this.bar4 = new DevExpress.XtraBars.Bar();
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.bar3 = new DevExpress.XtraBars.Bar();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
-            this.mainSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBarManager)).BeginInit();
@@ -165,10 +165,20 @@ namespace ZtgeoGISDesktop.Forms
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 700);
+            this.ribbonStatusBar.ItemLinks.Add(this.barButtonItem7);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 649);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.menuContainerControl;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1323, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1183, 31);
+            // 
+            // barButtonItem7
+            // 
+            this.barButtonItem7.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.barButtonItem7.Caption = "后台任务:";
+            this.barButtonItem7.Id = 60;
+            this.barButtonItem7.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.ImageOptions.Image")));
+            this.barButtonItem7.Name = "barButtonItem7";
+            this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             // 
             // menuContainerControl
             // 
@@ -188,27 +198,17 @@ namespace ZtgeoGISDesktop.Forms
             this.barSubItem2,
             this.barSubItem3,
             this.barButtonItem5,
-            this.barButtonItem6});
+            this.barButtonItem6,
+            this.barButtonItem7});
             this.menuContainerControl.Location = new System.Drawing.Point(0, 0);
-            this.menuContainerControl.MaxItemId = 58;
+            this.menuContainerControl.MaxItemId = 61;
             this.menuContainerControl.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.menuContainerControl.Name = "menuContainerControl";
             this.menuContainerControl.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
             this.menuContainerControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
-            this.menuContainerControl.Size = new System.Drawing.Size(1323, 50);
+            this.menuContainerControl.Size = new System.Drawing.Size(1183, 50);
             this.menuContainerControl.StatusBar = this.ribbonStatusBar;
             this.menuContainerControl.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
-            // 
-            // mainSplitContainer
-            // 
-            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.mainSplitContainer.Name = "mainSplitContainer";
-            this.mainSplitContainer.Panel1.Text = "Panel1";
-            this.mainSplitContainer.Panel2.Text = "Panel2";
-            this.mainSplitContainer.Size = new System.Drawing.Size(1323, 613);
-            this.mainSplitContainer.SplitterPosition = 181;
-            this.mainSplitContainer.TabIndex = 2;
             // 
             // splitContainerControl1
             // 
@@ -218,9 +218,9 @@ namespace ZtgeoGISDesktop.Forms
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.MainFormStandaloneBarDockControl);
             this.splitContainerControl1.Panel1.Text = "Panel1";
-            this.splitContainerControl1.Panel2.Controls.Add(this.mainSplitContainer);
+            this.splitContainerControl1.Panel2.Controls.Add(this.documentManagerDocking);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1323, 650);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1183, 599);
             this.splitContainerControl1.SplitterPosition = 32;
             this.splitContainerControl1.TabIndex = 5;
             // 
@@ -232,7 +232,7 @@ namespace ZtgeoGISDesktop.Forms
             this.MainFormStandaloneBarDockControl.Location = new System.Drawing.Point(0, 0);
             this.MainFormStandaloneBarDockControl.Manager = this.mainFormBarManager;
             this.MainFormStandaloneBarDockControl.Name = "MainFormStandaloneBarDockControl";
-            this.MainFormStandaloneBarDockControl.Size = new System.Drawing.Size(1323, 32);
+            this.MainFormStandaloneBarDockControl.Size = new System.Drawing.Size(1183, 32);
             this.MainFormStandaloneBarDockControl.Text = "standaloneBarDockControl1";
             // 
             // mainFormBarManager
@@ -249,9 +249,9 @@ namespace ZtgeoGISDesktop.Forms
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 731);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 680);
             this.barDockControlBottom.Manager = this.mainFormBarManager;
-            this.barDockControlBottom.Size = new System.Drawing.Size(1323, 0);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1183, 0);
             // 
             // barDockControlLeft
             // 
@@ -259,15 +259,24 @@ namespace ZtgeoGISDesktop.Forms
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
             this.barDockControlLeft.Manager = this.mainFormBarManager;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 731);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 680);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1323, 0);
+            this.barDockControlRight.Location = new System.Drawing.Point(1183, 0);
             this.barDockControlRight.Manager = this.mainFormBarManager;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 731);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 680);
+            // 
+            // documentManagerDocking
+            // 
+            this.documentManagerDocking.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentManagerDocking.Location = new System.Drawing.Point(0, 0);
+            this.documentManagerDocking.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.documentManagerDocking.Name = "documentManagerDocking";
+            this.documentManagerDocking.Size = new System.Drawing.Size(1183, 562);
+            this.documentManagerDocking.TabIndex = 0;
             // 
             // bar4
             // 
@@ -309,7 +318,7 @@ namespace ZtgeoGISDesktop.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1323, 731);
+            this.ClientSize = new System.Drawing.Size(1183, 680);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.menuContainerControl);
@@ -324,8 +333,6 @@ namespace ZtgeoGISDesktop.Forms
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuContainerControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
-            this.mainSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBarManager)).EndInit();
@@ -351,7 +358,6 @@ namespace ZtgeoGISDesktop.Forms
         private DevExpress.XtraBars.BarSubItem barSubItem3;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
-        private DevExpress.XtraEditors.SplitContainerControl mainSplitContainer;
         private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1; 
         private DevExpress.XtraBars.StandaloneBarDockControl MainFormStandaloneBarDockControl;
         private DevExpress.XtraBars.BarManager mainFormBarManager;
@@ -362,5 +368,7 @@ namespace ZtgeoGISDesktop.Forms
         private DevExpress.XtraBars.Bar bar4;
         private DevExpress.XtraBars.Bar bar2;
         private DevExpress.XtraBars.Bar bar3;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem7;
+        private DocumentManagerDocking documentManagerDocking;
     }
 }

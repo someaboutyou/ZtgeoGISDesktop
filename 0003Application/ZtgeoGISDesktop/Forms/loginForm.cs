@@ -13,6 +13,7 @@ using Ztgeo.Gis.Hybrid;
 using Ztgeo.Gis.Hybrid.FormIO;
 using Ztgeo.Gis.Runtime;
 using Ztgeo.Gis.Runtime.Authorization.Login;
+using Ztgeo.Gis.Runtime.Context;
 using Ztgeo.Utils;
 using ZtgeoGISDesktop.Winform.Share.Forms;
 
@@ -53,8 +54,9 @@ namespace ZtgeoGISDesktop.Forms
                     EventBus.Default.Trigger(new NonUIExceptionEventData { UnhandledExceptionEventArgs = new UnhandledExceptionEventArgs(ex, false) });
                 }
             };
-            if (dialog.ShowDialog() == DialogResult.Cancel) {
-                System.Environment.Exit(0);
+            if (dialog.ShowDialog() == DialogResult.Cancel) { 
+                iocManager.Resolve<RuntimeContext>().ShutdownImmediate();
+                //System.Environment.Exit(0);
             }
         }
     }

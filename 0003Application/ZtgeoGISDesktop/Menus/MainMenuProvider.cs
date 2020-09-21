@@ -28,9 +28,7 @@ namespace ZtgeoGISDesktop.Menus
             var uiDesign = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_UiDesign, MenuType.Button, "界面设置", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.UIDesign.png"),menuEvent:m=> { 
                     
-                });
-            //var backend = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_Backend, MenuType.Button, "后台设置", "", null
-            //    , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.backend.png"));
+                }); 
             var menuOrder = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_MenuOrderSetting, MenuType.Button, "菜单设置", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.MenuOrderSetting.png"), menuEvent: m =>
                 {
@@ -42,10 +40,15 @@ namespace ZtgeoGISDesktop.Menus
                     dialog.StartPosition = FormStartPosition.CenterScreen;
                     dialog.ShowDialog();
                 });
+
+            var filePageMenu = context.CreateMenu(MainFormMenuNames.FilePageMenu, MenuType.Page, "文件", "", null,
+                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.file16.png"));
         } 
     }
 
     public static class MainFormMenuNames{
+        public const string FilePageMenu = "MainForm_FilePage";
+
         public const string SettingPageMenu = "MainForm_SettingPage";  // for page
         public const string SystemSettingGroupMenu = "MainForm_SettingPage_SystemSettingGroup"; // for group
         public const string SystemSettingGroup_UiDesign = "MainForm_SettingPage_SystemSettingGroup_UiDesign"; // for UI

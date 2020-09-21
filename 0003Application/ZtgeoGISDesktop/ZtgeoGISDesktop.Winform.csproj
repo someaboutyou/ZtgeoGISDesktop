@@ -80,13 +80,19 @@
     <ManifestKeyFile>ZtgeoGISDesktop.Winform_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Abp, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -122,6 +128,10 @@
     <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Tutorials.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Tutorials.v19.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Utils.v19.1" />
     <Reference Include="DevExpress.Sparkline.v19.1.Core" />
     <Reference Include="DevExpress.Utils.v19.1.UI, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -326,6 +336,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DocumentManagerDocking.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DocumentManagerDocking.Designer.cs">
+      <DependentUpon>DocumentManagerDocking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Test\TestApp2JSAdapterApi.cs" />
     <Compile Include="Controls\Test\TestHtmlControl.cs">
       <SubType>UserControl</SubType>
@@ -359,6 +375,7 @@
     </Compile>
     <Compile Include="Menus\MenuSettingJs2AppAdapterApi.cs" />
     <Compile Include="Menus\WinformMenuViewManager.cs" />
+    <Compile Include="Runtime\ShutdownEventHandle.cs" />
     <Compile Include="SplashScreen\SplashScreenMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,6 +388,9 @@
     <Compile Include="Toolbars\MainToolbarProvider.cs" />
     <Compile Include="Toolbars\WinformToolbarViewManager.cs" />
     <Compile Include="ZtgeoGISDesktopMoudle.cs" />
+    <EmbeddedResource Include="Controls\DocumentManagerDocking.resx">
+      <DependentUpon>DocumentManagerDocking.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -380,6 +400,7 @@
     <EmbeddedResource Include="Forms\XtraForm2.resx">
       <DependentUpon>XtraForm2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="SplashScreen\SplashScreenMain.ar.resx">
       <DependentUpon>SplashScreenMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -404,6 +425,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -463,14 +485,14 @@
       <Name>ZtgeoGISDesktop.Winform.Share</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Runtime\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="db\sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="favicon.ico" />
+    <Content Include="Icons\background-f.png" />
+    <Content Include="logo.ico" />
+    <EmbeddedResource Include="Icons\file16.png" />
     <Content Include="Icons\logo.ico" />
     <EmbeddedResource Include="Icons\login.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
