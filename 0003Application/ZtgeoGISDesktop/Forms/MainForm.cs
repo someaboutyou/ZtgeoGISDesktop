@@ -15,12 +15,22 @@ using ZtgeoGISDesktop.Test;
 using DevExpress.XtraBars;
 using Ztgeo.Gis.Runtime.Authorization.Login;
 using Ztgeo.Gis.Hybrid.FormIO;
+using Ztgeo.Gis.Runtime.Context;
+using Ztgeo.Gis.Winform.MainFormDocument;
+using Ztgeo.Gis.Winform.MainFormStatusBar;
+using DevExpress.XtraBars.Docking2010.Views.Tabbed;
+using System.Collections.Concurrent;
+using CefSharp.WinForms.Internals;
+using DevExpress.XtraEditors.Repository;
 
 namespace ZtgeoGISDesktop.Forms
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm, IMainForm 
     {
         private readonly IFormIOSchemeManager formIOSchemeManager;
+        private readonly ProductInfo productInfo; 
+        private BarItem StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
+        private ConcurrentDictionary<IDocumentControl, StatusInfo> documentStatuses = new ConcurrentDictionary<IDocumentControl, StatusInfo>(); //document状态
         public IocManager IocManager { get; set; }
         public Control MenuContainerControl
         {
@@ -40,34 +50,117 @@ namespace ZtgeoGISDesktop.Forms
 
         public Control StandaloneBarDockControl {
             get {
-                return this.MainFormStandaloneBarDockControl;
+                return this.documentManagerDocking.StandaloneBarDockControl;
             }
-        }
-
+        } 
+        public IDocumentControl ActiveDocumentControl { get; private set; }
         public Control LayerPanel => throw new NotImplementedException();
 
         public Control PropertiesPanel => throw new NotImplementedException();
 
         public Control ResourcesPanel => throw new NotImplementedException();
 
-        public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager)
+        public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager, ProductInfo _productInfo)
         {
             IocManager = iocManager;
             formIOSchemeManager = _formIOSchemeManager;
+            productInfo = _productInfo;
         } 
         public void StartInitializeComponent()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+            this.ribbonStatusBar.ItemLinks.Add(this.StatusBarItem);
+            this.Text = productInfo.ProductName;
             var loginManager = IocManager.Resolve<ILoginManager>();
             if (!loginManager.IsLogined())
             {
                  LoginForm.ShowDialog(IocManager, formIOSchemeManager, loginManager);
             } 
         }
-
-        public Control AddADocument()
+        /// <summary>
+        /// 在中间的tab 页新添加一个文档
+        /// </summary>
+        /// <param name="documentControl"></param>
+        /// <returns></returns>
+        public IDocumentControl AddADocument(IDocumentControl documentControl)
         {
-            throw new NotImplementedException();
+            if (!(documentControl is Control)) {
+                throw new WinformUIExceptionDeal("Type of " + documentControl.GetType().FullName +" is not a control.");
+            }
+            XtraUserControl child = new XtraUserControl();
+            DocumentSettings settings = new DocumentSettings();
+            if (documentControl.Document != null)
+            {
+                settings.Caption = documentControl.Document.DocumentName;
+                if (documentControl.DocumentImage!=null)
+                    settings.Image = documentControl.DocumentImage;
+            } 
+            DocumentSettings.Attach(child, settings);
+            child.Padding = new Padding(16); 
+            ((Control)documentControl).Parent = child;
+            ((Control)documentControl).Dock = DockStyle.Fill;
+            ((Control)documentControl).GotFocus += (sender,e) => {
+                this.ActiveDocumentControl = sender as IDocumentControl;
+            };
+            tabbedView.AddDocument(child);
+
+            return documentControl;
         }
+
+ 
+
+        public void SetStatusInfo(IDocumentControl documentControl, StatusInfo statusInfo)
+        {
+            if (this.documentStatuses.ContainsKey(documentControl))
+            {
+                documentStatuses[documentControl] = statusInfo;
+            }
+            else {
+                documentStatuses.TryAdd(documentControl, statusInfo);
+            }
+            ShowActiveDocumentStauts();
+        }
+
+        public void ClearStatusInfo(IDocumentControl documentControl)
+        {
+            if (documentStatuses.ContainsKey(documentControl)) {
+                StatusInfo statusInfo;
+                documentStatuses.TryRemove(documentControl,out statusInfo);
+            }
+            ShowActiveDocumentStauts();
+        }
+        /// <summary>
+        /// 查看当前文档状态
+        /// </summary>
+        private void ShowActiveDocumentStauts() {
+            if (this.ActiveDocumentControl != null) {
+                if (documentStatuses.ContainsKey(this.ActiveDocumentControl)) { 
+                    ShowStauts(documentStatuses[this.ActiveDocumentControl]);
+                }
+            }
+        }
+        private void ShowStauts(StatusInfo statusInfo) { 
+            switch (statusInfo.StatusShowType) {
+                case StatusShowType.Msg:
+                    StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
+                    StatusBarItem.Caption = statusInfo.Message;  
+                    break;
+                 case StatusShowType.ProcessBar:
+                    StatusBarItem = new BarEditItem();
+                    RepositoryItemProgressBar progressBarControl = new RepositoryItemProgressBar();
+                    progressBarControl.Maximum = statusInfo.MaxValue;
+                    progressBarControl.Minimum = 0;
+                    progressBarControl.Step = statusInfo.CurrentValue;
+                    ((BarEditItem)StatusBarItem).Edit = progressBarControl; 
+                    break;
+                case StatusShowType.ProcessBarWithoutProcess:
+                    StatusBarItem = new BarEditItem();
+                    RepositoryItemMarqueeProgressBar marqueeProgressBar = new RepositoryItemMarqueeProgressBar();
+                    ((BarEditItem)StatusBarItem).Edit = marqueeProgressBar; 
+                    break;
+            }
+            this.ribbonStatusBar.Refresh(); 
+        }
+
     }
 }

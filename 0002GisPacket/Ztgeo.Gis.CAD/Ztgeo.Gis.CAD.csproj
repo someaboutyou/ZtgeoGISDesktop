@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1FC0A6A7-1313-4E09-B64A-EFF4EB0469EF}</ProjectGuid>
+    <ProjectGuid>{DF3DA29B-651A-4671-953A-EDC0CC23BC8F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ztgeo.Cad.Base</RootNamespace>
-    <AssemblyName>Ztgeo.Cad.Base</AssemblyName>
+    <RootNamespace>Ztgeo.Gis.CAD</RootNamespace>
+    <AssemblyName>Ztgeo.Gis.CAD</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,8 +34,13 @@
     <Reference Include="Abp">
       <HintPath>..\..\0003Application\ZtgeoGISDesktop\bin\Debug\Abp.dll</HintPath>
     </Reference>
+    <Reference Include="CADImport">
+      <HintPath>..\..\packages\CAD\CADImport.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,8 +49,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZtgeoCadBaseModule.cs" />
+    <Compile Include="Configuration\CadImportConfiguration.cs" />
+    <Compile Include="Configuration\CadImportConfigurationExtension.cs" />
+    <Compile Include="Controls\CADViewDocument.cs" />
+    <Compile Include="Controls\CADViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CADViewerControl.Designer.cs">
+      <DependentUpon>CADViewerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ICADViewDocument.cs" />
+    <Compile Include="Menus\CadBaseMenuProvider.cs" />
+    <Compile Include="Menus\MenuActions.cs" />
+    <Compile Include="ZtgeoGisCADModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\CADViewerControl.resx">
+      <DependentUpon>CADViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
+      <Project>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</Project>
+      <Name>Ztgeo.Gis.Winform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Utils\Ztgeo.Utils.csproj">
+      <Project>{62F52FC0-FC60-4237-BDEE-89E90646483F}</Project>
+      <Name>Ztgeo.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\cad16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\OpenCad32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Savecad32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\OutputCAD2Img32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

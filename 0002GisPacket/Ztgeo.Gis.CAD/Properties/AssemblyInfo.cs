@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Ztgeo.Cad.Base")]
+[assembly: AssemblyTitle("Ztgeo.Gis.CAD")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ztgeo.Cad.Base")]
+[assembly: AssemblyProduct("Ztgeo.Gis.CAD")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("1fc0a6a7-1313-4e09-b64a-eff4eb0469ef")]
+[assembly: Guid("df3da29b-651a-4671-953a-edc0cc23bc8f")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

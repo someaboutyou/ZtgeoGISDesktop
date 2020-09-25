@@ -26,6 +26,7 @@
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2 = new DevExpress.XtraBars.Docking.DockPanel();
@@ -79,6 +80,7 @@
             this.barManager1.DockControls.Add(this.barDockControlBottom);
             this.barManager1.DockControls.Add(this.barDockControlLeft);
             this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.DockControls.Add(this.standaloneBarDockControl1);
             this.barManager1.DockManager = this.dockManager1;
             this.barManager1.Form = this;
             // 
@@ -114,6 +116,16 @@
             this.barDockControlRight.Manager = this.barManager1;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 542);
             // 
+            // standaloneBarDockControl1
+            // 
+            this.standaloneBarDockControl1.CausesValidation = false;
+            this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl1.Manager = this.barManager1;
+            this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
+            this.standaloneBarDockControl1.Size = new System.Drawing.Size(995, 26);
+            this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
+            // 
             // dockManager1
             // 
             this.dockManager1.Controller = this.barAndDockingController1;
@@ -138,11 +150,11 @@
             this.panelContainer1.Footer = null;
             this.panelContainer1.Header = null;
             this.panelContainer1.ID = new System.Guid("12ee75ca-d68b-4d14-bfcf-76b9f3eebfbd");
-            this.panelContainer1.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer1.Location = new System.Drawing.Point(0, 26);
             this.panelContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelContainer1.Name = "panelContainer1";
             this.panelContainer1.OriginalSize = new System.Drawing.Size(165, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(165, 542);
+            this.panelContainer1.Size = new System.Drawing.Size(165, 516);
             this.panelContainer1.Text = "panelContainer1";
             // 
             // dockPanel2
@@ -160,9 +172,9 @@
             this.dockPanel2.Options.ShowAutoHideButton = false;
             this.dockPanel2.Options.ShowCloseButton = false;
             this.dockPanel2.Options.ShowMaximizeButton = false;
-            this.dockPanel2.OriginalSize = new System.Drawing.Size(165, 258);
+            this.dockPanel2.OriginalSize = new System.Drawing.Size(165, 223);
             this.dockPanel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dockPanel2.Size = new System.Drawing.Size(165, 223);
+            this.dockPanel2.Size = new System.Drawing.Size(165, 212);
             this.dockPanel2.Text = "图层";
             // 
             // dockPanel2_Container
@@ -170,7 +182,7 @@
             this.dockPanel2_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel2_Container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(156, 195);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(156, 184);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // dockPanel1
@@ -183,13 +195,13 @@
             this.dockPanel1.Footer = null;
             this.dockPanel1.Header = null;
             this.dockPanel1.ID = new System.Guid("58c0c721-7d02-4c1a-ba0f-7010bc2df956");
-            this.dockPanel1.Location = new System.Drawing.Point(0, 223);
+            this.dockPanel1.Location = new System.Drawing.Point(0, 212);
             this.dockPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel1.Name = "dockPanel1";
             this.dockPanel1.Options.ShowAutoHideButton = false;
             this.dockPanel1.Options.ShowMaximizeButton = false;
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(165, 284);
-            this.dockPanel1.Size = new System.Drawing.Size(165, 319);
+            this.dockPanel1.OriginalSize = new System.Drawing.Size(165, 319);
+            this.dockPanel1.Size = new System.Drawing.Size(165, 304);
             this.dockPanel1.Text = "属性";
             // 
             // dockPanel1_Container
@@ -197,7 +209,7 @@
             this.dockPanel1_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel1_Container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(156, 292);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(156, 277);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // dockPanel3
@@ -209,11 +221,11 @@
             this.dockPanel3.Footer = null;
             this.dockPanel3.Header = null;
             this.dockPanel3.ID = new System.Guid("1539c64a-1755-446f-b583-b0580e9ba1d7");
-            this.dockPanel3.Location = new System.Drawing.Point(795, 0);
+            this.dockPanel3.Location = new System.Drawing.Point(795, 26);
             this.dockPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel3.Name = "dockPanel3";
             this.dockPanel3.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanel3.Size = new System.Drawing.Size(200, 542);
+            this.dockPanel3.Size = new System.Drawing.Size(200, 516);
             this.dockPanel3.Text = "资源目录";
             // 
             // dockPanel3_Container
@@ -221,7 +233,7 @@
             this.dockPanel3_Container.Location = new System.Drawing.Point(5, 23);
             this.dockPanel3_Container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(191, 515);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(191, 489);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // DocumentManagerDocking
@@ -230,6 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dockPanel3);
             this.Controls.Add(this.panelContainer1);
+            this.Controls.Add(this.standaloneBarDockControl1);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -272,5 +285,6 @@
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel3_Container;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer1;
         private DevExpress.Utils.SvgImageCollection svgImageCollection1;
+        private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl1;
     }
 }

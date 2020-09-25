@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Dependency;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,16 @@ using System.Threading.Tasks;
 namespace Ztgeo.Gis.Winform.MainFormDocument
 {
     /// <summary>
-    /// 界面上的文档管理，Document shi
+    /// 界面上的文档管理，Document  
     /// </summary>
-    public interface IDocumentManager
+    public interface IDocumentManager : Abp.Dependency.ISingletonDependency
     {
         /// <summary>
         /// 添加一个文档
         /// </summary>
         /// <param name="cocument"></param>
         /// <returns></returns>
-        IDocumentControl AddADocument(IDocument cocument);
+        IDocumentControl AddADocument<T>() where T :IDocumentControl;
         /// <summary>
         /// 增加一个文档的子文档
         /// </summary>
@@ -34,6 +35,8 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// 获得当前活动文档控件
         /// </summary>
         IDocumentControl GetActiveDocumentControl { get; }
+
+        IList<IDocumentControl> DocumentList { get; set; }
 
     }
 }

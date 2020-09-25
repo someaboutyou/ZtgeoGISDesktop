@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ztgeo.Gis.Winform.MainFormDocument;
+using Ztgeo.Gis.Winform.MainFormStatusBar;
 
 namespace Ztgeo.Gis.Winform.ABPForm
 {
@@ -39,6 +41,7 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// 主界面 资源管理
         /// </summary>
         Control ResourcesPanel { get; }
+        IDocumentControl ActiveDocumentControl { get; }
         #endregion
 
         #region 主界面方法
@@ -51,7 +54,16 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// 在主文档界面添加一个文档
         /// </summary>
         /// <returns></returns>
-        Control AddADocument();
+        IDocumentControl AddADocument(IDocumentControl documentControl);
+        /// <summary>
+        /// 在状态栏设置系统状态信息
+        /// </summary>
+        void SetStatusInfo(IDocumentControl documentControl,StatusInfo statusInfo);
+        /// <summary>
+        /// 清除状态栏信息
+        /// </summary>
+        /// <param name="documentControl"></param>
+        void ClearStatusInfo(IDocumentControl documentControl);
         #endregion
     }
 }

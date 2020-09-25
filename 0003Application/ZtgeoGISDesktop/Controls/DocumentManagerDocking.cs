@@ -18,6 +18,7 @@ namespace ZtgeoGISDesktop.Controls
 {
     public partial class DocumentManagerDocking : XtraUserControl
     {
+        public StandaloneBarDockControl StandaloneBarDockControl { get { return this.standaloneBarDockControl1; } }
         public DocumentManagerDocking()
         {
             InitializeComponent();
@@ -39,31 +40,11 @@ namespace ZtgeoGISDesktop.Controls
             }
         }
         void Form1_Load(object sender, EventArgs e)
-        {
-            AddDocument();
-            AddDocument();
-            AddDocument();
+        { 
             ScaleElements();
         }
         void biAddDocumentClick(object sender, ItemClickEventArgs e)
-        {
-            AddDocument();
-        }
-        int i = 0;
-        void AddDocument()
-        {
-            XtraUserControl child = new XtraUserControl();
-            DocumentSettings settings = new DocumentSettings();
-            settings.Caption = "Document" + (i++).ToString();
-            //settings.Image = svgImageCollection1.GetImage(i % (svgImageCollection1.Count - 1));
-            DocumentSettings.Attach(child, settings);
-            child.Padding = new Padding(16);
-            LabelControl label = new LabelControl();
-            label.Text = "Document" + (i++).ToString();
-            label.AutoSizeMode = LabelAutoSizeMode.Vertical;
-            label.Parent = child;
-            label.Dock = DockStyle.Fill;
-            tabbedView.AddDocument(child);
-        }
+        { 
+        } 
     }
 }
