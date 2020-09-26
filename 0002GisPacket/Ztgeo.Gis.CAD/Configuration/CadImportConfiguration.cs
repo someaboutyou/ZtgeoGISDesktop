@@ -14,9 +14,9 @@ namespace Ztgeo.Gis.CAD.Configuration
     }
     public class CadImportConfiguration: ICadImportConfiguration
     {
-        public bool UseSHXFonts { get; set; } 
+        public bool UseSHXFonts { get; set; }
 
-        public DrawGraphicsMode DrawGraphicsMode { get; set; }
+        public DrawGraphicsMode DrawGraphicsMode { get; set; } = DrawGraphicsMode.GDIPlus;
 
         public IList<string> SHXPaths { get; set; }
     }

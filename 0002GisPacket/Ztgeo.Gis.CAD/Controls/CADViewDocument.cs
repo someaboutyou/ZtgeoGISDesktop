@@ -94,7 +94,7 @@ namespace Ztgeo.Gis.CAD.Controls
 
         public string FilePath { get; private set; }
 
-        public CADImage Image { get; private set; }
+        public CADImage Image { get { return this.cadImage; } }
 
         public double ImageScale {
             get
@@ -136,14 +136,19 @@ namespace Ztgeo.Gis.CAD.Controls
             }
         }
 
-        public DPoint PictureSize { get; private set; }
+        public DPoint PictureSize { get; set; }
 
-        public RectangleF ImageRectangleF { get; private set; }
+        public RectangleF ImageRectangleF { get; set; }
 
         public CADLayoutCollection Layouts { get; private set; }
 
         public IDocumentControl HostControl { get; private set; }
 
+        public bool IsLoading {
+            get {
+                return loadFileThread.IsAlive;
+            }
+        }
 
         public void Close()
         {
@@ -166,7 +171,7 @@ namespace Ztgeo.Gis.CAD.Controls
                 if (loadFileThread.IsAlive)
                     return;
             }
-            if (string.IsNullOrEmpty(this.FilePath)) {
+            if (!string.IsNullOrEmpty(this.FilePath)) {
                 if (cadImage != null) //处理现有打开的文档
                 {
                     cadImage.DrawMatrixChanged -= new CADImport.EventHandler(cadImage_DrawMatrixChanged);
@@ -260,13 +265,21 @@ namespace Ztgeo.Gis.CAD.Controls
                 //cadImage.Converter.NumberOfPartsInCircle = 8;
                 if (fileNameObj is Stream) {
                     cadImage.LoadFromStream(fileNameObj as Stream);
-                } else { 
-                    string fileName = (string)fileNameObj;
-                    CADConst.DefaultSHXParameters.SHXSearchPaths = string.Join(";",this.cadImportConfiguration.SHXPaths.ToArray()); // 设置字体
-                    if (CADConst.IsWebPath(fileName))
-                        cadImage.LoadFromWeb(fileName);
-                    else
-                        this.LoadFromFile(fileName);
+                } else {
+                    try
+                    {
+                        string fileName = (string)fileNameObj;
+                        if (this.cadImportConfiguration.SHXPaths != null)
+                            CADConst.DefaultSHXParameters.SHXSearchPaths = string.Join(";", this.cadImportConfiguration.SHXPaths.ToArray()); // 设置字体
+                        if (CADConst.IsWebPath(fileName))
+                            cadImage.LoadFromWeb(fileName);
+                        else
+                            cadImage.LoadFromFile(fileName);
+                    }
+                    catch (Exception ex) {
+                        throw ex;
+                    }
+                    
                 }
             }
             ((Control)this.HostControl).Invoke(new EndThread(SetCADImageOptions));
@@ -359,7 +372,7 @@ namespace Ztgeo.Gis.CAD.Controls
             } 
             this.HostControl.Invalidate();
         }
-
+        
         private void cadImage_AfterRotate(Object Sender)
         {
             if (cadImage == null) return;

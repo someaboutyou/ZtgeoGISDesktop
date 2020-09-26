@@ -19,6 +19,8 @@ namespace ZtgeoGISDesktop.Controls
     public partial class DocumentManagerDocking : XtraUserControl
     {
         public StandaloneBarDockControl StandaloneBarDockControl { get { return this.standaloneBarDockControl1; } }
+
+        public TabbedView TabbedView { get { return this.tabbedView; } }
         public DocumentManagerDocking()
         {
             InitializeComponent();
@@ -42,9 +44,6 @@ namespace ZtgeoGISDesktop.Controls
         void Form1_Load(object sender, EventArgs e)
         { 
             ScaleElements();
-        }
-        void biAddDocumentClick(object sender, ItemClickEventArgs e)
-        { 
         } 
     }
 }

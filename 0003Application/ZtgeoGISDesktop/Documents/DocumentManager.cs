@@ -16,6 +16,7 @@ namespace ZtgeoGISDesktop.Documents
         public DocumentManager(IMainForm _mainForm,IocManager _iocManager) {
             mainForm = _mainForm;
             iocManager = _iocManager;
+            DocumentList = new List<IDocumentControl>();
         }
         public IList<IDocumentControl> DocumentList { get; set; }
         private IDocumentControl activeDocumentControl = null;
@@ -39,10 +40,10 @@ namespace ZtgeoGISDesktop.Documents
             throw new NotImplementedException();
         }
 
-        public IDocumentControl AddADocument<T>() where T : IDocumentControl
+        public IDocumentControl AddADocument<T>(string DocumentName) where T : IDocumentControl
         {
             var cocumentCtr = iocManager.Resolve<T>();
-            mainForm.AddADocument(cocumentCtr);
+            mainForm.AddADocument(cocumentCtr, DocumentName);
             this.DocumentList.Add(cocumentCtr);
             cocumentCtr.SetActive();
             return cocumentCtr;

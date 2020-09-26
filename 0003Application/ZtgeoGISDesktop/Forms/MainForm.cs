@@ -82,28 +82,27 @@ namespace ZtgeoGISDesktop.Forms
         /// </summary>
         /// <param name="documentControl"></param>
         /// <returns></returns>
-        public IDocumentControl AddADocument(IDocumentControl documentControl)
+        public IDocumentControl AddADocument(IDocumentControl documentControl,string name)
         {
             if (!(documentControl is Control)) {
                 throw new WinformUIExceptionDeal("Type of " + documentControl.GetType().FullName +" is not a control.");
             }
             XtraUserControl child = new XtraUserControl();
-            DocumentSettings settings = new DocumentSettings();
+            DocumentSettings DocumentSettings = new DocumentSettings();
             if (documentControl.Document != null)
             {
-                settings.Caption = documentControl.Document.DocumentName;
+                DocumentSettings.Caption = documentControl.Document.DocumentName ?? name;
                 if (documentControl.DocumentImage!=null)
-                    settings.Image = documentControl.DocumentImage;
+                    DocumentSettings.Image = documentControl.DocumentImage;
             } 
-            DocumentSettings.Attach(child, settings);
-            child.Padding = new Padding(16); 
+            DocumentSettings.Attach(child, DocumentSettings); 
             ((Control)documentControl).Parent = child;
             ((Control)documentControl).Dock = DockStyle.Fill;
             ((Control)documentControl).GotFocus += (sender,e) => {
                 this.ActiveDocumentControl = sender as IDocumentControl;
             };
-            tabbedView.AddDocument(child);
-
+            ((Control)documentControl).Visible = true;
+            this.documentManagerDocking.TabbedView.AddDocument(child); 
             return documentControl;
         }
 

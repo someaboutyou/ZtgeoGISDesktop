@@ -54,7 +54,7 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// 在主文档界面添加一个文档
         /// </summary>
         /// <returns></returns>
-        IDocumentControl AddADocument(IDocumentControl documentControl);
+        IDocumentControl AddADocument(IDocumentControl documentControl,string name);
         /// <summary>
         /// 在状态栏设置系统状态信息
         /// </summary>

@@ -17,7 +17,7 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// </summary>
         /// <param name="cocument"></param>
         /// <returns></returns>
-        IDocumentControl AddADocument<T>() where T :IDocumentControl;
+        IDocumentControl AddADocument<T>(string documentName) where T :IDocumentControl;
         /// <summary>
         /// 增加一个文档的子文档
         /// </summary>
