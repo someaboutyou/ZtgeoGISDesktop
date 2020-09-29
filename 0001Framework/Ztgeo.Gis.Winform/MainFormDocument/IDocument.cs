@@ -19,11 +19,7 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// <summary>
         /// 是否是附属文档
         /// </summary>
-        bool IsSubDocument { get; }
-        /// <summary>
-        /// 父文档（当文档本身作为父文档时，此值为空）
-        /// </summary>
-        IDocument ParentDocument { get; }
+        bool IsSubDocument { get; } 
         /// <summary>
         /// 文档所属控件
         /// </summary>

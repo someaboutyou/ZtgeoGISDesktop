@@ -22,6 +22,7 @@ using DevExpress.XtraBars.Docking2010.Views.Tabbed;
 using System.Collections.Concurrent;
 using CefSharp.WinForms.Internals;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.Utils.Extensions;
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -56,7 +57,7 @@ namespace ZtgeoGISDesktop.Forms
         public IDocumentControl ActiveDocumentControl { get; private set; }
         public Control LayerPanel => throw new NotImplementedException();
 
-        public Control PropertiesPanel => throw new NotImplementedException();
+        public Control PropertiesPanel { get { return this.documentManagerDocking.PropertiesControl; } }
 
         public Control ResourcesPanel => throw new NotImplementedException();
 
@@ -102,7 +103,13 @@ namespace ZtgeoGISDesktop.Forms
                 this.ActiveDocumentControl = sender as IDocumentControl;
             };
             ((Control)documentControl).Visible = true;
-            this.documentManagerDocking.TabbedView.AddDocument(child); 
+            this.documentManagerDocking.TabbedView.AddDocument(child);
+            if (documentControl.PropertiesControl != null)
+            {
+                Control propertiesControl = (Control)documentControl.PropertiesControl;
+                propertiesControl.Dock = DockStyle.Fill;
+                this.PropertiesPanel.AddControl(propertiesControl);
+            }
             return documentControl;
         }
 

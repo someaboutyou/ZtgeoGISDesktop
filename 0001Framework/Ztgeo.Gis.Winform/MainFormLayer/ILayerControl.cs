@@ -9,10 +9,11 @@ namespace Ztgeo.Gis.Winform.MainFormLayer
 {
     public interface ILayerControl
     {
+        IDocumentControl ActiveDocumentControl { get; set; }
         /// <summary>
         /// 当前活动的文档
         /// </summary>
-        IDocument ActiveDocument { get; }
+        IDocument ActiveDocument { get; set; }
         /// <summary>
         /// 设置图层信息
         /// </summary>

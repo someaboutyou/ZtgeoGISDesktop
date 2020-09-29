@@ -12,6 +12,7 @@ namespace ZtgeoGISDesktop.Winform.Share.Forms
 {
     public class DialogHybirdForm<TIHybridControl>:Form where TIHybridControl: IHybridControl
     {
+        private bool _isDisposed = false;
 
         private readonly IocManager iocManager;
         public IHybridControl hybridControl { get; private set; } 
@@ -33,6 +34,6 @@ namespace ZtgeoGISDesktop.Winform.Share.Forms
             this.Name = "DialogHybirdForm";
             this.ResumeLayout(false);
 
-        }
+        } 
     }
 }

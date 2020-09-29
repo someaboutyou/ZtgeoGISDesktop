@@ -12,6 +12,9 @@ using Ztgeo.Gis.Winform.MainFormLayer;
 using Ztgeo.Gis.Winform.MainFormProperty;
 using CADImport.FaceModule;
 using CADImport;
+using Ztgeo.Gis.CAD.Controls.CADProperty;
+using Abp.Dependency;
+using Ztgeo.Gis.CAD.Controls.CADLayer;
 
 namespace Ztgeo.Gis.CAD.Controls
 {
@@ -24,14 +27,19 @@ namespace Ztgeo.Gis.CAD.Controls
         private int cX;
         private int cY;
         private bool detRMouseDown;
-        public CADViewerControl(ICADViewDocument cadViewDocument)
+        public CADViewerControl(ICADViewDocument cadViewDocument, 
+            ICADPropertiesControl _cadPropertiesControl,
+            ICADLayerControl _cadLayerControl
+            )
         {
-            this.Document = cadViewDocument;
+            CADViewDocument = cadViewDocument; 
+            CADPropertiesControl = _cadPropertiesControl;
+            CADLayerControl = _cadLayerControl;
             InitializeComponent();
             InitializePicutreBox();
             InitExtParam();
             this.PerformLayout(); 
-            cadViewDocument.InitParams(this); 
+            cadViewDocument.InitParams(this);
         }
 
         private void InitializePicutreBox() {
@@ -56,19 +64,31 @@ namespace Ztgeo.Gis.CAD.Controls
         private void InitExtParam()
         {
 
-            //((ICADViewDocument)Document).Image.GraphicsOutMode = DrawGraphicsMode.GDIPlus;
+            //CADViewDocument.Image.GraphicsOutMode = DrawGraphicsMode.GDIPlus;
              SetGDIStyle();        // Style = CADPictureBox.gdiStyle;
             //cadPictBox.ScrollBars = ScrollBarsShow.Always;  
             this.clipRectangle = new ClipRect(this );
             this.clipRectangle.MultySelect = false;  
+            CADImportFace.EntityPropertyGrid = this.CADPropertiesControl as CADPropertiesControl;
             MouseWheel += new MouseEventHandler(CADPictBoxMouseWheel);
             ScrollEvent += new CADImport.FaceModule.ScrollEventHandlerExt(CADPictBoxScroll);
         }
-        public IDocument Document { get;private set; } 
+        public IDocument Document { get {
+                return this.CADViewDocument;
+        } }
+        private ICADViewDocument CADViewDocument;
+        public ILayerControl LayerControl { get;private set; }
 
-        public ILayerControl LayerControl { get; set; }
+        private ICADLayerControl CADLayerControl;
 
-        public IPropertiesControl PropertiesControl { get; set; }
+        public IPropertiesControl PropertiesControl
+        {
+            get
+            {
+                return CADPropertiesControl;
+            }
+        }
+        private ICADPropertiesControl CADPropertiesControl;
 
         public bool IsActive { get { return this.isActive; }  private set { this.isActive = value; } }
 
@@ -109,7 +129,7 @@ namespace Ztgeo.Gis.CAD.Controls
         private void cadPictBox_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             if (Document == null) return;
-            if (((ICADViewDocument)Document).IsLoading)
+            if (CADViewDocument.IsLoading)
                 return;
             DrawCADImage(e.Graphics, sender as Control);
         }
@@ -117,11 +137,13 @@ namespace Ztgeo.Gis.CAD.Controls
         {
             try
             {
-                SetSizePictureBox(((ICADViewDocument)Document).ImageRectangleF);
-                if (((ICADViewDocument)Document).Image.NavigateDrawMatrix)
-                    ((ICADViewDocument)Document).Image.Draw(gr, RectangleF.Empty, control);
-                else
-                    ((ICADViewDocument)Document).Image.Draw(gr, ((ICADViewDocument)Document).ImageRectangleF, control);
+                SetSizePictureBox(CADViewDocument.ImageRectangleF);
+                if (CADViewDocument.Image != null) { 
+                    if (CADViewDocument.Image.NavigateDrawMatrix)
+                        CADViewDocument.Image.Draw(gr, RectangleF.Empty, control);
+                    else
+                        CADViewDocument.Image.Draw(gr, CADViewDocument.ImageRectangleF, control);
+                }
             }
             catch
             {
@@ -137,11 +159,11 @@ namespace Ztgeo.Gis.CAD.Controls
 
         private void cadPictBox_Resize(object sender, System.EventArgs e)
         {
-            if (Document!=null && ((ICADViewDocument)Document).Image != null)
+            if (Document!=null && CADViewDocument.Image != null)
             {
-                if (((ICADViewDocument)Document).Image.Painter != null)
-                    ((ICADViewDocument)Document).Image.Painter.viewportRect = ClientRectangle;
-                ((ICADViewDocument)Document).Image.visibleArea =  Size;
+                if (CADViewDocument.Image.Painter != null)
+                    CADViewDocument.Image.Painter.viewportRect = ClientRectangle;
+                CADViewDocument.Image.visibleArea =  Size;
                 Invalidate();
             }
         }
@@ -151,10 +173,10 @@ namespace Ztgeo.Gis.CAD.Controls
             switch (e.KeyCode)
             { 
                 case Keys.Add:
-                    ((ICADViewDocument)Document).ZoomIn();
+                    CADViewDocument.ZoomIn();
                     break;
                 case Keys.Subtract:
-                    ((ICADViewDocument)Document).ZoomOut();
+                    CADViewDocument.ZoomOut();
                     break;
             }
         }
@@ -164,15 +186,15 @@ namespace Ztgeo.Gis.CAD.Controls
         }
         private void cadPictBox_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if ( Document==null||((ICADViewDocument)Document).Image == null)
+            if ( Document==null||CADViewDocument.Image == null)
                 return;
             selectedEntitiesChanged = false;
-            ((ICADViewDocument)Document).Image.SelectedEntities.PropertyChanged += new PropertyChangedEventHandler(this.SelectedEntitiesChanged);
+            CADViewDocument.Image.SelectedEntities.PropertyChanged += new PropertyChangedEventHandler(this.SelectedEntitiesChanged);
             if (e.Button == MouseButtons.Left)
             {
-                if ((((ICADViewDocument)Document).Image.SelectionMode == SelectionEntityMode.Enabled) && useSelectEntity)
+                if ((CADViewDocument.Image.SelectionMode == SelectionEntityMode.Enabled) && useSelectEntity)
                 {
-                    if (((ICADViewDocument)Document).Image.Select(e.X, e.Y))
+                    if (CADViewDocument.Image.Select(e.X, e.Y))
                         return;
                 }
             }
@@ -192,69 +214,69 @@ namespace Ztgeo.Gis.CAD.Controls
                     return;
                 }
             }
-            if ((!this.clipRectangle.Enabled) && ((((ICADViewDocument)Document).Image != null) && (!((ICADViewDocument)Document).Orb3D.Visible) && (((ICADViewDocument)Document).Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)))
+            if ((!this.clipRectangle.Enabled) && ((CADViewDocument.Image != null) && (!CADViewDocument.Orb3D.Visible) && (CADViewDocument.Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)))
                 this.clipRectangle.EnableRect(RectangleType.Zooming, new Rectangle(e.X, e.Y, 0, 0));
         }
         public void DoResize(bool center, bool resize)
         {
-            if (Document==null ||((ICADViewDocument)Document).Image == null)
+            if (Document==null ||CADViewDocument.Image == null)
                 return;
-            DRect rect = ((ICADViewDocument)Document).Image.Extents;
+            DRect rect = CADViewDocument.Image.Extents;
             double cw = ClientSize.Width;
             double ch = ClientSize.Height;
             double s = cw / rect.Width;
             if (rect.Height * s > ch)
                 s *= (ch / (rect.Height * s));
-            if (((ICADViewDocument)Document).Image.NavigateDrawMatrix)
+            if (CADViewDocument.Image.NavigateDrawMatrix)
             {
-                CADMatrix m = (CADMatrix)((ICADViewDocument)Document).Image.Painter.DrawMatrix.Clone();
+                CADMatrix m = (CADMatrix)CADViewDocument.Image.Painter.DrawMatrix.Clone();
                 if (resize)
                 {
                     DPoint scale;
                     scale = new DPoint(s, s, s);
-                    if (((ICADViewDocument)Document).Image.GraphicsOutMode == DrawGraphicsMode.OpenGL)
+                    if (CADViewDocument.Image.GraphicsOutMode == DrawGraphicsMode.OpenGL)
                         scale.Z = -scale.Z;
                     else
-                        if (((ICADViewDocument)Document).Image.Converter.IsCrossoverMatrix)
+                        if (CADViewDocument.Image.Converter.IsCrossoverMatrix)
                         scale.Y = -scale.Y;
-                    m = ((ICADViewDocument)Document).Image.GetRealImageMatrix().Scale(scale);
+                    m = CADViewDocument.Image.GetRealImageMatrix().Scale(scale);
                 }
                 if (center)
                 {
-                    CADMatrix.MatOffset(m, new DPoint(0.5 * cw, 0.5 * ch, 0) - m.AffinePtXMat(((ICADViewDocument)Document).Image.Center));
+                    CADMatrix.MatOffset(m, new DPoint(0.5 * cw, 0.5 * ch, 0) - m.AffinePtXMat(CADViewDocument.Image.Center));
                 }
                 if (resize || center)
-                    ((ICADViewDocument)Document).Image.Painter.DrawMatrix = m;
+                    CADViewDocument.Image.Painter.DrawMatrix = m;
             }
             else
             {
-                ((ICADViewDocument)Document).PictureSize = rect.Size;
+                CADViewDocument.PictureSize = rect.Size;
                 if (resize)
                 {
-                    ((ICADViewDocument)Document).ImageScale = s;
+                    CADViewDocument.ImageScale = s;
                 }
-               ((ICADViewDocument)Document).Image.visibleArea = this.Size;
+               CADViewDocument.Image.visibleArea = this.Size;
                 if (center)
                 {
                     RectangleF r = new RectangleF(new PointF((float)(0.5 * cw), (float)(0.5 * ch)), SizeF.Empty);
-                    r.Inflate(0.5f * ((ICADViewDocument)Document).ImageRectangleF.Width, 0.5f * ((ICADViewDocument)Document).ImageRectangleF.Height);
-                    ((ICADViewDocument)Document).ImageRectangleF = r;
+                    r.Inflate(0.5f * CADViewDocument.ImageRectangleF.Width, 0.5f * CADViewDocument.ImageRectangleF.Height);
+                    CADViewDocument.ImageRectangleF = r;
                 }
             }
         }
         private void cadPictBox_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (Document == null || ((ICADViewDocument)Document).Image == null)
+            if (Document == null || CADViewDocument.Image == null)
                 return;
             //CADGraphicsOpenGL ogl = cadImage.Painter as CADGraphicsOpenGL;
             if (detRMouseDown)
             {
-                if (((ICADViewDocument)Document).Image.NavigateDrawMatrix)
+                if (CADViewDocument.Image.NavigateDrawMatrix)
                 {
-                    if (((ICADViewDocument)Document).Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)
-                        ((ICADViewDocument)Document).Image.Painter.Move(new PointF((e.X - cX), (e.Y - cY)));
+                    if (CADViewDocument.Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)
+                        CADViewDocument.Image.Painter.Move(new PointF((e.X - cX), (e.Y - cY)));
                     else
-                        ((ICADViewDocument)Document).Image.Painter.Move(new PointF((e.X - cX), (cY - e.Y)));
+                        CADViewDocument.Image.Painter.Move(new PointF((e.X - cX), (cY - e.Y)));
                     cX = e.X;
                     cY = e.Y;
                 }
@@ -262,15 +284,15 @@ namespace Ztgeo.Gis.CAD.Controls
                 {
                     PointF pos = PointF.Empty;
                     pos.X -= (cX - e.X);
-                    if (((ICADViewDocument)Document).Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)
+                    if (CADViewDocument.Image.GraphicsOutMode == DrawGraphicsMode.GDIPlus)
                         pos.Y = -(cY - e.Y);
                     else
                         pos.Y = (cY - e.Y);
                     cX = e.X;
                     cY = e.Y;
-                    RectangleF r = ((ICADViewDocument)Document).ImageRectangleF;
+                    RectangleF r = CADViewDocument.ImageRectangleF;
                     r.Offset(pos);
-                    ((ICADViewDocument)Document).ImageRectangleF = r;
+                    CADViewDocument.ImageRectangleF = r;
                 }
             }
 
@@ -290,7 +312,7 @@ namespace Ztgeo.Gis.CAD.Controls
 
                     if ((this.clipRectangle.ClientRectangle.Width > 5) && (this.clipRectangle.ClientRectangle.Height > 5))
                     {
-                        if (!MultipleSelect() && ((ICADViewDocument)Document).ImageScale <= 2000.0f)
+                        if (!MultipleSelect() && CADViewDocument.ImageScale <= 2000.0f)
                         {
                             Rectangle rect = clipRectangle.ClientRectangle;
                             float vScl = 1.0f;
@@ -302,34 +324,34 @@ namespace Ztgeo.Gis.CAD.Controls
                             {
                                 vScl = visibleAreaSize.Width / rect.Width;
                             }
-                            ((ICADViewDocument)Document).Zoom(vScl, new PointF((float)(rect.X + 0.5 * rect.Width), (float)(rect.Y + 0.5 * rect.Height)));
+                            CADViewDocument.Zoom(vScl, new PointF((float)(rect.X + 0.5 * rect.Width), (float)(rect.Y + 0.5 * rect.Height)));
                         }
                     }
                 }
             if (selectedEntitiesChanged)
                 Invalidate();
-            if (((ICADViewDocument)Document).Image != null)
-                ((ICADViewDocument)Document).Image.SelectedEntities.PropertyChanged -= new PropertyChangedEventHandler(this.SelectedEntitiesChanged);
+            if (CADViewDocument.Image != null)
+                CADViewDocument.Image.SelectedEntities.PropertyChanged -= new PropertyChangedEventHandler(this.SelectedEntitiesChanged);
             selectedEntitiesChanged = false;
         }
         private bool MultipleSelect()
         {
-            if (((ICADViewDocument)Document).Image.SelectionMode == SelectionEntityMode.Enabled)
+            if (CADViewDocument.Image.SelectionMode == SelectionEntityMode.Enabled)
             {
                 int l = this.clipRectangle.ClientRectangle.Left;
                 int t = this.clipRectangle.ClientRectangle.Top;
                 DPoint pt1 = this.GetRealPoint(l, t);
                 DPoint pt2 = this.GetRealPoint(this.clipRectangle.ClientRectangle.Right, this.clipRectangle.ClientRectangle.Bottom);
                 DRect tmpRect = new DRect(pt1.X, pt1.Y, pt2.X, pt2.Y);
-                ((ICADViewDocument)Document).Image.MultipleSelect(tmpRect, false, true);
+                CADViewDocument.Image.MultipleSelect(tmpRect, false, true);
                 return true;
             }
             return false;
         }
         public DPoint GetRealPoint(int x, int y)
         {
-            RectangleF tmpRect = ((ICADViewDocument)Document).ImageRectangleF;
-            return CADConst.GetRealPoint(x, y, ((ICADViewDocument)Document).Image, tmpRect);
+            RectangleF tmpRect = CADViewDocument.ImageRectangleF;
+            return CADConst.GetRealPoint(x, y, CADViewDocument.Image, tmpRect);
         } 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -345,9 +367,9 @@ namespace Ztgeo.Gis.CAD.Controls
             if ((Control.ModifierKeys & Keys.Control) != 0)
                 z = 1.2f;
             if (e.Delta < 0)
-                ((ICADViewDocument)Document).Zoom(0.8f * z, e.Location);
+                CADViewDocument.Zoom(0.8f * z, e.Location);
             else
-                ((ICADViewDocument)Document).Zoom(1.25f / z, e.Location);
+                CADViewDocument.Zoom(1.25f / z, e.Location);
         }
         private void CADPictBoxScroll(object sender, CADImport.FaceModule.ScrollEventArgsExt e)
         {
@@ -367,9 +389,9 @@ namespace Ztgeo.Gis.CAD.Controls
             }
             if (update_pos)
             {
-                RectangleF r = ((ICADViewDocument)Document).ImageRectangleF;
+                RectangleF r = CADViewDocument.ImageRectangleF;
                 r.Offset(pos);
-                ((ICADViewDocument)Document).ImageRectangleF = r;
+                CADViewDocument.ImageRectangleF = r;
             }
         }
         private void SetPictureBoxPosition(PointF value)

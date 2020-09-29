@@ -43,7 +43,7 @@ namespace Ztgeo.Gis.CAD.Controls
         /// <summary>
         /// 图层列表
         /// </summary>
-        CADLayoutCollection Layouts { get; }
+        CADEntityCollection Layers { get; }
         /// <summary>
         /// 初始化参数
         /// </summary>

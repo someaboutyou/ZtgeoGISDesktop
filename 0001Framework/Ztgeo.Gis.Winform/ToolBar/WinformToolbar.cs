@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,8 @@ namespace Ztgeo.Gis.Winform.ToolBar
             Image disableIcon,
             bool defaultEnable,
             string tip,
-            WinformToolbarGroup group, 
+            WinformToolbarGroup group,
+            bool isUserActiveStatus,
             string permission =null,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
             Action<WinformToolbar> toolbarEvent = null
@@ -72,7 +74,14 @@ namespace Ztgeo.Gis.Winform.ToolBar
         /// 默认是否可用
         /// </summary>
         public bool DefaultEnable { get; set; }
-         
+        /// <summary>
+        /// 是否启用激活状态设置.如果该值是true时，IsActive 的样式会变的。
+        /// </summary>
+        public bool IsUseActiveStatus { get; set; }
+        /// <summary>
+        /// 是否是激活状态
+        /// </summary>
+        public bool IsActive { get; set; }
         public MultiTenancySides MultiTenancySides { get; set; }
         /// <summary>
         /// toolbar 点击事件

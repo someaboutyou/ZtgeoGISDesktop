@@ -12,11 +12,13 @@ using Ztgeo.WebViewControl;
 
 namespace Ztgeo.Gis.Hybrid.HybridUserControl
 {
-    public interface IHybridControl: ITransientDependency
+    public interface IHybridControl: IDisposable, ITransientDependency
     {
         void LoadResource(Assembly assembly, string[] path);
 
         DockStyle Dock { get; set; } 
+
+
     }
     public abstract class BaseHybridControl<TApp2JSAdapterApi,TJS2AppAdapterApi>: UserControl, IHybridControl, IDisposable
         where TApp2JSAdapterApi : IApp2JSAdapterApi 
@@ -49,6 +51,7 @@ namespace Ztgeo.Gis.Hybrid.HybridUserControl
             this.Controls.Add(webView);
             app2JSAdapterApi.BindCtx4App2Js(this.bindableJSContextProvider);
             js2AppAdapterApi.BindCtx4JS2App(this.bindableJSContextProvider);
+            
         }
 
 
@@ -56,9 +59,10 @@ namespace Ztgeo.Gis.Hybrid.HybridUserControl
         {
             webView.LoadResource(new ResourceUrl(assembly, path));
         }
-        public new void Dispose()
-        {
+        protected override void Dispose(bool disposing)
+        { 
             this.webView.Dispose();
-        }
+            base.Dispose(disposing); 
+        } 
     }
 }

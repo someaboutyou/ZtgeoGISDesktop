@@ -51,6 +51,11 @@
   <ItemGroup>
     <Compile Include="Configuration\CadImportConfiguration.cs" />
     <Compile Include="Configuration\CadImportConfigurationExtension.cs" />
+    <Compile Include="Controls\CADLayer\CADLayerControl.cs" />
+    <Compile Include="Controls\CADProperty\CADPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CADProperty\ICADPropertiesControl.cs" />
     <Compile Include="Controls\CADViewDocument.cs" />
     <Compile Include="Controls\CADViewerControl.cs">
       <SubType>UserControl</SubType>
@@ -58,9 +63,11 @@
     <Compile Include="Controls\CADViewerControl.Designer.cs">
       <DependentUpon>CADViewerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CADLayer\ICADLayerControl.cs" />
     <Compile Include="Controls\ICADViewDocument.cs" />
     <Compile Include="Menus\CadBaseMenuProvider.cs" />
     <Compile Include="Menus\MenuActions.cs" />
+    <Compile Include="Toolbars\CADToolbarProvider.cs" />
     <Compile Include="ZtgeoGisCADModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +77,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Hybrid\Ztgeo.Gis.Hybrid.csproj">
+      <Project>{fb274ca5-d9e2-4c63-be0c-6c5e130aa509}</Project>
+      <Name>Ztgeo.Gis.Hybrid</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
       <Project>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</Project>
       <Name>Ztgeo.Gis.Winform</Name>
@@ -93,6 +104,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\OutputCAD2Img32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\ZoomIn_dis16.png" />
+    <EmbeddedResource Include="Icons\ZoomOut_dis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\ZoomIn16.png" />
+    <EmbeddedResource Include="Icons\ZoomOut16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\layer16.png" />
+    <EmbeddedResource Include="Icons\layer_dis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\fitDraw16.png" />
+    <EmbeddedResource Include="Icons\fitdraw_dis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\select16.png" />
+    <EmbeddedResource Include="Icons\select_dis16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

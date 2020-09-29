@@ -86,8 +86,6 @@ namespace Ztgeo.Gis.CAD.Controls
             }
         }
 
-        public IDocument ParentDocument { get; set; }
-
         public string ExtensionName { get;private set; }
 
         public string DocumentName { get; private set; }
@@ -140,13 +138,24 @@ namespace Ztgeo.Gis.CAD.Controls
 
         public RectangleF ImageRectangleF { get; set; }
 
-        public CADLayoutCollection Layouts { get; private set; }
+        public CADEntityCollection Layers
+        { get {
+                if (cadImage != null)
+                {
+                    return cadImage.Converter.Layers;
+                }
+                else {
+                    return null;
+                }
+        } }
 
-        public IDocumentControl HostControl { get; private set; }
-
+        public IDocumentControl HostControl { get; private set; } 
         public bool IsLoading {
             get {
-                return loadFileThread.IsAlive;
+                if (loadFileThread != null)
+                    return loadFileThread.IsAlive;
+                else
+                    return false;
             }
         }
 
@@ -422,6 +431,7 @@ namespace Ztgeo.Gis.CAD.Controls
             //cadImage.GetExtents();
             this.DoResize(false, false);
         }
+ 
         public void ReOpen()
         {
             if (this.FilePath != null)

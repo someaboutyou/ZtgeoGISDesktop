@@ -43,9 +43,9 @@ namespace ZtgeoGISDesktop.Forms
                         MessageBox.Show("密码需要重置，请联系管理员");
                         return;
                     }
-                    if (authenticateResultModel != null) {
+                    if (authenticateResultModel != null) { 
                         dialog.DialogResult = DialogResult.OK;
-                        dialog.Close();
+                        dialog.Close(); 
                     }
 
                 }

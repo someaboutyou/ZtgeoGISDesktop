@@ -55,6 +55,15 @@ namespace ZtgeoGISDesktop.Toolbars
                         buttonItem.Enabled = toolbar.DefaultEnable; 
                         buttonItem.ItemClick += (sender, e) => {
                             toolbar.ToolbarEvent?.Invoke(toolbar);
+                            if (toolbar.IsUseActiveStatus) {
+                                if (toolbar.IsActive)
+                                {
+                                    ((BarButtonItem)sender).c
+                                }
+                                else { 
+                                
+                                } 
+                            }
                         }; 
                         barManager.Items.Add(buttonItem);
                         newBar.LinksPersistInfo.Add(new LinkPersistInfo(buttonItem));

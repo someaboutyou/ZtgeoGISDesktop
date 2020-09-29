@@ -387,9 +387,9 @@ namespace Ztgeo.WebViewControl
 		{
 			this.Dispose();
 		}
-
-		public void Dispose()
+		protected override void Dispose(bool disposing)
 		{
+			base.Dispose(disposing);
 			if (this.isDisposing)
 			{
 				return;
@@ -404,7 +404,8 @@ namespace Ztgeo.WebViewControl
 				base.BeginInvoke(new Action(this.InternalDispose), Array.Empty<object>());
 			}
 			GC.SuppressFinalize(this);
-		}
+
+		}  
 
 		private void InternalDispose()
 		{
