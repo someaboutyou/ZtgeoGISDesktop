@@ -9,6 +9,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
 {
     public interface IWinformToolbarManager
     {
+
         WinformToolbarGroup GetToolbarGroup(string groupName);
         WinformToolbarGroup GetToolbarGroupOrNull(string groupName);
         IReadOnlyList<WinformToolbarGroup> GetAllToolbarGroups(bool tenancyFilter = true);

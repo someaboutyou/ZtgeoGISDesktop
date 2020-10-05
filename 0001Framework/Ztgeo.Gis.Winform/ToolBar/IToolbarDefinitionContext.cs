@@ -14,7 +14,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
         /// </summary>
         /// <returns></returns>
         WinformToolbarGroup CreateToolbarGroup(string groupName,string text, string permission,
-              MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant);
+              MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, bool isDefaultShow =true);
         /// <summary>
         /// 
         /// </summary>

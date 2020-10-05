@@ -16,13 +16,13 @@ namespace Ztgeo.Gis.Winform.ToolBar
         }
 
         public WinformToolbarGroup CreateToolbarGroup(string name,string text,string permission, 
-              MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant) {
+              MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,bool isDefaultShow = true) {
             if (ToolbarGroups.ContainsKey(name))
             {
                 return ToolbarGroups[name];
             }
             else {
-                WinformToolbarGroup winformToolbarGroup = new WinformToolbarGroup( name, text, permission, multiTenancySides); 
+                WinformToolbarGroup winformToolbarGroup = new WinformToolbarGroup( name, text, permission, multiTenancySides, isDefaultShow); 
                 ToolbarGroups.Add(name, winformToolbarGroup);
                 return winformToolbarGroup;
             }

@@ -40,6 +40,8 @@ namespace Ztgeo.Gis.CAD.Controls
         /// Zoom Out
         /// </summary>
         void ZoomOut();
+
+        void ResetScaling();
         /// <summary>
         /// 图层列表
         /// </summary>

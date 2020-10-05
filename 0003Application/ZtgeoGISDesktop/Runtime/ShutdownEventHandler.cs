@@ -11,14 +11,14 @@ using Ztgeo.Gis.Runtime.Context;
 namespace ZtgeoGISDesktop.Runtime
 {
     /// <summary>
-    /// 
+    /// 程序关闭执行事件
     /// </summary>
-    public class ShutdownEventHandle : IEventHandler<AppShutdownEventData>, ITransientDependency
+    public class ShutdownEventHandler : IEventHandler<AppShutdownEventData>, ITransientDependency
     {
         public ILogger Logger { get; set; }
          
 
-        public ShutdownEventHandle( )
+        public ShutdownEventHandler( )
         {
             Logger = NullLogger.Instance; 
         }

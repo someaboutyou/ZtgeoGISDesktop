@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.Menu
 {
@@ -25,7 +26,7 @@ namespace Ztgeo.Gis.Winform.Menu
             int order =0,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
             Dictionary<string,object> properties =null,
-            Action<WinformMenu> menuEvent=null
+            IMenuClickAction menuClickAction = null
          ) {
             Name = name;
             MenuType = menuType;
@@ -36,7 +37,7 @@ namespace Ztgeo.Gis.Winform.Menu
             Icon = icon;
             Order = order;
             MultiTenancySides = multiTenancySides;
-            MenuEvent = menuEvent;
+            MenuClickAction = menuClickAction;
             _children = new List<WinformMenu>();
 
         }
@@ -72,7 +73,7 @@ namespace Ztgeo.Gis.Winform.Menu
         /// </summary>
         public object UIObject { get; set; }
 
-        public Action<WinformMenu> MenuEvent { get; set; }
+        public IMenuClickAction MenuClickAction { get; set; }
         public object this[string key]
         {
             get => !Properties.ContainsKey(key) ? null : Properties[key];
@@ -95,7 +96,7 @@ namespace Ztgeo.Gis.Winform.Menu
               int order = 0,
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
               Dictionary<string, object> properties = null,
-              Action<WinformMenu> menuEvent = null 
+              IMenuClickAction menuClickAction = null
          ) {
             WinformMenu menu = null;
             if (_children.Any(c => c.Name.Equals(name)))
@@ -106,12 +107,13 @@ namespace Ztgeo.Gis.Winform.Menu
             }
             else
             {
-                menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties, menuEvent);
+                menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties, menuClickAction);
                 _children.Add(menu);
                 menu.Parent = this;
                 return menu;
             }
         }
+         
 
         public void RemoveChildMenu(string name) {
             _children.RemoveAll(m => m.Name.Equals(name));

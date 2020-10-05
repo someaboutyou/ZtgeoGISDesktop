@@ -9,6 +9,6 @@ namespace Ztgeo.Gis.CAD.Controls.CADProperty
 {
     public interface ICADPropertiesControl:IPropertiesControl, Abp.Dependency.ITransientDependency
     {
-
+        void SetSelectObjectNull();
     }
 }

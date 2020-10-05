@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.MultiTenancy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +14,7 @@ namespace ZtgeoGISDesktop.Toolbars
     {
         public override void SetToolbars(IToolbarDefinitionContext context)
         {
-            var group = context.CreateToolbarGroup(MainFormToolbarNames.MainToolsGroup, "MainTools", null);
+            var group = context.CreateToolbarGroup(MainFormToolbarNames.MainToolsGroup, "MainTools", null, MultiTenancySides.Host| MultiTenancySides.Tenant, false);
             group.AddToolbar(new WinformToolbar(
                 MainFormToolbarNames.SaveTool,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save16.png"),

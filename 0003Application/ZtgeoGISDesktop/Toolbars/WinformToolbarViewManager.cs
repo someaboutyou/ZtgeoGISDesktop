@@ -54,16 +54,7 @@ namespace ZtgeoGISDesktop.Toolbars
                         toolbar.UIObject = buttonItem; 
                         buttonItem.Enabled = toolbar.DefaultEnable; 
                         buttonItem.ItemClick += (sender, e) => {
-                            toolbar.ToolbarEvent?.Invoke(toolbar);
-                            if (toolbar.IsUseActiveStatus) {
-                                if (toolbar.IsActive)
-                                {
-                                    ((BarButtonItem)sender).c
-                                }
-                                else { 
-                                
-                                } 
-                            }
+                            toolbar.ToolbarEvent?.Invoke(toolbar); 
                         }; 
                         barManager.Items.Add(buttonItem);
                         newBar.LinksPersistInfo.Add(new LinkPersistInfo(buttonItem));
@@ -87,6 +78,13 @@ namespace ZtgeoGISDesktop.Toolbars
             bar.StandaloneBarDockControl = standaloneBarDockControl;
             bar.Text = group.Text;
             group.UIObject = bar;
+            if (group.IsDefaultShow)
+            {
+                bar.Visible = true;
+            }
+            else {
+                bar.Visible = false;
+            }
             return bar;
         }
 
@@ -113,9 +111,11 @@ namespace ZtgeoGISDesktop.Toolbars
             {
                 ((Bar)(toolbarGroup.UIObject)).Visible = false;
             }
-            else if (menuStatus == MenuStatus.Disable) {
-                if (toolbarGroup.ToolBars  != null && toolbarGroup.ToolBars.Count>0) { 
-                    foreach(var tool in toolbarGroup.ToolBars)
+            else if (menuStatus == MenuStatus.Disable)
+            {
+                if (toolbarGroup.ToolBars != null && toolbarGroup.ToolBars.Count > 0)
+                {
+                    foreach (var tool in toolbarGroup.ToolBars)
                     {
                         ((BarButtonItem)tool.UIObject).Enabled = false;
                     }
@@ -128,9 +128,46 @@ namespace ZtgeoGISDesktop.Toolbars
             if (menuStatus == MenuStatus.Available)
             {
                 ((BarButtonItem)toolbar.UIObject).Enabled = true;
+                ((BarButtonItem)toolbar.UIObject).ButtonStyle = BarButtonStyle.Default;
+                ((BarButtonItem)toolbar.UIObject).Down = false;
+                ((BarButtonItem)toolbar.UIObject).Visibility = BarItemVisibility.Always;
+                toolbar.IsActive = false;
             }
-            else { 
+            else if (menuStatus == MenuStatus.Active)
+            {
+                 
+                ((BarButtonItem)toolbar.UIObject).Enabled = true;
+                ((BarButtonItem)toolbar.UIObject).ButtonStyle = BarButtonStyle.Check;
+                ((BarButtonItem)toolbar.UIObject).Down = true;
+                ((BarButtonItem)toolbar.UIObject).Visibility = BarItemVisibility.Always;
+                toolbar.IsActive = true;
+            }
+            else if (menuStatus == MenuStatus.Hidden) {
+                ((BarButtonItem)toolbar.UIObject).Visibility = BarItemVisibility.Never;
+                toolbar.IsActive = false;
+            }
+            else if (menuStatus == MenuStatus.Disable)
+            {
                 ((BarButtonItem)toolbar.UIObject).Enabled = false;
+                ((BarButtonItem)toolbar.UIObject).ButtonStyle = BarButtonStyle.Default;
+                ((BarButtonItem)toolbar.UIObject).Visibility = BarItemVisibility.Always;
+                toolbar.IsActive = false;
+            }
+        }
+
+        public void SetToolbarsStatus(IList<WinformToolbar> toolbars, MenuStatus menuStatus)
+        {
+            foreach (WinformToolbar tb in toolbars) {
+                SetToolbarStatus(tb, menuStatus);
+            }
+        }
+
+        public void ClearToolbars() {
+            var groups = winformToolbarManager.GetAllToolbarGroups();
+            if (groups != null && groups.Count > 0) {
+                foreach (var group in groups) {
+                    this.SetToolbarGroupStatus(group, MenuStatus.Hidden);
+                }
             }
         }
     }

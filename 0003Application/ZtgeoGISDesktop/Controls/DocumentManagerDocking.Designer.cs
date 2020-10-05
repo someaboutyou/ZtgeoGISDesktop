@@ -29,7 +29,7 @@
             this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
-            this.dockPanel2 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.LayersDockPanel = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.PropertiesDockPanel = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -42,7 +42,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
-            this.dockPanel2.SuspendLayout();
+            this.LayersDockPanel.SuspendLayout();
             this.PropertiesDockPanel.SuspendLayout();
             this.dockPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).BeginInit();
@@ -143,7 +143,7 @@
             // 
             // panelContainer1
             // 
-            this.panelContainer1.Controls.Add(this.dockPanel2);
+            this.panelContainer1.Controls.Add(this.LayersDockPanel);
             this.panelContainer1.Controls.Add(this.PropertiesDockPanel);
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.panelContainer1.FloatSize = new System.Drawing.Size(351, 200);
@@ -153,29 +153,29 @@
             this.panelContainer1.Location = new System.Drawing.Point(0, 26);
             this.panelContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelContainer1.Name = "panelContainer1";
-            this.panelContainer1.OriginalSize = new System.Drawing.Size(204, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(204, 516);
+            this.panelContainer1.OriginalSize = new System.Drawing.Size(300, 200);
+            this.panelContainer1.Size = new System.Drawing.Size(300, 516);
             this.panelContainer1.Text = "panelContainer1";
             // 
-            // dockPanel2
+            // LayersDockPanel
             // 
-            this.dockPanel2.Controls.Add(this.dockPanel2_Container);
-            this.dockPanel2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.dockPanel2.FloatSize = new System.Drawing.Size(50, 50);
-            this.dockPanel2.Font = new System.Drawing.Font("宋体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dockPanel2.Footer = null;
-            this.dockPanel2.Header = null;
-            this.dockPanel2.ID = new System.Guid("d1c1aeb8-8e7f-4a11-9a30-751d4bd0c5a6");
-            this.dockPanel2.Location = new System.Drawing.Point(0, 0);
-            this.dockPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dockPanel2.Name = "dockPanel2";
-            this.dockPanel2.Options.ShowAutoHideButton = false;
-            this.dockPanel2.Options.ShowCloseButton = false;
-            this.dockPanel2.Options.ShowMaximizeButton = false;
-            this.dockPanel2.OriginalSize = new System.Drawing.Size(165, 212);
-            this.dockPanel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dockPanel2.Size = new System.Drawing.Size(204, 192);
-            this.dockPanel2.Text = "图层";
+            this.LayersDockPanel.Controls.Add(this.dockPanel2_Container);
+            this.LayersDockPanel.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.LayersDockPanel.FloatSize = new System.Drawing.Size(50, 50);
+            this.LayersDockPanel.Font = new System.Drawing.Font("宋体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.LayersDockPanel.Footer = null;
+            this.LayersDockPanel.Header = null;
+            this.LayersDockPanel.ID = new System.Guid("d1c1aeb8-8e7f-4a11-9a30-751d4bd0c5a6");
+            this.LayersDockPanel.Location = new System.Drawing.Point(0, 0);
+            this.LayersDockPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LayersDockPanel.Name = "LayersDockPanel";
+            this.LayersDockPanel.Options.ShowAutoHideButton = false;
+            this.LayersDockPanel.Options.ShowCloseButton = false;
+            this.LayersDockPanel.Options.ShowMaximizeButton = false;
+            this.LayersDockPanel.OriginalSize = new System.Drawing.Size(300, 192);
+            this.LayersDockPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LayersDockPanel.Size = new System.Drawing.Size(300, 192);
+            this.LayersDockPanel.Text = "图层";
             // 
             // dockPanel2_Container
             // 
@@ -189,7 +189,7 @@
             // 
             this.PropertiesDockPanel.Controls.Add(this.dockPanel1_Container);
             this.PropertiesDockPanel.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.PropertiesDockPanel.FloatSize = new System.Drawing.Size(527, 492);
+            this.PropertiesDockPanel.FloatSize = new System.Drawing.Size(600, 492);
             this.PropertiesDockPanel.FloatVertical = true;
             this.PropertiesDockPanel.Font = new System.Drawing.Font("黑体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PropertiesDockPanel.Footer = null;
@@ -200,9 +200,10 @@
             this.PropertiesDockPanel.Name = "PropertiesDockPanel";
             this.PropertiesDockPanel.Options.ShowAutoHideButton = false;
             this.PropertiesDockPanel.Options.ShowMaximizeButton = false;
-            this.PropertiesDockPanel.OriginalSize = new System.Drawing.Size(165, 304);
-            this.PropertiesDockPanel.Size = new System.Drawing.Size(204, 324);
+            this.PropertiesDockPanel.OriginalSize = new System.Drawing.Size(300, 324);
+            this.PropertiesDockPanel.Size = new System.Drawing.Size(300, 324);
             this.PropertiesDockPanel.Text = "属性";
+            this.PropertiesDockPanel.Click += new System.EventHandler(this.PropertiesDockPanel_Click);
             // 
             // dockPanel1_Container
             // 
@@ -221,11 +222,11 @@
             this.dockPanel3.Footer = null;
             this.dockPanel3.Header = null;
             this.dockPanel3.ID = new System.Guid("1539c64a-1755-446f-b583-b0580e9ba1d7");
-            this.dockPanel3.Location = new System.Drawing.Point(735, 26);
+            this.dockPanel3.Location = new System.Drawing.Point(695, 26);
             this.dockPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel3.Name = "dockPanel3";
-            this.dockPanel3.OriginalSize = new System.Drawing.Size(260, 200);
-            this.dockPanel3.Size = new System.Drawing.Size(260, 516);
+            this.dockPanel3.OriginalSize = new System.Drawing.Size(300, 200);
+            this.dockPanel3.Size = new System.Drawing.Size(300, 516);
             this.dockPanel3.Text = "资源目录";
             // 
             // dockPanel3_Container
@@ -233,7 +234,7 @@
             this.dockPanel3_Container.Location = new System.Drawing.Point(5, 23);
             this.dockPanel3_Container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(251, 489);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(291, 489);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // DocumentManagerDocking
@@ -256,7 +257,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
-            this.dockPanel2.ResumeLayout(false);
+            this.LayersDockPanel.ResumeLayout(false);
             this.PropertiesDockPanel.ResumeLayout(false);
             this.dockPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView)).EndInit();
@@ -278,7 +279,7 @@
         private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
         private DevExpress.XtraBars.Docking.DockPanel PropertiesDockPanel;
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
-        private DevExpress.XtraBars.Docking.DockPanel dockPanel2;
+        private DevExpress.XtraBars.Docking.DockPanel LayersDockPanel;
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel2_Container;
         private DevExpress.XtraBars.Docking.DockManager dockManager1;
         private DevExpress.XtraBars.Docking.DockPanel dockPanel3;

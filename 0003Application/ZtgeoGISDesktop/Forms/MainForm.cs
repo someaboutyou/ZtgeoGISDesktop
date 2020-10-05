@@ -23,6 +23,9 @@ using System.Collections.Concurrent;
 using CefSharp.WinForms.Internals;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.Utils.Extensions;
+using Abp.Events.Bus;
+using Ztgeo.Gis.Winform.Events;
+using DevExpress.XtraEditors.Controls;
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -30,7 +33,7 @@ namespace ZtgeoGISDesktop.Forms
     {
         private readonly IFormIOSchemeManager formIOSchemeManager;
         private readonly ProductInfo productInfo; 
-        private BarItem StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
+        //private BarItem StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
         private ConcurrentDictionary<IDocumentControl, StatusInfo> documentStatuses = new ConcurrentDictionary<IDocumentControl, StatusInfo>(); //document状态
         public IocManager IocManager { get; set; }
         public Control MenuContainerControl
@@ -55,11 +58,11 @@ namespace ZtgeoGISDesktop.Forms
             }
         } 
         public IDocumentControl ActiveDocumentControl { get; private set; }
-        public Control LayerPanel => throw new NotImplementedException();
+        public Control LayerPanel { get; private set; }
 
         public Control PropertiesPanel { get { return this.documentManagerDocking.PropertiesControl; } }
 
-        public Control ResourcesPanel => throw new NotImplementedException();
+        public Control ResourcesPanel { get; private set; }
 
         public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager, ProductInfo _productInfo)
         {
@@ -69,14 +72,13 @@ namespace ZtgeoGISDesktop.Forms
         } 
         public void StartInitializeComponent()
         {
-            InitializeComponent(); 
-            this.ribbonStatusBar.ItemLinks.Add(this.StatusBarItem);
+            InitializeComponent();  
             this.Text = productInfo.ProductName;
             var loginManager = IocManager.Resolve<ILoginManager>();
             if (!loginManager.IsLogined())
             {
                  LoginForm.ShowDialog(IocManager, formIOSchemeManager, loginManager);
-            } 
+            }
         }
         /// <summary>
         /// 在中间的tab 页新添加一个文档
@@ -100,16 +102,22 @@ namespace ZtgeoGISDesktop.Forms
             ((Control)documentControl).Parent = child;
             ((Control)documentControl).Dock = DockStyle.Fill;
             ((Control)documentControl).GotFocus += (sender,e) => {
+                var tempActiveDocument = this.ActiveDocumentControl;
                 this.ActiveDocumentControl = sender as IDocumentControl;
+                if (this.ActiveDocumentControl.PropertiesControl != null)
+                {
+                    Control propertiesControl = (Control)this.ActiveDocumentControl.PropertiesControl;
+                    propertiesControl.Dock = DockStyle.Fill;
+                    if (this.PropertiesPanel.Controls.Count > 0) {
+                        this.PropertiesPanel.Controls.Clear();
+                    }
+                    this.PropertiesPanel.AddControl(propertiesControl);
+                }
+                EventBus.Default.Trigger(new DocumentActiveChangeEventData { ChangeFromDocumentControl = tempActiveDocument,ChangeToDocumentControl = ActiveDocumentControl });
             };
             ((Control)documentControl).Visible = true;
             this.documentManagerDocking.TabbedView.AddDocument(child);
-            if (documentControl.PropertiesControl != null)
-            {
-                Control propertiesControl = (Control)documentControl.PropertiesControl;
-                propertiesControl.Dock = DockStyle.Fill;
-                this.PropertiesPanel.AddControl(propertiesControl);
-            }
+            
             return documentControl;
         }
 
@@ -117,6 +125,9 @@ namespace ZtgeoGISDesktop.Forms
 
         public void SetStatusInfo(IDocumentControl documentControl, StatusInfo statusInfo)
         {
+            if (documentControl == null) {
+                return;
+            }
             if (this.documentStatuses.ContainsKey(documentControl))
             {
                 documentStatuses[documentControl] = statusInfo;
@@ -124,7 +135,7 @@ namespace ZtgeoGISDesktop.Forms
             else {
                 documentStatuses.TryAdd(documentControl, statusInfo);
             }
-            ShowActiveDocumentStauts();
+            ShowDocumentStatus(documentControl);
         }
 
         public void ClearStatusInfo(IDocumentControl documentControl)
@@ -145,28 +156,52 @@ namespace ZtgeoGISDesktop.Forms
                 }
             }
         }
-        private void ShowStauts(StatusInfo statusInfo) { 
-            switch (statusInfo.StatusShowType) {
-                case StatusShowType.Msg:
-                    StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
-                    StatusBarItem.Caption = statusInfo.Message;  
-                    break;
-                 case StatusShowType.ProcessBar:
-                    StatusBarItem = new BarEditItem();
-                    RepositoryItemProgressBar progressBarControl = new RepositoryItemProgressBar();
-                    progressBarControl.Maximum = statusInfo.MaxValue;
-                    progressBarControl.Minimum = 0;
-                    progressBarControl.Step = statusInfo.CurrentValue;
-                    ((BarEditItem)StatusBarItem).Edit = progressBarControl; 
-                    break;
-                case StatusShowType.ProcessBarWithoutProcess:
-                    StatusBarItem = new BarEditItem();
-                    RepositoryItemMarqueeProgressBar marqueeProgressBar = new RepositoryItemMarqueeProgressBar();
-                    ((BarEditItem)StatusBarItem).Edit = marqueeProgressBar; 
-                    break;
+        private void ShowDocumentStatus(IDocumentControl documentControl) {
+            if (documentControl != null) {
+                if (documentStatuses.ContainsKey(documentControl))
+                {
+                    ShowStauts(documentStatuses[documentControl]);
+                }
             }
+        }
+        private void ShowStauts(StatusInfo statusInfo) {
+            this.ribbonStatusBar.ItemLinks.Clear();
+            BarItem StatusBarItem = null;
+            if (statusInfo != null) {
+                switch (statusInfo.StatusShowType)
+                {
+                    case StatusShowType.Msg:
+                        StatusBarItem = new DevExpress.XtraBars.BarStaticItem();
+                        StatusBarItem.Caption = statusInfo.Message;
+                        break;
+                    case StatusShowType.ProcessBar:
+                        StatusBarItem = new BarEditItem();
+                        RepositoryItemProgressBar progressBarControl = new RepositoryItemProgressBar();
+                        progressBarControl.Maximum = statusInfo.MaxValue;
+                        progressBarControl.Minimum = 0;
+                        progressBarControl.Step = statusInfo.CurrentValue;
+                        ((BarEditItem)StatusBarItem).Edit = progressBarControl;
+                        break;
+                    case StatusShowType.ProcessBarWithoutProcess:
+                        StatusBarItem = new BarEditItem();
+                        RepositoryItemMarqueeProgressBar marqueeProgressBar = new RepositoryItemMarqueeProgressBar();
+                        ((BarEditItem)StatusBarItem).Edit = marqueeProgressBar;
+                        break;
+                }
+            } 
+            if(StatusBarItem!=null)
+                this.ribbonStatusBar.ItemLinks.Add(StatusBarItem);
             this.ribbonStatusBar.Refresh(); 
         }
-
+        /// <summary>
+        /// 手动激活一个control
+        /// </summary>
+        /// <param name="documentControl"></param>
+        public void ManualActiveADocumentControl(IDocumentControl documentControl) {
+            var control = documentControl as Control;
+            if (control != null) { 
+                this.tabbedView.ActivateDocument(control);
+            } 
+        }
     }
 }

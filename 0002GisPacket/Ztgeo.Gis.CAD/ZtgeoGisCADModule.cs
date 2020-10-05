@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.CAD.Configuration;
 using Ztgeo.Gis.CAD.Menus;
+using Ztgeo.Gis.CAD.Toolbars;
 using Ztgeo.Gis.Winform.Configuration;
 
 namespace Ztgeo.Gis.CAD
@@ -21,6 +22,7 @@ namespace Ztgeo.Gis.CAD
         public override void PreInitialize()
         {
             Configuration.Modules.WinformMenus().Providers.Add(typeof(CadBaseMenuProvider));
+            Configuration.Modules.WinformToolbars().Providers.Add(typeof(CADToolbarProvider));
             IocManager.RegisterIfNot<ICadImportConfiguration, CadImportConfiguration>();
         }
 

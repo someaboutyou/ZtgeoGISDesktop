@@ -9,7 +9,7 @@ using Ztgeo.Gis.Winform.Menu;
 
 namespace Ztgeo.Gis.Winform.ToolBar
 {
-    public interface IWinformToolbarViewManager : IApplicationService
+    public interface IWinformToolbarViewManager : ITransientDependency
     {
         /// <summary>
         /// 初始化toolbar菜单
@@ -27,6 +27,21 @@ namespace Ztgeo.Gis.Winform.ToolBar
 
         void SetToolbarGroupStatus(WinformToolbarGroup toolbarGroup, MenuStatus menuStatus);
 
+        /// <summary>
+        /// 批量设置toolbar状态
+        /// </summary>
+        /// <param name="toolbars"></param>
+        /// <param name="menuStatus"></param>
+        void SetToolbarsStatus(IList<WinformToolbar> toolbars,MenuStatus menuStatus);
+        /// <summary>
+        /// 设置toolbar状态
+        /// </summary>
+        /// <param name="toolbar"></param>
+        /// <param name="menuStatus"></param>
         void SetToolbarStatus(WinformToolbar toolbar, MenuStatus menuStatus);
+        /// <summary>
+        /// 清除toolbar；将隐藏所有的Toolbars
+        /// </summary>
+        void ClearToolbars();
     }
 }

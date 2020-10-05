@@ -22,6 +22,10 @@ namespace Ztgeo.Gis.Winform.Menu
         /// <summary>
         /// 隐藏的
         /// </summary>
-        Hidden 
+        Hidden,
+        /// <summary>
+        /// 激活状态
+        /// </summary>
+        Active 
     }
 }

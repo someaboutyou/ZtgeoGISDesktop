@@ -65,13 +65,18 @@
     </Compile>
     <Compile Include="Controls\CADLayer\ICADLayerControl.cs" />
     <Compile Include="Controls\ICADViewDocument.cs" />
+    <Compile Include="Events\PropertyControlChangeEventHandler.cs" />
     <Compile Include="Menus\CadBaseMenuProvider.cs" />
     <Compile Include="Menus\MenuActions.cs" />
+    <Compile Include="Toolbars\CADToolbarControl.cs" />
     <Compile Include="Toolbars\CADToolbarProvider.cs" />
     <Compile Include="ZtgeoGisCADModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\CADProperty\CADPropertiesControl.resx">
+      <DependentUpon>CADPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CADViewerControl.resx">
       <DependentUpon>CADViewerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,9 +95,7 @@
       <Name>Ztgeo.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Icons\cad16.png" />
   </ItemGroup>
@@ -124,6 +127,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Icons\select16.png" />
     <EmbeddedResource Include="Icons\select_dis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\pan16.png" />
+    <EmbeddedResource Include="Icons\pan_dis16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

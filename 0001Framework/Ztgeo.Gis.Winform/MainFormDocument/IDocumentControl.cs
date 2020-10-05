@@ -19,32 +19,17 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
 
         ILayerControl LayerControl { get; }
 
-        IPropertiesControl PropertiesControl { get; } 
-        /// <summary>
-        /// 是否在激活状态
-        /// </summary>
-        bool IsActive { get; }
+        IPropertiesControl PropertiesControl { get; }  
         /// <summary>
         /// 关闭
         /// </summary>
         void Close();
         /// <summary>
-        /// 设置激活
-        /// </summary>
-        void SetActive();
-        /// <summary>
-        /// 设置不在激活状态
-        /// </summary>
-        void SetUnActive();
-        /// <summary>
         /// 不可用状态
         /// </summary>
-        void Invalidate();
-
-        void SetBusyCursor();
-
-        void SetCommonCursor();
-
+        void Invalidate(); 
+        void SetBusyCursor(); 
+        void SetCommonCursor(); 
         bool Focus();
     }
 }

@@ -15,13 +15,25 @@ using CADImport;
 using Ztgeo.Gis.CAD.Controls.CADProperty;
 using Abp.Dependency;
 using Ztgeo.Gis.CAD.Controls.CADLayer;
+using Ztgeo.Gis.CAD.Toolbars;
+using Ztgeo.Gis.Winform.ToolBar;
+using CADImport.CADImportForms;
 
 namespace Ztgeo.Gis.CAD.Controls
 {
     public partial class CADViewerControl : CADPictureBox, IDocumentControl,Abp.Dependency.ITransientDependency
     {
-        private bool isActive;
-        private bool useSelectEntity =true;
+        private readonly IWinformToolbarManager winformToolbarManager;
+        private WinformToolbar selectToolbar; 
+        private CADImport.CADImportForms.LayerForm CADLayerForm;
+        private bool useSelectEntity {
+            get {
+                if (CADViewDocument != null && CADViewDocument.Image != null&& selectToolbar!=null) {
+                    return selectToolbar.IsActive;
+                }
+                return false;
+            }
+        }
         private bool selectedEntitiesChanged = false;
         private CADImport.FaceModule.ClipRect clipRectangle; 
         private int cX;
@@ -29,16 +41,18 @@ namespace Ztgeo.Gis.CAD.Controls
         private bool detRMouseDown;
         public CADViewerControl(ICADViewDocument cadViewDocument, 
             ICADPropertiesControl _cadPropertiesControl,
-            ICADLayerControl _cadLayerControl
+            ICADLayerControl _cadLayerControl,
+            IWinformToolbarManager _winformToolbarManager
             )
         {
+            winformToolbarManager = _winformToolbarManager;
             CADViewDocument = cadViewDocument; 
             CADPropertiesControl = _cadPropertiesControl;
             CADLayerControl = _cadLayerControl;
             InitializeComponent();
             InitializePicutreBox();
             InitExtParam();
-            this.PerformLayout(); 
+            //this.PerformLayout(); 
             cadViewDocument.InitParams(this);
         }
 
@@ -58,8 +72,9 @@ namespace Ztgeo.Gis.CAD.Controls
             MouseDown += new System.Windows.Forms.MouseEventHandler(this.cadPictBox_MouseDown);
             MouseMove += new System.Windows.Forms.MouseEventHandler(this.cadPictBox_MouseMove);
             MouseUp += new System.Windows.Forms.MouseEventHandler(this.cadPictBox_MouseUp);
-            Resize += new System.EventHandler(this.cadPictBox_Resize);
+            Resize += new System.EventHandler(this.cadPictBox_Resize);   
             SetGDIStyle();
+            CADLayerForm = new LayerForm();
         }
         private void InitExtParam()
         {
@@ -68,7 +83,8 @@ namespace Ztgeo.Gis.CAD.Controls
              SetGDIStyle();        // Style = CADPictureBox.gdiStyle;
             //cadPictBox.ScrollBars = ScrollBarsShow.Always;  
             this.clipRectangle = new ClipRect(this );
-            this.clipRectangle.MultySelect = false;  
+            this.clipRectangle.MultySelect = false;
+            selectToolbar = winformToolbarManager.GetToolbarByProfixedName(CADToolbarNames.CADToolGroup + WinformToolbar.NameSplitKey + CADToolbarNames.SelectionModel);
             CADImportFace.EntityPropertyGrid = this.CADPropertiesControl as CADPropertiesControl;
             MouseWheel += new MouseEventHandler(CADPictBoxMouseWheel);
             ScrollEvent += new CADImport.FaceModule.ScrollEventHandlerExt(CADPictBoxScroll);
@@ -90,28 +106,15 @@ namespace Ztgeo.Gis.CAD.Controls
         }
         private ICADPropertiesControl CADPropertiesControl;
 
-        public bool IsActive { get { return this.isActive; }  private set { this.isActive = value; } }
+        //public bool IsActive { get { return this.isActive; }  private set { this.isActive = value; } }
 
         public Image DocumentImage { get; private set; }
 
         public void Close()
         {
             this.Document.Close();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SetActive() {
-
-            this.Focus();
-            this.isActive = true;
-        }
-
-        public void SetUnActive() {
-
-            this.isActive = false;
-        }
-
+            this.CADPropertiesControl.SetSelectObjectNull();
+        } 
         public void SetBusyCursor() {
             this.Cursor = Cursors.WaitCursor;
         }
@@ -120,8 +123,7 @@ namespace Ztgeo.Gis.CAD.Controls
             this.Cursor = Cursors.Default;
         }
 
-        public void OpenFile(string filePath) {
-
+        public void OpenFile(string filePath) { 
             this.Document.LoadFromFile(filePath);
             
         }
@@ -132,6 +134,10 @@ namespace Ztgeo.Gis.CAD.Controls
             if (CADViewDocument.IsLoading)
                 return;
             DrawCADImage(e.Graphics, sender as Control);
+        }
+        internal void SetLayList(CADEntityCollection layerEntities) {
+            if(CADViewDocument.Image!=null)
+                CADLayerForm.SetLayList(layerEntities);
         }
         public void DrawCADImage(Graphics gr, Control control)
         {
@@ -195,7 +201,10 @@ namespace Ztgeo.Gis.CAD.Controls
                 if ((CADViewDocument.Image.SelectionMode == SelectionEntityMode.Enabled) && useSelectEntity)
                 {
                     if (CADViewDocument.Image.Select(e.X, e.Y))
+                    {
+                       var es=  CADViewDocument.Image.SelectedEntities ;
                         return;
+                    }
                 }
             }
             else
@@ -410,6 +419,6 @@ namespace Ztgeo.Gis.CAD.Controls
             if (h1 > VirtualSize.Height)
                 h1 = VirtualSize.Height;
            SetPositionNoInvalidate(new Point(w1, h1));
-        }
+        } 
     }
 }

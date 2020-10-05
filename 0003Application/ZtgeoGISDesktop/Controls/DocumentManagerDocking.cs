@@ -24,7 +24,7 @@ namespace ZtgeoGISDesktop.Controls
         public TabbedView TabbedView { get { return this.tabbedView; } }
         public DocumentManagerDocking()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
         void ScaleElements(DockPanel panel = null)
         {
@@ -45,6 +45,11 @@ namespace ZtgeoGISDesktop.Controls
         void Form1_Load(object sender, EventArgs e)
         { 
             ScaleElements();
-        } 
+        }
+
+        private void PropertiesDockPanel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -371,7 +371,7 @@
     </Compile>
     <Compile Include="Menus\MenuSettingJs2AppAdapterApi.cs" />
     <Compile Include="Menus\WinformMenuViewManager.cs" />
-    <Compile Include="Runtime\ShutdownEventHandle.cs" />
+    <Compile Include="Runtime\ShutdownEventHandler.cs" />
     <Compile Include="SplashScreen\SplashScreenMain.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,18 +16,22 @@ namespace Ztgeo.Gis.Winform.ToolBar
             string name,
             string text,
             string permission,
-            MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant
-            ) {
+            MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
+            bool isDefaultShow = true
+            )
+        {
             this.Name = name;
             this.Text = text;
             this.Permission = permission;
             this.MultiTenancySides = multiTenancySides;
+            this.IsDefaultShow = isDefaultShow;
         }
         public string Name { get; set; }
         public string Text { get; set; }
         public string Permission { get; set; }
         public MultiTenancySides MultiTenancySides { get; set; }
 
+        public bool IsDefaultShow { get; set; }
         public IList<WinformToolbar> ToolBars { get; set; }
 
         public object UIObject { get; set; }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ztgeo.Gis.Winform.MainFormResources
+namespace Ztgeo.Gis.Winform.Resources
 {
-    public interface IMainFormResourcesManager
+    public interface IResourcesControl
     {
+
     }
 }

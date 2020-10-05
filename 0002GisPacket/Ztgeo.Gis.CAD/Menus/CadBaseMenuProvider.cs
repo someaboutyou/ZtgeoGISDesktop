@@ -6,8 +6,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.CAD.Controls;
+using Ztgeo.Gis.CAD.Toolbars;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.Menu;
+using Ztgeo.Gis.Winform.ToolBar;
 using Ztgeo.Utils;
 
 namespace Ztgeo.Gis.CAD.Menus
@@ -29,7 +31,8 @@ namespace Ztgeo.Gis.CAD.Menus
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.OpenCad32.png"), menuEvent: m =>
                 {
                     IDocumentManager documentManager = iocManager.Resolve<IDocumentManager>();
-                    MenuActions.OpenCADFile(documentManager);
+                    ICADToolbarControl toolbarControl = iocManager.Resolve<ICADToolbarControl>();
+                    MenuActions.OpenCADFile(documentManager, toolbarControl);
                 });
             var saveFile = fileGroupMenu.CreateChildMenu(CadBaseMenusNames.SaveCadFileMenu, MenuType.Button, "保存", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.Savecad32.png"), menuEvent: m =>

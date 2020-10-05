@@ -25,7 +25,11 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// <param name="parentDocument"></param>
         /// <returns></returns>
         IDocumentControl AddAChildDocument(IDocument childDocument, IDocument parentDocument);
-
+        /// <summary>
+        /// 设置一个文档时激活状态
+        /// </summary>
+        /// <param name="document"></param>
+        void SetDocumentControlActive(IDocumentControl documentContorl);
         /// <summary>
         /// 获得当前活动文档
         /// </summary>

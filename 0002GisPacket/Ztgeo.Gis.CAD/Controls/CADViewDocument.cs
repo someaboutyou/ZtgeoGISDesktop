@@ -160,8 +160,9 @@ namespace Ztgeo.Gis.CAD.Controls
         }
 
         public void Close()
-        {
-            //throw new NotImplementedException();
+        { 
+            cadImage.Dispose();
+            cadImage = null;
         }
 
         public void Dispose()
@@ -260,6 +261,16 @@ namespace Ztgeo.Gis.CAD.Controls
             ImageScale = ImageScale / 2.0f;
         }
 
+        public void ResetScaling()
+        {
+            ImageScale = 1.0f;
+            if (this.cadImage != null)
+            {
+                cadImage.GetExtents();
+                this.DoResize(true, true);
+            }
+        }
+
         private void CreateNewLoadThread(string fileName)
         {
             loadFileThread = new Thread(LoadCADImage);
@@ -285,10 +296,13 @@ namespace Ztgeo.Gis.CAD.Controls
                         else
                             cadImage.LoadFromFile(fileName);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         throw ex;
                     }
-                    
+                    finally {
+                        EventBus.Trigger(new MultiThreadStatusEndEventData(this, this.HostControl));
+                    }
                 }
             }
             ((Control)this.HostControl).Invoke(new EndThread(SetCADImageOptions));
@@ -309,19 +323,27 @@ namespace Ztgeo.Gis.CAD.Controls
             //}
             cadImage.UseDoubleBuffering = this.useDoubleBuffering;
             cadImage.TTFSmoothing = TTFSmoothing.None;
+            cadImage.SelectionMode = SelectionEntityMode.Enabled;
             this.useSelectEntity = false;
             Orb3D.CADImage = cadImage;
             Orb3D.Visible = false;
             Orb3D.Disable3dOrbit();  
             //this.cadImage.IsDraw3DAxes = this.tlbAxes.Pushed;
-            HostControl.SetCommonCursor();  
-            ObjEntity.cadImage = cadImage;  
+            HostControl.SetCommonCursor();
+            SetLayList();
+            ObjEntity.cadImage = cadImage;
+            ObjEntity.propGrid = (CADPropertyGrid)HostControl.PropertiesControl;
             HostControl.Focus();
             if (cadImage.Painter.OpenVPort(cadImage.Converter.ActiveVPort) == 0)
                 DoResize(true, true);
             //ChangeControlState();
             HostControl.Invalidate();
         }
+        private void SetLayList()
+        {
+            ((CADViewerControl)HostControl).SetLayList(Image.Converter.Layers);
+        }
+
         public void DoResize(bool center, bool resize)
         {
             if (cadImage == null)

@@ -56,6 +56,11 @@ namespace Ztgeo.Gis.Winform.ABPForm
         /// <returns></returns>
         IDocumentControl AddADocument(IDocumentControl documentControl,string name);
         /// <summary>
+        /// 手动激活一个文档
+        /// </summary>
+        /// <returns></returns>
+        void ManualActiveADocumentControl(IDocumentControl documentControl);
+        /// <summary>
         /// 在状态栏设置系统状态信息
         /// </summary>
         void SetStatusInfo(IDocumentControl documentControl,StatusInfo statusInfo);

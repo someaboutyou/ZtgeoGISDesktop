@@ -202,16 +202,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbpApplicationBuilderExtensions.cs" />
+    <Compile Include="Actions\IMenuClickAction.cs" />
+    <Compile Include="Actions\IResourceDoubleClickAction.cs" />
+    <Compile Include="Actions\IToolbarClickAcion.cs" />
+    <Compile Include="Actions\IWinformAction.cs" />
+    <Compile Include="Actions\IResourceClickAction.cs" />
     <Compile Include="Configuration\IWinformMenuConfiguration.cs" />
+    <Compile Include="Configuration\ResourceConfiguration.cs" />
+    <Compile Include="Configuration\ResourceConfigurationExtensions.cs" />
     <Compile Include="Configuration\WinformMenuConfiguration.cs" />
     <Compile Include="Configuration\WinformMenuConfigurationExtensions.cs" />
     <Compile Include="Configuration\WinformToolbarConfigurationExtensions.cs" />
+    <Compile Include="Events\DocumentActiveChangeEventData.cs" />
     <Compile Include="MainFormDocument\IDocument.cs" />
     <Compile Include="MainFormDocument\IDocumentControl.cs" />
     <Compile Include="MainFormDocument\IDocumentManager.cs" />
     <Compile Include="MainFormLayer\ILayerControl.cs" />
-    <Compile Include="MainFormResources\IMainFormResourcesControl.cs" />
-    <Compile Include="MainFormResources\IMainFormResourcesManager.cs" />
+    <Compile Include="Resources\AbstractFileResource.cs" />
+    <Compile Include="Resources\IResourcesControl.cs" />
+    <Compile Include="Resources\IResourcesManager.cs" />
+    <Compile Include="Resources\IResource.cs" />
     <Compile Include="MainFormStatusBar\MultiThreadStatusEndEventData.cs" />
     <Compile Include="MainFormStatusBar\MultiThreadStatusStartEventData.cs" />
     <Compile Include="MainFormStatusBar\Status4DocumenEventData.cs" />

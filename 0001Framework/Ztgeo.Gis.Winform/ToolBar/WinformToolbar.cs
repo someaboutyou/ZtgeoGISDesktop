@@ -29,8 +29,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
             Image disableIcon,
             bool defaultEnable,
             string tip,
-            WinformToolbarGroup group,
-            bool isUserActiveStatus,
+            WinformToolbarGroup group, 
             string permission =null,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
             Action<WinformToolbar> toolbarEvent = null
@@ -45,7 +44,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
             this.MultiTenancySides = multiTenancySides;
             this.Permission = permission; 
         }
-        internal static string NameSplitKey = "-->";
+        public static string NameSplitKey = "-->";
 
         public WinformToolbarGroup WinformToolbarGroup { get; set; }
         public string PrefixedName { get { return this.WinformToolbarGroup.Name + NameSplitKey + this.Name; } }
@@ -75,13 +74,9 @@ namespace Ztgeo.Gis.Winform.ToolBar
         /// </summary>
         public bool DefaultEnable { get; set; }
         /// <summary>
-        /// 是否启用激活状态设置.如果该值是true时，IsActive 的样式会变的。
+        /// 是否是激活状态 默认时false
         /// </summary>
-        public bool IsUseActiveStatus { get; set; }
-        /// <summary>
-        /// 是否是激活状态
-        /// </summary>
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = false;
         public MultiTenancySides MultiTenancySides { get; set; }
         /// <summary>
         /// toolbar 点击事件
