@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbpApplicationBuilderExtensions.cs" />
+    <Compile Include="Actions\IContextMenuItemAction.cs" />
     <Compile Include="Actions\IMenuClickAction.cs" />
     <Compile Include="Actions\IResourceDoubleClickAction.cs" />
     <Compile Include="Actions\IToolbarClickAcion.cs" />

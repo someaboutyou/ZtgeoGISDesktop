@@ -27,6 +27,5 @@ namespace Ztgeo.Gis.CAD.Menus
                 toolbarControl.CADFileOpen();
             }
         }
-         
     }
 }

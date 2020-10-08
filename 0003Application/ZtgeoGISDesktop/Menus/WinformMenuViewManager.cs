@@ -184,10 +184,18 @@ namespace ZtgeoGISDesktop.Core.Menus
                         };
                         if (button.Icon != null)
                             newButton.ImageOptions.LargeImage = button.Icon;
-                        if (button.MenuEvent != null) {
+                        //if (button.MenuEvent != null) {
+                        //    newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
+                        //    {
+                        //        button.MenuEvent(button);
+                        //    };
+                        //}
+                        if (button.MenuClickAction != null)
+                        {
                             newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
                             {
-                                button.MenuEvent(button);
+                                // sender or Event args
+                                button.MenuClickAction.Excute();
                             };
                         }
                         pageGroup.ItemLinks.Add(newButton);

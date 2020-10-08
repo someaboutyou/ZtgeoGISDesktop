@@ -93,6 +93,7 @@ namespace Ztgeo.Gis.Winform.Menu
               string description = null,
               string permission = null,
               Image icon =null,
+              Image disIcon =null,
               int order = 0,
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
               Dictionary<string, object> properties = null,
