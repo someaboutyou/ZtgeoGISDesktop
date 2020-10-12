@@ -24,6 +24,7 @@ namespace Ztgeo.Gis.CAD.Controls
     public partial class CADViewerControl : CADPictureBox, IDocumentControl,Abp.Dependency.ITransientDependency
     {
         private readonly IWinformToolbarManager winformToolbarManager;
+        private readonly IocManager iocManager;
         private WinformToolbar selectToolbar; 
         private CADImport.CADImportForms.LayerForm CADLayerForm;
         private bool useSelectEntity {
@@ -42,13 +43,15 @@ namespace Ztgeo.Gis.CAD.Controls
         public CADViewerControl(ICADViewDocument cadViewDocument, 
             ICADPropertiesControl _cadPropertiesControl,
             ICADLayerControl _cadLayerControl,
-            IWinformToolbarManager _winformToolbarManager
+            IWinformToolbarManager _winformToolbarManager,
+            IocManager _iocmanager
             )
         {
             winformToolbarManager = _winformToolbarManager;
             CADViewDocument = cadViewDocument; 
             CADPropertiesControl = _cadPropertiesControl;
             CADLayerControl = _cadLayerControl;
+            iocManager = _iocmanager;
             InitializeComponent();
             InitializePicutreBox();
             InitExtParam();
@@ -123,8 +126,10 @@ namespace Ztgeo.Gis.CAD.Controls
             this.Cursor = Cursors.Default;
         }
 
-        public void OpenFile(string filePath) { 
-            this.Document.LoadFromFile(filePath);
+        public void OpenFile(string filePath) {
+            CADViewSingleFileDocumentResource cADViewSingleFileDocumentResource= iocManager.Resolve<CADViewSingleFileDocumentResource>();
+            cADViewSingleFileDocumentResource.FilePath = filePath;
+            this.Document.LoadFromResource(cADViewSingleFileDocumentResource);
             
         }
 

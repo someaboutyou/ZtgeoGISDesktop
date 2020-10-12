@@ -1,6 +1,8 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Dependency;
+using Abp.Domain.Repositories;
 using Castle.MicroKernel.Util;
 using DevExpress.XtraBars;
+using DevExpress.XtraBars.Docking2010.Views.WindowsUI;
 using DevExpress.XtraBars.Ribbon;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Winform.ABPForm;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Utils;
 using ZtgeoGISDesktop.Core.Menu;
@@ -23,14 +26,17 @@ namespace ZtgeoGISDesktop.Core.Menus
         private readonly IWinformMenuManager winformMenuManager;
         private readonly IMainForm mainForm;
         private readonly IRepository<MenuOrder> menuOrderRepository;
+        private readonly IocManager iocManager;
 
         public WinformMenuViewManager(IWinformMenuManager _winformMenuManager,
             IMainForm _mainForm,
-            IRepository<MenuOrder> _menuOrderRepository
+            IRepository<MenuOrder> _menuOrderRepository,
+            IocManager _iocmanager 
             ) {
             winformMenuManager = _winformMenuManager;
             mainForm = _mainForm;
             menuOrderRepository = _menuOrderRepository;
+            iocManager = _iocmanager;
         }
         /// <summary>
         /// 初始化菜单
@@ -171,10 +177,8 @@ namespace ZtgeoGISDesktop.Core.Menus
                             Name=button.Name,
                             Caption = button.DisplayName
                         };
-                        if (button.Icon != null)
-                            subItem.ImageOptions.LargeImage = button.Icon;
-                        pageGroup.ItemLinks.Add(subItem);
-                         //
+                        SetSubItemImage4Default(button, subItem);
+                        pageGroup.ItemLinks.Add(subItem); 
                     }
                     else {
                         BarButtonItem newButton = new BarButtonItem
@@ -182,23 +186,55 @@ namespace ZtgeoGISDesktop.Core.Menus
                             Name = button.Name,
                             Caption = button.DisplayName
                         };
-                        if (button.Icon != null)
-                            newButton.ImageOptions.LargeImage = button.Icon;
-                        //if (button.MenuEvent != null) {
-                        //    newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
-                        //    {
-                        //        button.MenuEvent(button);
-                        //    };
-                        //}
-                        if (button.MenuClickAction != null)
-                        {
-                            newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
-                            {
-                                // sender or Event args
-                                button.MenuClickAction.Excute();
-                            };
+                        SetSubItemImage4Default(button, newButton);
+                        if (button.MenuActionType != null) {
+                            IWinformAction winformAction= iocManager.Resolve(button.MenuActionType) as IWinformAction;
+                            if (winformAction != null) {
+                                newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
+                                {
+                                    winformAction.Excute();
+                                }; 
+                            }
                         }
                         pageGroup.ItemLinks.Add(newButton);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 设置菜单的图标
+        /// </summary>
+        private void SetSubItemImage4Default(WinformMenu menuDefining, BarItem subItem) {
+            if (menuDefining.DefaultEnable)
+            {
+                if (menuDefining.Icon != null)
+                {
+                    if (menuDefining.Icon.Width >= 32)
+                        subItem.ImageOptions.LargeImage = menuDefining.Icon;
+                    else
+                    {
+                        subItem.ImageOptions.Image = menuDefining.Icon;
+                    }
+                }
+            }
+            else {
+                if (menuDefining.DisIcon != null)
+                {
+                    if (menuDefining.DisIcon.Width >= 32)
+                        subItem.ImageOptions.LargeImage = menuDefining.DisIcon;
+                    else
+                    {
+                        subItem.ImageOptions.Image = menuDefining.DisIcon;
+                    }
+                }
+                else {
+                    if (menuDefining.Icon != null) {
+                        if (menuDefining.Icon.Width >= 32)
+                            subItem.ImageOptions.LargeImage = ImageHelp.ExColorDepth(menuDefining.Icon);
+                        else
+                        {
+                            subItem.ImageOptions.Image = ImageHelp.ExColorDepth(menuDefining.Icon);
+                        }
                     }
                 }
             }
@@ -265,9 +301,8 @@ namespace ZtgeoGISDesktop.Core.Menus
                         case MenuStatus.Available:
                             page.Visible = true;
                             break;
-                        case MenuStatus.Disable:
-
-                            page.Visible = false;
+                        case MenuStatus.Disable: // page 设置disable。那么所有的子条目将都设置为disable 
+                            page.Visible = true;
                             break;
                         case MenuStatus.Hidden:
                             page.Visible = false;
@@ -286,7 +321,7 @@ namespace ZtgeoGISDesktop.Core.Menus
                             group.Enabled = true;
                             group.Visible = true;
                             break;
-                        case MenuStatus.Disable:
+                        case MenuStatus.Disable: // 
                             group.Enabled = false;
                             group.Visible = true;
                             break;
@@ -296,41 +331,56 @@ namespace ZtgeoGISDesktop.Core.Menus
                             break;
                     }
                 }
-            }else if (menu.MenuType == MenuType.Navigation) {
+            }
+            else if (menu.MenuType == MenuType.Navigation)
+            {
                 if (menu.UIObject is BarSubItem)
                 {
                     BarSubItem barSubItem = menu.UIObject as BarSubItem;
                     switch (menuStatus)
                     {
                         case MenuStatus.Available:
-                            barSubItem.Enabled = true; 
+                            barSubItem.Enabled = true;
                             break;
                         case MenuStatus.Disable:
-                            barSubItem.Enabled = false; 
+                            barSubItem.Enabled = false;
                             break;
                         case MenuStatus.Hidden:
-                            barSubItem.Enabled = false; 
+                            barSubItem.Enabled = false;
                             break;
                     }
                 }
-                else if (menu.UIObject is BarButtonItem) {
+                else if (menu.UIObject is BarButtonItem)
+                {
                     BarButtonItem barButtonItem = menu.UIObject as BarButtonItem;
                     switch (menuStatus)
                     {
                         case MenuStatus.Available:
-                            barButtonItem.Enabled = true; 
+                            barButtonItem.Enabled = true;
                             break;
                         case MenuStatus.Disable:
-                            barButtonItem.Enabled = false; 
+                            barButtonItem.Enabled = false;
                             break;
                         case MenuStatus.Hidden:
-                            barButtonItem.Enabled = false; 
+                            barButtonItem.Enabled = false;
                             break;
                     }
                 }
+            } 
+            if (menu.Children != null && menu.Children.Count > 0)
+            {
+                SetMenuStatus(menu.Children, MenuStatus.Disable);
             }
-            
         }
-
+        /// <summary>
+        /// 设置菜单状态
+        /// </summary>
+        /// <param name="menus"></param>
+        /// <param name="menuStatus"></param>
+        public void SetMenuStatus(IEnumerable<WinformMenu> menus, MenuStatus menuStatus) {
+            foreach (var menu in menus) {
+                SetMenuStatus(menu, menuStatus);
+            }
+        }
     }
 }

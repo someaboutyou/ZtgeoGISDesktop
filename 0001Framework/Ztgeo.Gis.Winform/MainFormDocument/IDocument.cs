@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 
 namespace Ztgeo.Gis.Winform.MainFormDocument
 {
@@ -12,6 +13,10 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
     /// </summary>
     public interface IDocument
     {
+        /// <summary>
+        /// 文档资源
+        /// </summary>
+        IDocumentResource DocumentResource { get; }
         /// <summary>
         /// 文档类型的辨别码。 标识这个是什么文档。
         /// </summary>
@@ -23,37 +28,21 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// <summary>
         /// 文档所属控件
         /// </summary>
-        IDocumentControl HostControl { get; }
-        /// <summary>
-        /// 拓展名
-        /// </summary>
-        string ExtensionName { get; }
+        IDocumentControl HostControl { get; } 
         /// <summary>
         /// 文档名称
         /// </summary>
-        string DocumentName { get; }
+        string DocumentName { get; } 
         /// <summary>
-        /// 文档路径或者地址
+        /// 从资源上加载文档
         /// </summary>
-        string FilePath { get; }
+        /// <param name="documentResource"></param>
+        void LoadFromResource(IDocumentResource documentResource, params object[] otherParams);
         /// <summary>
-        /// 从文件加载文档
+        /// 是否已经加载资源
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="otherParams"></param>
-        void LoadFromFile(string path,params object[] otherParams);
-        /// <summary>
-        /// 从流加载文档
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="otherParams"></param>
-        void LoadFromStream(Stream stream, params object[] otherParams);
-        /// <summary>
-        /// 从web上加载文档
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="otherParams"></param>
-        void LoadFromWeb(string url, params object[] otherParams);
+        /// <returns></returns>
+        bool IsLoadedResource();
         /// <summary>
         /// 保存
         /// </summary>

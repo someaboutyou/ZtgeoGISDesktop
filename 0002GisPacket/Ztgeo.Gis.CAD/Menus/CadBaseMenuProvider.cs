@@ -30,6 +30,7 @@ namespace Ztgeo.Gis.CAD.Menus
             var openFile = fileGroupMenu.CreateChildMenu(CadBaseMenusNames.OpenCadFileMenu, MenuType.Button, "文件打开", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.OpenCad32.png")
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.OpenCad_Dis32.png")
+
                 //,menuEvent: m =>
                 //{
                 //    IDocumentManager documentManager = iocManager.Resolve<IDocumentManager>();
@@ -56,8 +57,8 @@ namespace Ztgeo.Gis.CAD.Menus
                 //}
                 );
             var saveDxfFile = fileGroupMenu.CreateChildMenu(CadBaseMenusNames.SaveCadFileAsDxfMenu, MenuType.Button, "保存为DXF", "", null
-                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.Savecad32.png")
-                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.Savecad_Dis32.png")
+                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.SaveDxf32.png")
+                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.SaveDxf_dis32.png")
                 //, menuEvent: m =>
                 //{
 
@@ -117,7 +118,7 @@ namespace Ztgeo.Gis.CAD.Menus
                 );
             var settingGroupMenu = cadPageMenu.CreateChildMenu(CadBaseMenusNames.CadFileViewSettingGroupMenu, MenuType.Group, "设置");
             var shxFontMenu = settingGroupMenu.CreateChildMenu(CadBaseMenusNames.CadFileShxFontsSettingMenu, MenuType.Button, "Shx Fonts", "", null
-                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ShxFont_32.png")
+                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ShxFont32.png")
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ShxFont_dis32.png")
                 //, menuEvent: m =>
                 //{

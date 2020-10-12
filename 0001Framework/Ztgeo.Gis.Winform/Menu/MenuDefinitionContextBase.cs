@@ -27,7 +27,9 @@ namespace Ztgeo.Gis.Winform.Menu
             string description = null,
             string permission = null,
             Image icon =null, 
+            Image disIcon =null,
             int order=0,
+            bool isDefaultEnable =true,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
             Dictionary<string, object> properties = null)
         {
@@ -36,7 +38,7 @@ namespace Ztgeo.Gis.Winform.Menu
                 //throw new AbpException("There is already a permission with name: " + name);
                 return Menus[name];
             }
-            var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties);
+            var menu = new WinformMenu(name, menuType, displayName, description, permission, icon, disIcon, order, isDefaultEnable, multiTenancySides, properties);
             Menus[menu.Name] = menu;
             return menu;
         }

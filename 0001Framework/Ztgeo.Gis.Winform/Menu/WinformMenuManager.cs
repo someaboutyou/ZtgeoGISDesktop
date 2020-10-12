@@ -81,7 +81,7 @@ namespace Ztgeo.Gis.Winform.Menu
             return menu;
         }
 
-        public virtual WinformMenu GetMenuOrNull(string name)
+        public override WinformMenu GetMenuOrNull(string name)
         {
             var menu = Menus.GetOrDefault(name); 
             return menu;

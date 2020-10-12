@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.Configuration;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Gis.Winform.ToolBar;
 
@@ -21,6 +22,7 @@ namespace Ztgeo.Gis.Winform
             IocManager.Register<WinformMenuConfiguration>();
             IocManager.Register<WinformToolbarConfiguration>();
             IocManager.Register<ResourceConfiguration>();
+            IocManager.Register<IDocumentResourceProvider, DocumentResourceProvider>();
         }
 
         public override void Initialize()

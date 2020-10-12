@@ -14,6 +14,9 @@ using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.Menu
 {
+    /// <summary>
+    /// winform 菜单Bean
+    /// </summary>
     public class WinformMenu
     {
         public WinformMenu(
@@ -23,10 +26,12 @@ namespace Ztgeo.Gis.Winform.Menu
             string description = null,
             string permission = null,
             Image icon = null,
+            Image disIcon =null,
             int order =0,
+            bool defaultEnable=true,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
             Dictionary<string,object> properties =null,
-            IMenuClickAction menuClickAction = null
+            Type menuActionType = null
          ) {
             Name = name;
             MenuType = menuType;
@@ -35,11 +40,13 @@ namespace Ztgeo.Gis.Winform.Menu
             Description = description;
             Permission = permission;
             Icon = icon;
+            DisIcon = disIcon;
             Order = order;
             MultiTenancySides = multiTenancySides;
-            MenuClickAction = menuClickAction;
-            _children = new List<WinformMenu>();
-
+            MenuActionType = menuActionType;
+            DefaultEnable = defaultEnable;
+            IsEnable = defaultEnable;
+            _children = new List<WinformMenu>(); 
         }
         public WinformMenu Parent { get; private set; } 
         public MultiTenancySides MultiTenancySides { get; set; } 
@@ -47,12 +54,24 @@ namespace Ztgeo.Gis.Winform.Menu
         public string Name { get; }
         public string DisplayName { get; set; } 
         public string Description { get; set; }  
-        public int Order { get; set; }
+        public int Order { get; set; } 
+        /// <summary>
+        /// 默认为可用状态
+        /// </summary>
+        public bool DefaultEnable { get; set; }
+        /// <summary>
+        /// 是否为可用状态
+        /// </summary>
+        public bool IsEnable { get; set; }
         public Dictionary<string, object> Properties { get; }
         /// <summary>
         /// 图标
         /// </summary>
         public Image Icon { get; set; }
+        /// <summary>
+        /// 不可用时的图标
+        /// </summary>
+        public Image DisIcon { get; set; }
 
         public MenuType MenuType { get; set; }
 
@@ -73,7 +92,7 @@ namespace Ztgeo.Gis.Winform.Menu
         /// </summary>
         public object UIObject { get; set; }
 
-        public IMenuClickAction MenuClickAction { get; set; }
+        public Type MenuActionType { get; set; }
         public object this[string key]
         {
             get => !Properties.ContainsKey(key) ? null : Properties[key];
@@ -95,9 +114,10 @@ namespace Ztgeo.Gis.Winform.Menu
               Image icon =null,
               Image disIcon =null,
               int order = 0,
+              bool defaultEnable = true,
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
               Dictionary<string, object> properties = null,
-              IMenuClickAction menuClickAction = null
+              Type menuActionType=null
          ) {
             WinformMenu menu = null;
             if (_children.Any(c => c.Name.Equals(name)))
@@ -108,7 +128,7 @@ namespace Ztgeo.Gis.Winform.Menu
             }
             else
             {
-                menu = new WinformMenu(name, menuType, displayName, description, permission, icon, order, multiTenancySides, properties, menuClickAction);
+                menu = new WinformMenu(name, menuType, displayName, description, permission, icon,disIcon, order, defaultEnable, multiTenancySides, properties, menuActionType);
                 _children.Add(menu);
                 menu.Parent = this;
                 return menu;

@@ -3,17 +3,20 @@ using Abp.Events.Bus;
 using CADImport;
 using CADImport.FaceModule;
 using CADImport.RasterImage;
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.CAD.Configuration;
 using Ztgeo.Gis.Winform.MainFormDocument;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.MainFormStatusBar;
 
 namespace Ztgeo.Gis.CAD.Controls
@@ -21,6 +24,10 @@ namespace Ztgeo.Gis.CAD.Controls
     public class CADViewDocument :  ICADViewDocument, IDisposable, ITransientDependency
     {
         private readonly ICadImportConfiguration cadImportConfiguration;
+        public ILogger Logger { get; set; } 
+        public IDocumentResource DocumentResource { get; private set; }
+        public IEventBus EventBus { get; set; }
+
         private CADImport.CADImage cadImage;
         private Thread loadFileThread; //加载文档线程
         private RectangleF imgr; 
@@ -37,11 +44,10 @@ namespace Ztgeo.Gis.CAD.Controls
         private int curLngIndex = 0;
         private bool drawMode = true;
         private Orbit3D orb3D = null;
-        public IEventBus EventBus { get; set; }
         public CADViewDocument(ICadImportConfiguration _cadImportConfiguration) {
             EventBus = NullEventBus.Instance;
             cadImportConfiguration = _cadImportConfiguration;
-            //InitParams();
+            Logger = NullLogger.Instance; 
         }
         public void InitParams(IDocumentControl hostControl)
         {
@@ -159,6 +165,7 @@ namespace Ztgeo.Gis.CAD.Controls
             }
         }
 
+
         public void Close()
         { 
             cadImage.Dispose();
@@ -171,8 +178,30 @@ namespace Ztgeo.Gis.CAD.Controls
                 this.cadImage.Dispose();
             }
         }
+        #region 加载CAD文件 
+        public bool IsLoadedResource()
+        {
+            return this.DocumentResource != null;
+        }
+        public void LoadFromResource(IDocumentResource documentResource, params object[] otherParams) {
+            this.DocumentResource = documentResource;
+            if (documentResource.DocumentResourceType == DocumentResourceType.SingleFile)
+            {
+                ISingleFileDocumentResource singleFileDocumentResource = documentResource as ISingleFileDocumentResource;
+                LoadFromFile(singleFileDocumentResource.FilePath, otherParams);
+            }
+            else if (documentResource.DocumentResourceType == DocumentResourceType.FromWeb)
+            {
+                IWebDocumentResource webDocumentResource = documentResource as IWebDocumentResource;
+                LoadFromWeb(webDocumentResource.Url, otherParams);
+            }
+            else if (documentResource.DocumentResourceType == DocumentResourceType.StreamResource) {
+                IStreamDocumentResource streamDocumentResource = documentResource as IStreamDocumentResource;
+                LoadFromStream(streamDocumentResource.Stream, otherParams);
+            }
+        }
 
-        public void LoadFromFile(string path, params object[] otherParams)
+        private void LoadFromFile(string path, params object[] otherParams)
         {
             this.FilePath = path;
             this.DocumentName=Path.GetFileNameWithoutExtension(path);
@@ -220,16 +249,16 @@ namespace Ztgeo.Gis.CAD.Controls
             } 
         }
 
-        public void LoadFromStream(Stream stream, params object[] otherParams)
+        private void LoadFromStream(Stream stream, params object[] otherParams)
         {
-            throw new NotImplementedException();
+            Logger.Info("从流加载CAD文件尚未开发完成");
         }
 
         public void LoadFromWeb(string url, params object[] otherParams)
         {
-            throw new NotImplementedException();
+            Logger.Info("从Web加载CAD文件尚未开发完成");
         }
-
+        #endregion
         public void Save()
         {
 

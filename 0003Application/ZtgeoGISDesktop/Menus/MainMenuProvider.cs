@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Utils;
 using ZtgeoGISDesktop.Forms;
+using ZtgeoGISDesktop.Menus.Actions;
 using ZtgeoGISDesktop.Winform.Share;
 using ZtgeoGISDesktop.Winform.Share.Forms;
 
@@ -30,11 +31,15 @@ namespace ZtgeoGISDesktop.Menus
             var fileNew = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileNew, MenuType.Button, "新建", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.New.png"));
             var fileOpen = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileOpen, MenuType.Button, "打开", "", null
-               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Open.png"));
+               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Open.png"),menuActionType:typeof(Open));
             var fileSave = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileSave, MenuType.Button, "保存", "", null
-               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save.png"));
+               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save32.png")
+               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save_dis32.png")
+               , 0,false);
             var fileSaveAs = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileSaveAs, MenuType.Button, "另存为", "", null
-               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.SaveAs.png"));
+               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.SaveAs.png"), 
+               AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save_dis32.png")
+               , 0, false);
             var fileQuickPrint = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileQuickPrint, MenuType.Button, "快速打印", "", null
                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.QuickPrint.png"));
             var filePrint = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FilePrint, MenuType.Button, "打印", "", null

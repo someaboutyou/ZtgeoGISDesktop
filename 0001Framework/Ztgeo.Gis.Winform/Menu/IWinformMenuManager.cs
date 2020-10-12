@@ -13,5 +13,6 @@ namespace Ztgeo.Gis.Winform.Menu
         WinformMenu GetMenuOrNull(string name);
         IReadOnlyList<WinformMenu> GetAllMenus(bool tenancyFilter = true);
         IReadOnlyList<WinformMenu> GetAllMenus(MultiTenancySides multiTenancySides);
+         
     }
 }

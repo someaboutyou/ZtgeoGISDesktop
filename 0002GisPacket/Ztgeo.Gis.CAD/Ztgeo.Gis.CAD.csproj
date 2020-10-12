@@ -37,6 +37,10 @@
     <Reference Include="CADImport">
       <HintPath>..\..\packages\CAD\CADImport.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\0003Application\ZtgeoGISDesktop\bin\Debug\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -57,6 +61,7 @@
     </Compile>
     <Compile Include="Controls\CADProperty\ICADPropertiesControl.cs" />
     <Compile Include="Controls\CADViewDocument.cs" />
+    <Compile Include="Controls\CADViewSingleFileDocumentResource.cs" />
     <Compile Include="Controls\CADViewerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -64,6 +69,7 @@
       <DependentUpon>CADViewerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\CADLayer\ICADLayerControl.cs" />
+    <Compile Include="Controls\CADViewSingleFileDocumentResourceMetaData.cs" />
     <Compile Include="Controls\ICADViewDocument.cs" />
     <Compile Include="Events\PropertyControlChangeEventHandler.cs" />
     <Compile Include="Menus\CadBaseMenuProvider.cs" />
@@ -95,7 +101,27 @@
       <Name>Ztgeo.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\background32.png" />
+    <EmbeddedResource Include="Icons\background_dis32.png" />
+    <EmbeddedResource Include="Icons\FileMerge32.png" />
+    <EmbeddedResource Include="Icons\FileMerge_dis32.png" />
+    <EmbeddedResource Include="Icons\OutputCAD2Emf32.png" />
+    <EmbeddedResource Include="Icons\OutputCAD2Emf_dis32.png" />
+    <EmbeddedResource Include="Icons\OutputCAD2Img_dis32.png" />
+    <EmbeddedResource Include="Icons\Print32.png" />
+    <EmbeddedResource Include="Icons\PrintPreview32.png" />
+    <EmbeddedResource Include="Icons\PrintPreview_dis32.png" />
+    <EmbeddedResource Include="Icons\Print_dis32.png" />
+    <EmbeddedResource Include="Icons\QuickPrint32.png" />
+    <EmbeddedResource Include="Icons\QuickPrint_dis32.png" />
+    <EmbeddedResource Include="Icons\SaveDxf32.png" />
+    <EmbeddedResource Include="Icons\SaveDxf_dis32.png" />
+    <EmbeddedResource Include="Icons\ShxFont32.png" />
+    <EmbeddedResource Include="Icons\ShxFont_dis32.png" />
+    <EmbeddedResource Include="Icons\WebFile32.png" />
+    <EmbeddedResource Include="Icons\WebFile_dis32.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\cad16.png" />
   </ItemGroup>
@@ -131,6 +157,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Icons\pan16.png" />
     <EmbeddedResource Include="Icons\pan_dis16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Savecad_dis32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\CADFileIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
