@@ -21,11 +21,13 @@ namespace Ztgeo.Gis.Winform.Resources
 
         public virtual int IdentifiedOrder { get; protected set; }
 
-        public IResourceClickAction ClickAction { get; protected set; }
+        public IResourceAction ClickAction { get; protected set; }
 
-        public IResourceDoubleClickAction DoubleClickAction { get; protected set; }
+        public IResourceAction DoubleClickAction { get; protected set; }
 
         public IOrderedEnumerable<IContextMenuItemAction> ContextActions { get; protected set; }
+
+        public IResourceMetaData ResourceMetaData => throw new NotImplementedException();
 
         public virtual bool IdentifiedResource()
         {

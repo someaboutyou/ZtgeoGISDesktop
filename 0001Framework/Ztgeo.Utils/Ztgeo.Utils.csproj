@@ -67,6 +67,7 @@
     <Compile Include="CheckExtension.cs" />
     <Compile Include="CollectionsExtensions.cs" />
     <Compile Include="EmptyArray.cs" />
+    <Compile Include="FileHelper.cs" />
     <Compile Include="ImageHelp.cs" />
     <Compile Include="IPair.cs" />
     <Compile Include="Pair.cs" />

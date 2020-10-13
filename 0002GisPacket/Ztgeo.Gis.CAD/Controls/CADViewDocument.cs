@@ -18,6 +18,7 @@ using Ztgeo.Gis.CAD.Configuration;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.MainFormStatusBar;
+using Ztgeo.Gis.Winform.Resources;
 
 namespace Ztgeo.Gis.CAD.Controls
 {
@@ -185,17 +186,17 @@ namespace Ztgeo.Gis.CAD.Controls
         }
         public void LoadFromResource(IDocumentResource documentResource, params object[] otherParams) {
             this.DocumentResource = documentResource;
-            if (documentResource.DocumentResourceType == DocumentResourceType.SingleFile)
+            if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.SingleFile)
             {
                 ISingleFileDocumentResource singleFileDocumentResource = documentResource as ISingleFileDocumentResource;
                 LoadFromFile(singleFileDocumentResource.FilePath, otherParams);
             }
-            else if (documentResource.DocumentResourceType == DocumentResourceType.FromWeb)
+            else if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.FromWeb)
             {
                 IWebDocumentResource webDocumentResource = documentResource as IWebDocumentResource;
                 LoadFromWeb(webDocumentResource.Url, otherParams);
             }
-            else if (documentResource.DocumentResourceType == DocumentResourceType.StreamResource) {
+            else if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.StreamResource) {
                 IStreamDocumentResource streamDocumentResource = documentResource as IStreamDocumentResource;
                 LoadFromStream(streamDocumentResource.Stream, otherParams);
             }

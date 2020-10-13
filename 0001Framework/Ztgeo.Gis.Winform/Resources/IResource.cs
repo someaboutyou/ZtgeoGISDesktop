@@ -31,11 +31,11 @@ namespace Ztgeo.Gis.Winform.Resources
         /// <summary>
         /// 单击事件 
         /// </summary>
-        IResourceClickAction ClickAction { get; }
+        IResourceAction ClickAction { get; }
         /// <summary>
         /// 双击事件
         /// </summary>
-        IResourceDoubleClickAction DoubleClickAction { get; }
+        IResourceAction DoubleClickAction { get; }
         /// <summary>
         /// 资源上的右键事件 
         /// </summary>

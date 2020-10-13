@@ -9,22 +9,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
+using Ztgeo.Gis.Winform.Resources;
 
 namespace ZtgeoGISDesktop.Menus.Actions
 {
-    public class Open : IMenuClickAction
+    public class Open : IMenuAction
     {
         private readonly IocManager iocManager;
-        private readonly IDocumentResourceProvider documentResourceProvider;
+        private readonly IResourceMetaDataProvider resourceProvider;
         public Open(IocManager _iocManager,
-            IDocumentResourceProvider _documentResourceProvider
+            IResourceMetaDataProvider _resourceProvider
             ) {
             iocManager = _iocManager;
-            documentResourceProvider = _documentResourceProvider;
+            resourceProvider = _resourceProvider;
         }
         public void Excute()
         {
-            if (documentResourceProvider.MetaDataProviders.Count <=0) 
+            if (resourceProvider.DocumentResourceMetaDataProviders.Count <=0) 
             {
                 XtraMessageBox.Show("程序中未找到打开文件的方法");
                 return;
@@ -39,10 +40,6 @@ namespace ZtgeoGISDesktop.Menus.Actions
                 string fileName = openFileDialog.FileName;
             }
         }
-
-        //private string Fileters() {
-            
-
-        //}
+         
     }
 }

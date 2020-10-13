@@ -12,6 +12,7 @@ using Ztgeo.Gis.CAD.Menus;
 using Ztgeo.Gis.CAD.Toolbars;
 using Ztgeo.Gis.Winform.Configuration;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
+using Ztgeo.Gis.Winform.Resources;
 
 namespace Ztgeo.Gis.CAD
 {
@@ -33,7 +34,7 @@ namespace Ztgeo.Gis.CAD
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-            IocManager.Resolve<IDocumentResourceProvider>().MetaDataProviders.Add(typeof(CADViewSingleFileDocumentResourceMetaData)); //添加CAD文件元数据
+            IocManager.Resolve<IResourceMetaDataProvider>().DocumentResourceMetaDataProviders.Add(typeof(CADViewSingleFileDocumentResourceMetaData)); //添加CAD文件元数据
 
         }
         public override void PostInitialize()

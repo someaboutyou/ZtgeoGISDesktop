@@ -13,7 +13,7 @@ namespace Ztgeo.Gis.Winform.Resources
         ITypeList<IResourceMetaData> ResourceMetaDataProviders { get; }
         ITypeList<IResourceMetaData> AllResourceMetaDataProviders { get; }
     }
-    public class ResourceMetaProvider: IResourceMetaDataProvider
+    public class ResourceMetaDataProvider: IResourceMetaDataProvider
     {
         private ITypeList<IDocumentResourceMetaData> _DocumentResourceMetaDataProviders = new TypeList<IDocumentResourceMetaData>();
        public ITypeList<IDocumentResourceMetaData> DocumentResourceMetaDataProviders { get { return _DocumentResourceMetaDataProviders; } }

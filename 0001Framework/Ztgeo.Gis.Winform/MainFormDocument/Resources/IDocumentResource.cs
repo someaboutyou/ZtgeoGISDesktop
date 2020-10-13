@@ -13,7 +13,11 @@ namespace Ztgeo.Gis.Winform.MainFormDocument.Resources
     /// 文档资源接口
     /// </summary>
     public interface IDocumentResource:IResource
-    { 
+    {
+        /// <summary>
+        /// 资源对应的DocmentControl
+        /// </summary>
+        Type DocumentControlType { get; }
         /// <summary>
         /// 打开资源
         /// </summary>

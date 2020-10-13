@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.ToolBar;
 
 namespace Ztgeo.Gis.Winform.Actions
 {
-    public interface IToolbarClickAcion:IWinformAction,Abp.Dependency.ISingletonDependency
+    public interface IToolbarAction:IWinformAction,Abp.Dependency.ISingletonDependency
     {
-
+        WinformToolbar WinformToolbar { get; }
     }
 }

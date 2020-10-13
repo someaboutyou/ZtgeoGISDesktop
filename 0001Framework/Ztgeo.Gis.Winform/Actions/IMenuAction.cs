@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Winform.Actions
 {
-    public interface IResourceDoubleClickAction : IWinformAction, Abp.Dependency.ISingletonDependency
+
+    public interface IMenuAction: IWinformAction ,Abp.Dependency.ISingletonDependency
     {
+
     }
 }
