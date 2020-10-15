@@ -26,6 +26,7 @@ using DevExpress.Utils.Extensions;
 using Abp.Events.Bus;
 using Ztgeo.Gis.Winform.Events;
 using DevExpress.XtraEditors.Controls;
+using ZtgeoGISDesktop.Resources;
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -53,7 +54,7 @@ namespace ZtgeoGISDesktop.Forms
         }
 
         public Control StandaloneBarDockControl {
-            get {
+            get { 
                 return this.documentManagerDocking.StandaloneBarDockControl;
             }
         } 
@@ -62,7 +63,7 @@ namespace ZtgeoGISDesktop.Forms
 
         public Control PropertiesPanel { get { return this.documentManagerDocking.PropertiesControl; } }
 
-        public Control ResourcesPanel { get; private set; }
+        public Control ResourcesPanel { get { return this.documentManagerDocking.ResourceControl; } }
 
         public MainForm(IocManager iocManager, IFormIOSchemeManager _formIOSchemeManager, ProductInfo _productInfo)
         {
@@ -192,7 +193,7 @@ namespace ZtgeoGISDesktop.Forms
             if(StatusBarItem!=null)
                 this.ribbonStatusBar.ItemLinks.Add(StatusBarItem);
             this.ribbonStatusBar.Refresh(); 
-        }
+        } 
         /// <summary>
         /// 手动激活一个control
         /// </summary>

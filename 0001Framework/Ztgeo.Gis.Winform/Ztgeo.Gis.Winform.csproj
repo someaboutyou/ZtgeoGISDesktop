@@ -279,7 +279,6 @@
   <ItemGroup>
     <Folder Include="Authorization\Permission\" />
     <Folder Include="Feature\" />
-    <Folder Include="Resources\Tree\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

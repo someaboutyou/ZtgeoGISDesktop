@@ -48,7 +48,8 @@ namespace Ztgeo.Gis.CAD.Controls
         public IResourceAction DoubleClickAction { get { return null; } }
 
         public IOrderedEnumerable<IContextMenuItemAction> ContextActions { get { return null; } }
-         
+
+        public string Caption { get { if (string.IsNullOrEmpty(this.FilePath)) return ""; else return Path.GetFileName(FilePath); } } 
 
         public void Open()
         {

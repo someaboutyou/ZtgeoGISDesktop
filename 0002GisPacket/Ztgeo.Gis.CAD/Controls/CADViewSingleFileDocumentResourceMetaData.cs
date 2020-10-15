@@ -1,4 +1,5 @@
-﻿using Abp.Dependency;
+﻿using Abp.Collections;
+using Abp.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,10 +28,10 @@ namespace Ztgeo.Gis.CAD.Controls
         public string Name { get { return "Cad文件"; } }
 
         public ResourceStorageMode ResourceStorageMode { get { return ResourceStorageMode.SingleFile; } }
- 
-        public IOrderedEnumerable<IContextMenuItemAction> ContextActions => throw new NotImplementedException();
 
-        public Type ClickResourceActionType { get { return typeof(); } }
+        public ITypeList<IContextMenuItemAction> ContextActionTypes => throw new NotImplementedException();
+
+        public Type ClickResourceActionType { get { return typeof(Nullable); } }
         public Type DoubleClickResourceActionType => throw new NotImplementedException();
 
         public IList<ISingleFileResource> FindSingleFileResourceInDirectory(string directoryPath)

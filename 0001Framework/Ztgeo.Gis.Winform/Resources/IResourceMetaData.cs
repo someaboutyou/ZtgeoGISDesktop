@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Collections;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Ztgeo.Gis.Winform.Resources
         /// </summary>
         ResourceStorageMode ResourceStorageMode { get; }
         /// <summary>
-        ///  
+        ///  单击事件
         /// </summary>
         Type ClickResourceActionType { get; }
         /// <summary>
@@ -32,8 +33,8 @@ namespace Ztgeo.Gis.Winform.Resources
         /// </summary>
         Type DoubleClickResourceActionType { get; }
         /// <summary>
-        /// 资源上的右键事件 
+        /// 资源上的右键事件,在右键时显示命令按钮 type is IContextMenuItemAction
         /// </summary>
-        IOrderedEnumerable<IContextMenuItemAction> ContextActions { get; }
+        ITypeList<IContextMenuItemAction> ContextActionTypes { get; } 
     }
 }
