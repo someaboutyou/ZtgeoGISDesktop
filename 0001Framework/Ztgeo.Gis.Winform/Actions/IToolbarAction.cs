@@ -9,6 +9,6 @@ namespace Ztgeo.Gis.Winform.Actions
 {
     public interface IToolbarAction:IWinformAction,Abp.Dependency.ISingletonDependency
     {
-        WinformToolbar WinformToolbar { get; }
+        WinformToolbar WinformToolbar { set; }
     }
 }

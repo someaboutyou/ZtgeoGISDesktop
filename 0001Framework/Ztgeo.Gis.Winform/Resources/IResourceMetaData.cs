@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.Resources
 {
@@ -21,5 +22,18 @@ namespace Ztgeo.Gis.Winform.Resources
         /// 资源存储类型
         /// </summary>
         ResourceStorageMode ResourceStorageMode { get; }
+        /// <summary>
+        ///  
+        /// </summary>
+        Type ClickResourceActionType { get; }
+        /// <summary>
+        /// 双击事件 当资源元数据是IDocumentResourceMetaData时，且为空默认是打开。 
+        /// type is IResourceAction
+        /// </summary>
+        Type DoubleClickResourceActionType { get; }
+        /// <summary>
+        /// 资源上的右键事件 
+        /// </summary>
+        IOrderedEnumerable<IContextMenuItemAction> ContextActions { get; }
     }
 }

@@ -10,7 +10,7 @@ using Ztgeo.Gis.CAD.Controls;
 using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Utils;
 
-namespace Ztgeo.Gis.CAD.Actions
+namespace Ztgeo.Gis.CAD.Actions.Menu
 {
     public class OpenCadFileAction : IMenuAction
     {

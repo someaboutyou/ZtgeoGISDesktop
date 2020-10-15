@@ -32,14 +32,15 @@ namespace Ztgeo.Gis.Winform.ToolBar
             WinformToolbarGroup group, 
             string permission =null,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
-            Action<WinformToolbar> toolbarEvent = null
+            //, Action<WinformToolbar> toolbarEvent = null
+            Type toolbarAction = null  
             ) {
             this.Name = name;
             this.Icon = icon;
             this.DisableIcon = disableIcon;
             this.DefaultEnable = defaultEnable;
             this.Tip = tip;
-            this.ToolbarEvent = toolbarEvent;
+            this.ToolbarAction = toolbarAction;
             this.WinformToolbarGroup = group;
             this.MultiTenancySides = multiTenancySides;
             this.Permission = permission; 
@@ -81,7 +82,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
         /// <summary>
         /// toolbar 点击事件
         /// </summary>
-        public Action<WinformToolbar> ToolbarEvent { get; set; }
+        public Type ToolbarAction { get; set; }
 
     }
 }

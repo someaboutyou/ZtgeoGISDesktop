@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.CAD.Actions.Toolbar;
 using Ztgeo.Gis.CAD.Controls;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.MainFormDocument;
@@ -16,8 +17,7 @@ using Ztgeo.Utils;
 namespace Ztgeo.Gis.CAD.Toolbars
 {
     /// <summary>
-    /// CAD tool 按钮
-    /// 
+    /// CAD tool 按钮 
     /// </summary>
     public class CADToolbarProvider : ToolbarProvider
     {
@@ -42,75 +42,45 @@ namespace Ztgeo.Gis.CAD.Toolbars
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.ZoomIn,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomIn16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomIn_dis16.png"),false,"zoom in",group,null, MultiTenancySides.Host | MultiTenancySides.Tenant, (e) => {
-                    IDocument document= iocManager.Resolve<IDocumentManager>().GetActiveDocument;
-                    if (document!=null && document is ICADViewDocument) {
-                        ((ICADViewDocument)document).ZoomIn();
-                    }
-                } 
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomIn_dis16.png"),
+                false,"zoom in",group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(ZoomIn)
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.ZoomOut,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomOut16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomOut_dis16.png"), false, "zoom out", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant, (e) => {
-                    IDocument document = iocManager.Resolve<IDocumentManager>().GetActiveDocument;
-                    if (document != null && document is ICADViewDocument)
-                    {
-                        ((ICADViewDocument)document).ZoomOut();
-                    }
-                }
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomOut_dis16.png"),
+                false, "zoom out", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(ZoomOut)
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.Pan,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.pan16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.pan_dis16.png"), true, "pan", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant, (e) => {
-                    if (e.IsActive)
-                    {  //设置其他的为非激活状态 to do
-                        winformToolbarViewManager.SetToolbarStatus(e, Winform.Menu.MenuStatus.Available);
-                    }
-                    else
-                    {
-                        winformToolbarViewManager.SetToolbarStatus(e, Winform.Menu.MenuStatus.Active);
-                        //与selectmodeltoolbar 排他
-                        cadToolbarControl.SetPanActive();
-                    }
-                }
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.pan_dis16.png"), 
+                true, "pan", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(Pan)
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.ShowLayerManager,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.layer16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.layer_dis16.png"), false, "layer manager", group
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.layer_dis16.png"), 
+                false, "layer manager", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(ShowLayer)
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.FitDrawing,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.fitDraw16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.fitdraw_dis16.png"), false, "fit drawing", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant,
-                (e) => {
-                    IDocument document = iocManager.Resolve<IDocumentManager>().GetActiveDocument;
-                    if (document is ICADViewDocument) {
-                        ICADViewDocument cadViewDocument = (ICADViewDocument)document;
-                        cadViewDocument.ResetScaling();
-                    }
-                }
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.fitdraw_dis16.png"), 
+                false, "fit drawing", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(FitDraw)
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.SelectionModel,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.select16.png"),
-                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.select_dis16.png"), false, "select entities", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant,
-                (e) => {
-                    if (e.IsActive)
-                    {  //设置其他的为非激活状态 to do
-                        winformToolbarViewManager.SetToolbarStatus(e, Winform.Menu.MenuStatus.Available);
-                    }
-                    else
-                    {
-                        winformToolbarViewManager.SetToolbarStatus(e, Winform.Menu.MenuStatus.Active);
-                        //与selectmodeltoolbar 排他
-                        cadToolbarControl.SetSelectorActive();
-                    }
-                }
-            ));
-
+                AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.select_dis16.png"), 
+                false, "select entities", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
+                ,typeof(Select) 
+            )); 
         } 
     }
 

@@ -54,7 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\OpenCadFileAction.cs" />
+    <Compile Include="Actions\Menu\OpenCadFileAction.cs" />
+    <Compile Include="Actions\Toolbar\FitDraw.cs" />
+    <Compile Include="Actions\Toolbar\Pan.cs" />
+    <Compile Include="Actions\Toolbar\Select.cs" />
+    <Compile Include="Actions\Toolbar\ShowLayer.cs" />
+    <Compile Include="Actions\Toolbar\ZoomIn.cs" />
+    <Compile Include="Actions\Toolbar\ZoomOut.cs" />
     <Compile Include="Configuration\CadImportConfiguration.cs" />
     <Compile Include="Configuration\CadImportConfigurationExtension.cs" />
     <Compile Include="Controls\CADLayer\CADLayerControl.cs" />
@@ -164,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\CADFileIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Actions\Resource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

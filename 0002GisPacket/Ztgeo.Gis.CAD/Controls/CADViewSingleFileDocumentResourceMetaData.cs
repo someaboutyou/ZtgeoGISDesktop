@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.Resources;
@@ -26,6 +27,11 @@ namespace Ztgeo.Gis.CAD.Controls
         public string Name { get { return "Cad文件"; } }
 
         public ResourceStorageMode ResourceStorageMode { get { return ResourceStorageMode.SingleFile; } }
+ 
+        public IOrderedEnumerable<IContextMenuItemAction> ContextActions => throw new NotImplementedException();
+
+        public Type ClickResourceActionType { get { return typeof(); } }
+        public Type DoubleClickResourceActionType => throw new NotImplementedException();
 
         public IList<ISingleFileResource> FindSingleFileResourceInDirectory(string directoryPath)
         {

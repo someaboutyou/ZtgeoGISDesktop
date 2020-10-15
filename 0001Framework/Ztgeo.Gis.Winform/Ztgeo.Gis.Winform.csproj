@@ -212,6 +212,7 @@
     <Compile Include="Configuration\WinformMenuConfigurationExtensions.cs" />
     <Compile Include="Configuration\WinformToolbarConfigurationExtensions.cs" />
     <Compile Include="Events\DocumentActiveChangeEventData.cs" />
+    <Compile Include="MainFormDocument\DocumentOpenException.cs" />
     <Compile Include="MainFormDocument\IDocument.cs" />
     <Compile Include="MainFormDocument\IDocumentControl.cs" />
     <Compile Include="MainFormDocument\IDocumentManager.cs" />
@@ -228,7 +229,6 @@
     <Compile Include="MainFormDocument\Resources\IDocumentResource.cs" />
     <Compile Include="MainFormDocument\Resources\ISingleFileDocumentResourceMetaData.cs" />
     <Compile Include="MainFormLayer\ILayerControl.cs" />
-    <Compile Include="Resources\AbstractFileResource.cs" />
     <Compile Include="Resources\IResourceMetaData.cs" />
     <Compile Include="Resources\IResourcesControl.cs" />
     <Compile Include="Resources\IResourcesManager.cs" />
@@ -279,6 +279,7 @@
   <ItemGroup>
     <Folder Include="Authorization\Permission\" />
     <Folder Include="Feature\" />
+    <Folder Include="Resources\Tree\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

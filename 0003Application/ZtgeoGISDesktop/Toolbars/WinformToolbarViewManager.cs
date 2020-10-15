@@ -1,4 +1,5 @@
 ﻿using Abp;
+using Abp.Dependency;
 using DevExpress.XtraBars;
 using ESRI.ArcGIS.Controls;
 using System;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.Winform.ABPForm;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Gis.Winform.ToolBar;
 
@@ -17,9 +19,10 @@ namespace ZtgeoGISDesktop.Toolbars
     {
         private readonly IWinformToolbarManager winformToolbarManager;
         private readonly IMainForm mainForm;
-
+        private readonly IocManager iocManager;
         private const string toolbarDisableSuffixStr = "_DisableImage";
         public WinformToolbarViewManager(
+            IocManager _iocManager,
             IWinformToolbarManager _winformToolbarManager,
             IMainForm _mainForm
             ) {
@@ -54,7 +57,15 @@ namespace ZtgeoGISDesktop.Toolbars
                         toolbar.UIObject = buttonItem; 
                         buttonItem.Enabled = toolbar.DefaultEnable; 
                         buttonItem.ItemClick += (sender, e) => {
-                            toolbar.ToolbarEvent?.Invoke(toolbar); 
+                            //toolbar.ToolbarEvent?.Invoke(toolbar); 
+                            if (toolbar.ToolbarAction != null) {
+                                var toolActiono= iocManager.Resolve(toolbar.ToolbarAction);
+                                if (toolActiono is IToolbarAction) {
+                                    var toolAction = (IToolbarAction)toolActiono;
+                                    toolAction.WinformToolbar = toolbar;
+                                    toolAction.Excute();
+                                }
+                            }
                         }; 
                         barManager.Items.Add(buttonItem);
                         newBar.LinksPersistInfo.Add(new LinkPersistInfo(buttonItem));
