@@ -1,11 +1,16 @@
-﻿using DevExpress.Utils.Helpers;
+﻿using Abp.Dependency;
+using DevExpress.Utils.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.MetadataServices;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.Resources;
+using Ztgeo.Utils;
 
 namespace ZtgeoGISDesktop.Resources
 {
@@ -28,7 +33,7 @@ namespace ZtgeoGISDesktop.Resources
     }
     public class ThisPCItem : Item
     {
-        public ThisPCItem() : base("This PC") { }
+        public ThisPCItem() : base("我的电脑") { }
         public override List<Item> GetDirectories()
         {
             List<Item> items = new List<Item>(10);
@@ -94,12 +99,12 @@ namespace ZtgeoGISDesktop.Resources
         }
         protected override string GetDisplayName(string fullName)
         {
-            return "Disc (" + Name + ")";
+            return "本地磁盘(" + Name + ")";
         }
     }
     public class DirectoryItem : Item
     {
-        public DirectoryItem(string fullName) : base(fullName) { }
+        public DirectoryItem(string fullName, IList<IResourceMetaData> metaDataFilter = null) : base(fullName, metaDataFilter) { }
         public override List<Item> GetDirectories()
         {
             List<Item> items = new List<Item>(10);
@@ -107,12 +112,159 @@ namespace ZtgeoGISDesktop.Resources
             {
                 if (Directory.Exists(FullName))
                 {
-                    string[] dirs = Directory.GetDirectories(FullName);
-                    foreach (string dir in dirs)
+                    string[] dirs = Directory.GetDirectories(FullName); 
+                    string[] files = Directory.GetFiles(FullName);
+                    if (MetaDataFilter == null || MetaDataFilter.Count == 0) //不顾虑
                     {
-                        var attributes = File.GetAttributes(dir);
-                        if ((attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
-                            items.Add(new DirectoryItem(dir));
+                        foreach (string dir in dirs)
+                        {
+                            var attributes = File.GetAttributes(dir);
+                            if ((attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                                items.Add(new DirectoryItem(dir));
+                        }
+                        foreach (string file in files)
+                        {
+                            var attributes = File.GetAttributes(file);
+                            if ((attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                                items.Add(new FileItem(file));
+                        }
+                    }
+                    else {
+                        bool[] dirStatus=null;
+                        if (dirs.Length > 0) {
+                              dirStatus = new bool[dirs.Length];
+                            foreach (IResourceMetaData metaData in MetaDataFilter)
+                            {
+                                if (metaData.ResourceStorageMode == ResourceStorageMode.SingleFolder
+                                    && metaData is ISingleFolderResourceMetaData)
+                                {
+                                    var singleFolderResourceMetaData = metaData as ISingleFolderResourceMetaData;
+                                    for (int i = 0; i < dirs.Length; i++)
+                                    {
+                                        if (singleFolderResourceMetaData.Identified(dirs[i]))
+                                        {
+                                            dirStatus[i] = true;
+                                            ISingleFolderResource resource = IocManager.Instance.Resolve(singleFolderResourceMetaData.ResourceType.Type) as ISingleFolderResource;
+                                            resource.Caption = Path.GetFileName(dirs[i]);
+                                            resource.FolderPath = dirs[i];
+                                            items.Add(new ResourceItem(dirs[i], resource));
+                                        }
+                                    }
+                                }
+                                else if (metaData.ResourceStorageMode == ResourceStorageMode.MultiFolder
+                                    && metaData is IMultiFolderResourceMetaData) {
+                                    var multiFolderResourceMetaData = metaData as IMultiFolderResourceMetaData;
+                                    for (int i = 0; i < dirs.Length; i++) {
+                                        if (multiFolderResourceMetaData.Identified(dirs[i])) {
+                                            dirStatus[i] = true;
+                                            var otherFolders = multiFolderResourceMetaData.FindOtherFolders(dirs[i]);
+                                            if (otherFolders.Count > 0) { //设置otherFolder 的状态
+                                                foreach (string f in otherFolders) {
+                                                    for (int j = 0; j < dirs.Length; j++) {
+                                                        if (dirs[j].Equals(f)) {
+                                                            dirStatus[j] = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            IMultiFolderResource resource = IocManager.Instance.Resolve(multiFolderResourceMetaData.ResourceType.Type) as IMultiFolderResource;
+                                            resource.Caption = Path.GetFileName(dirs[i]);
+                                            resource.MainFolder = dirs[i];
+                                            resource.OtherFolders = otherFolders;
+                                            items.Add(new ResourceItem(dirs[i], resource));
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                        if (files.Length > 0) {
+                            bool[] fileStatus = new bool[files.Length];
+                            foreach (IResourceMetaData metaData in MetaDataFilter) {
+                                if (metaData.ResourceStorageMode == ResourceStorageMode.SingleFile
+                                    && metaData is ISingleFileResourceMetaData)
+                                {
+                                    var singleFileResourceMetaData = metaData as ISingleFileResourceMetaData;
+                                    for (int i = 0; i < files.Length; i++)
+                                    {
+                                        if (singleFileResourceMetaData.Identified(files[i]))
+                                        {
+                                            fileStatus[i] = true;
+                                            ISingleFileResource resource = IocManager.Instance.Resolve(singleFileResourceMetaData.ResourceType.Type) as ISingleFileResource;
+                                            resource.Caption = Path.GetFileName(files[i]);
+                                            resource.FullName = files[i];
+                                            items.Add(new ResourceItem(files[i], resource));
+                                        }
+                                    }
+                                }
+                                else if (metaData.ResourceStorageMode == ResourceStorageMode.MultiFile
+                                    && metaData is IMultiFileResourceMetaData) {
+                                    var muiltFileResourceMetaData = metaData as IMultiFileResourceMetaData;
+                                    for (int i = 0; i < files.Length; i++) {
+                                        if (muiltFileResourceMetaData.Identified(files[i])) {
+                                            fileStatus[i] = true;
+                                            var otherFiles = muiltFileResourceMetaData.FindOtherFiles(files[i]);
+                                            if (otherFiles.Count > 0) {//设置otherFile 的状态
+                                                foreach (string f in otherFiles) {
+                                                    for (int j = 0; j < files.Length; j++) {
+                                                        if (files[j].Equals(f)) {
+                                                            fileStatus[j] = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            IMultiFileResource resource = IocManager.Instance.Resolve(muiltFileResourceMetaData.ResourceType.Type) as IMultiFileResource;
+                                            resource.Caption = Path.GetFileName(files[i]);
+                                            resource.MainFilePath = files[i];
+                                            resource.OtherFilePath = otherFiles;
+                                            items.Add(new ResourceItem(files[i], resource));
+                                        }
+                                    }
+                                }
+                                else if (metaData.ResourceStorageMode == ResourceStorageMode.MixedFileFold
+                                    && metaData is IMixedFileFoldResourceMetaData) { //文件和文件夹混合 
+                                    var mixedFileFoldResourceMetaData = metaData as IMixedFileFoldResourceMetaData;
+                                    for (int i = 0; i < files.Length; i++) {
+                                        if (mixedFileFoldResourceMetaData.Identified(files[i])) {
+                                            fileStatus[i] = true;
+                                            var otherfiles = mixedFileFoldResourceMetaData.FindOtherFiles(files[i]);
+                                            var otherFolders = mixedFileFoldResourceMetaData.FindOtherFolders(files[i]);
+                                            if (otherfiles.Count > 0) {//设置otherFile 的状态
+                                                foreach (string f in otherfiles)
+                                                {
+                                                    for (int j = 0; j < files.Length; j++)
+                                                    {
+                                                        if (files[j].Equals(f))
+                                                        {
+                                                            fileStatus[j] = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (otherFolders.Count > 0) { //设置otherFolder 的状态
+                                                foreach (string f in otherFolders) {
+                                                    for (int j = 0; j < dirs.Length; j++) {
+                                                        if (dirs[j].Equals(f)) {
+                                                            dirStatus[j] = true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            IMixedFileFoldResource resource = IocManager.Instance.Resolve(mixedFileFoldResourceMetaData.ResourceType.Type) as IMixedFileFoldResource;
+                                            resource.Caption = Path.GetFileName(files[i]);
+                                            resource.MainPath = files[i];
+                                            resource.OtherFilePaths = otherfiles;
+                                            resource.OtherFolderPaths = otherFolders;
+                                            items.Add(new ResourceItem(files[i], resource)); 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (int k = 0; k < dirs.Length; k++) {
+                            if (!dirStatus[k]) {
+                                items.Add(new DirectoryItem(dirs[k]));
+                            }
+                        }
                     }
                 }
             }
@@ -120,19 +272,58 @@ namespace ZtgeoGISDesktop.Resources
             finally { }
             return items;
         }
+         
         protected override string GetDirectoryName(string path)
         {
             return Path.GetFileName(path);
         }
     }
+
+    public class FileItem : Item
+    {
+        public FileItem(string fullName) : base(fullName)
+        {
+
+        }
+        public override List<Item> GetDirectories()
+        {
+            return new List<Item>();
+        } 
+        protected override string GetDirectoryName(string path)
+        {
+            return Path.GetFileName(path);
+        }
+    }
+
+    public class ResourceItem : Item {
+        private IResource resource;
+        private Image image;
+        public ResourceItem(string _fullName, IResource _resource) :base(_fullName) {
+            resource = _resource;
+            if (resource.ResourceMetaData.Icon != null)
+                image = resource.ResourceMetaData.Icon;
+            else
+                image = AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Winform.Icons.ResourceFile16.png");
+        }
+        public IResource Resource {
+            get { return this.resource; }
+        }
+        public override List<Item> GetDirectories()
+        {
+            return new List<Item>();
+        }
+        public override Image Image { get { return this.image; }  set { this.image = value; } }
+    }
+
     public abstract class Item : IFileImage
     {
-        public Item(string fullName)
+        public Item(string fullName,IList<IResourceMetaData> metaDataFilter = null)
         {
             Image = GetImage(fullName);
             Name = GetDirectoryName(fullName);
             FullName = fullName;
             DisplayName = GetDisplayName(fullName);
+            MetaDataFilter = metaDataFilter;
         }
         protected virtual string GetDisplayName(string fullName)
         {
@@ -158,6 +349,8 @@ namespace ZtgeoGISDesktop.Resources
             get;
             set;
         }
+
+        public IList<IResourceMetaData> MetaDataFilter { get; private set; }
         public abstract List<Item> GetDirectories();
         public static Size ImageSize
         {
@@ -216,7 +409,9 @@ namespace ZtgeoGISDesktop.Resources
                     }
                 }
             }
-            catch { }
+            catch(Exception ex) {
+                throw ex;
+            }
             return infos;
         }
     }

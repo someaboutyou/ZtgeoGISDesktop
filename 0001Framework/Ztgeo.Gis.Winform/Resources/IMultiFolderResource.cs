@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Winform.Resources
 {
-    public interface ISingleFileResource :IResource
+    public interface IMultiFolderResource : IResource
     {
         /// <summary>
-        /// 全名称，一般从全路径中可以判断出资源的位置，例如文件资源的路径
+        /// 除了主目录 其他目录
         /// </summary>
-        string FullName { get; set; } 
+        IList<string> OtherFolders { get; set; }
         /// <summary>
-        /// 扩展名
+        /// 主目录
         /// </summary>
-        string ExtensionName { get; }
-
+        string MainFolder { get; set; }
     }
 }

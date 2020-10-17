@@ -95,6 +95,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0000ABP\Ztgeo.Gis.AbpExtension\Ztgeo.Gis.AbpExtension.csproj">
+      <Project>{16AE7B14-BCFF-40C7-8B4C-B3BCAEBC7569}</Project>
+      <Name>Ztgeo.Gis.AbpExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Hybrid\Ztgeo.Gis.Hybrid.csproj">
       <Project>{fb274ca5-d9e2-4c63-be0c-6c5e130aa509}</Project>
       <Name>Ztgeo.Gis.Hybrid</Name>

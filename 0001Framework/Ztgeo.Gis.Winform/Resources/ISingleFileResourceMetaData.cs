@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Winform.Resources
 {
-    public interface ISingleFileResourceMetaData
+    public interface ISingleFileResourceMetaData : IResourceMetaData 
     {
         /// <summary>
         /// 选择时的filter ExtensionName

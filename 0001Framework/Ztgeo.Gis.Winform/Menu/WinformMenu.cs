@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.Menu
@@ -31,7 +32,7 @@ namespace Ztgeo.Gis.Winform.Menu
             bool defaultEnable=true,
             MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
             Dictionary<string,object> properties =null,
-            Type menuActionType = null
+            IType<IMenuAction> menuActionType = null
          ) {
             Name = name;
             MenuType = menuType;
@@ -92,7 +93,7 @@ namespace Ztgeo.Gis.Winform.Menu
         /// </summary>
         public object UIObject { get; set; }
 
-        public Type MenuActionType { get; set; }
+        public IType<IMenuAction> MenuActionType { get; set; }
         public object this[string key]
         {
             get => !Properties.ContainsKey(key) ? null : Properties[key];
@@ -117,7 +118,7 @@ namespace Ztgeo.Gis.Winform.Menu
               bool defaultEnable = true,
               MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
               Dictionary<string, object> properties = null,
-              Type menuActionType=null
+              IType<IMenuAction> menuActionType =null
          ) {
             WinformMenu menu = null;
             if (_children.Any(c => c.Name.Equals(name)))

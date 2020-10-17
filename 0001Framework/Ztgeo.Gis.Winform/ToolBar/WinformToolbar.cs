@@ -6,6 +6,8 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
+using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.ToolBar
 {
@@ -31,16 +33,15 @@ namespace Ztgeo.Gis.Winform.ToolBar
             string tip,
             WinformToolbarGroup group, 
             string permission =null,
-            MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant,
-            //, Action<WinformToolbar> toolbarEvent = null
-            Type toolbarAction = null  
+            MultiTenancySides multiTenancySides = MultiTenancySides.Host | MultiTenancySides.Tenant, 
+            IType<IToolbarAction> toolbarActionType = null  
             ) {
             this.Name = name;
             this.Icon = icon;
             this.DisableIcon = disableIcon;
             this.DefaultEnable = defaultEnable;
             this.Tip = tip;
-            this.ToolbarAction = toolbarAction;
+            this.ToolbarActionType = toolbarActionType;
             this.WinformToolbarGroup = group;
             this.MultiTenancySides = multiTenancySides;
             this.Permission = permission; 
@@ -82,7 +83,7 @@ namespace Ztgeo.Gis.Winform.ToolBar
         /// <summary>
         /// toolbar 点击事件
         /// </summary>
-        public Type ToolbarAction { get; set; }
+        public IType<IToolbarAction> ToolbarActionType { get; set; }
 
     }
 }

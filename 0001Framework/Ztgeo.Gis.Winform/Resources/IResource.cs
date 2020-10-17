@@ -19,11 +19,10 @@ namespace Ztgeo.Gis.Winform.Resources
         /// <summary>
         /// 显示名称
         /// </summary>
-        string Caption { get; }
+        string Caption { get; set; }
         /// <summary>
         /// 元数据
         /// </summary>
-        IResourceMetaData ResourceMetaData { get; }
-
+        IResourceMetaData ResourceMetaData { get; } 
     }
 }

@@ -216,7 +216,16 @@
     <Compile Include="MainFormDocument\IDocument.cs" />
     <Compile Include="MainFormDocument\IDocumentControl.cs" />
     <Compile Include="MainFormDocument\IDocumentManager.cs" />
+    <Compile Include="Resources\ILocalResourceManager.cs" />
+    <Compile Include="Resources\IMixedFileFoldResource.cs" />
+    <Compile Include="Resources\IMixedFileFoldResourceMetaData.cs" />
+    <Compile Include="Resources\IMultiFileResource.cs" />
+    <Compile Include="Resources\IMultiFileResourceMetaData.cs" />
+    <Compile Include="Resources\IMultiFolderResource.cs" />
+    <Compile Include="Resources\IMultiFolderResourceMetaData.cs" />
     <Compile Include="Resources\ISingleFileResourceMetaData.cs" />
+    <Compile Include="Resources\ISingleFolderResource.cs" />
+    <Compile Include="Resources\ISingleFolderResourceMetaData.cs" />
     <Compile Include="Resources\IStreamResourceMetaData.cs" />
     <Compile Include="Resources\IWebResourceMetaData.cs" />
     <Compile Include="Resources\ResourceMetaDataProvider.cs" />
@@ -231,7 +240,6 @@
     <Compile Include="MainFormLayer\ILayerControl.cs" />
     <Compile Include="Resources\IResourceMetaData.cs" />
     <Compile Include="Resources\IResourcesControl.cs" />
-    <Compile Include="Resources\IResourcesManager.cs" />
     <Compile Include="Resources\IResource.cs" />
     <Compile Include="MainFormStatusBar\MultiThreadStatusEndEventData.cs" />
     <Compile Include="MainFormStatusBar\MultiThreadStatusStartEventData.cs" />
@@ -279,6 +287,12 @@
   <ItemGroup>
     <Folder Include="Authorization\Permission\" />
     <Folder Include="Feature\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\0000ABP\Ztgeo.Gis.AbpExtension\Ztgeo.Gis.AbpExtension.csproj">
+      <Project>{16AE7B14-BCFF-40C7-8B4C-B3BCAEBC7569}</Project>
+      <Name>Ztgeo.Gis.AbpExtension</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

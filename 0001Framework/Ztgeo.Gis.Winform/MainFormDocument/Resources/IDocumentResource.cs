@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.Resources;
 
 namespace Ztgeo.Gis.Winform.MainFormDocument.Resources
@@ -17,7 +18,7 @@ namespace Ztgeo.Gis.Winform.MainFormDocument.Resources
         /// <summary>
         /// 资源对应的DocmentControl
         /// </summary>
-        Type DocumentControlType { get; }
+        IType<IDocumentControl> DocumentControlType { get; }
         /// <summary>
         /// 打开资源
         /// </summary>

@@ -28,6 +28,7 @@ namespace ZtgeoGISDesktop.Toolbars
             ) {
             winformToolbarManager = _winformToolbarManager;
             mainForm = _mainForm;
+            iocManager = _iocManager;
         }
         public void InitialzeToolbars()
         {

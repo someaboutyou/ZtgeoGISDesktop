@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
@@ -23,7 +24,7 @@ namespace Ztgeo.Gis.CAD.Controls
           
         public Image Icon { get { return AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.CADFileIcon.png"); } }
 
-        public Type TypeOfDocumentResource { get { return typeof(CADViewSingleFileDocumentResource); } }
+        public IType<IDocumentResource> TypeOfDocumentResource { get { return new AbpType<IDocumentResource>(typeof(CADViewSingleFileDocumentResource)); } }
 
         public string Name { get { return "Cad文件"; } }
 
@@ -31,8 +32,10 @@ namespace Ztgeo.Gis.CAD.Controls
 
         public ITypeList<IContextMenuItemAction> ContextActionTypes => throw new NotImplementedException();
 
-        public Type ClickResourceActionType { get { return typeof(Nullable); } }
-        public Type DoubleClickResourceActionType => throw new NotImplementedException();
+        public IType<IResourceAction> ClickResourceActionType => throw new NotImplementedException();
+        public IType<IResourceAction> DoubleClickResourceActionType => throw new NotImplementedException();
+
+        public IType<IResource> ResourceType { get { return new AbpType<IResource>(typeof(CADViewSingleFileDocumentResource)); } }
 
         public IList<ISingleFileResource> FindSingleFileResourceInDirectory(string directoryPath)
         {

@@ -213,6 +213,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exception\TypeMarchException.cs" />
+    <Compile Include="TypeExtension\IType.cs" />
     <Compile Include="SettingExtension\AutoSettingDefinitionAttribute.cs" />
     <Compile Include="SettingExtension\AutoSettingsInterceptor.cs" />
     <Compile Include="SettingExtension\AutoSettingsManager.cs" />

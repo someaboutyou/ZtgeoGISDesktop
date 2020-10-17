@@ -449,6 +449,10 @@
     <None Include="ZtgeoGISDesktop.Winform_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\0000ABP\Ztgeo.Gis.AbpExtension\Ztgeo.Gis.AbpExtension.csproj">
+      <Project>{16AE7B14-BCFF-40C7-8B4C-B3BCAEBC7569}</Project>
+      <Name>Ztgeo.Gis.AbpExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Hybrid\Ztgeo.Gis.Hybrid.csproj">
       <Project>{FB274CA5-D9E2-4C63-BE0C-6C5E130AA509}</Project>
       <Name>Ztgeo.Gis.Hybrid</Name>
@@ -519,6 +523,8 @@
     <EmbeddedResource Include="Icons\PrintPreview_dis32.png" />
     <EmbeddedResource Include="Icons\Save32.png" />
     <EmbeddedResource Include="Icons\Save_dis32.png" />
+    <EmbeddedResource Include="Icons\ResourceFile16.png" />
+    <EmbeddedResource Include="Icons\ResourceFile32.png" />
     <Content Include="logo.ico" />
     <EmbeddedResource Include="Icons\file16.png" />
     <Content Include="Icons\logo.ico" />

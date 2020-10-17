@@ -5,10 +5,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.CAD.Actions;
 using Ztgeo.Gis.CAD.Actions.Menu;
 using Ztgeo.Gis.CAD.Controls;
 using Ztgeo.Gis.CAD.Toolbars;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Gis.Winform.ToolBar;
@@ -32,7 +34,7 @@ namespace Ztgeo.Gis.CAD.Menus
             var openFile = fileGroupMenu.CreateChildMenu(CadBaseMenusNames.OpenCadFileMenu, MenuType.Button, "文件打开", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.OpenCad32.png")
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.OpenCad_Dis32.png")
-                , menuActionType:typeof(OpenCadFileAction) 
+                , menuActionType: AbpType.GetType<IMenuAction>(typeof(OpenCadFileAction)) 
                 );
             var openWebFile = fileGroupMenu.CreateChildMenu(CadBaseMenusNames.OpenCadFromWebMenu, MenuType.Button, "Web打开", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.WebFile32.png")

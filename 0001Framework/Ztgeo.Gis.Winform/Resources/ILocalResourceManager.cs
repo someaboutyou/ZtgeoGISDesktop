@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ztgeo.Gis.Winform.Resources
 {
-    public interface IResourcesManager
+    /// <summary>
+    /// 本地资源管理
+    /// </summary>
+    public interface ILocalResourceManager:Abp.Dependency.ITransientDependency
     {
+        IList<IResource> 
     }
 }

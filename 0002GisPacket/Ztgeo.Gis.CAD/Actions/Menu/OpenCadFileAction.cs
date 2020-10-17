@@ -29,7 +29,7 @@ namespace Ztgeo.Gis.CAD.Actions.Menu
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = openFileDialog.FileName;
-                var cadViewSingleFileDocumentResource = IocManager.Resolve(cadFileDocMetaData.TypeOfDocumentResource) as CADViewSingleFileDocumentResource;
+                var cadViewSingleFileDocumentResource = IocManager.Resolve( cadFileDocMetaData.TypeOfDocumentResource.Type) as CADViewSingleFileDocumentResource;
                 cadViewSingleFileDocumentResource.FilePath = fileName;
                 cadViewSingleFileDocumentResource.Open(); 
                 //IDocumentControl documentControl = documentManager.AddADocument<CADViewerControl>(Path.GetFileNameWithoutExtension(fileName));

@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Abp.Collections;
+using Abp.Dependency;
+using Abp.Events.Bus.Factories;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTreeList;
+using Ztgeo.Gis.Winform.Resources;
 
 namespace ZtgeoGISDesktop.Resources
 {
@@ -27,8 +33,9 @@ namespace ZtgeoGISDesktop.Resources
         {
             base.OnLoad(e);
             InitializeLocalResourceTreeList();
+            InitializeCheckResourceComboBox();
         }
-        #region localresource
+        #region localresource author JZW
         /// <summary>
         /// 初始化本地资源树
         /// </summary>
@@ -40,14 +47,14 @@ namespace ZtgeoGISDesktop.Resources
             navigationTreeList.GetSelectImage += OnTreeListGetStateImage;
             navigationTreeList.DataSource = new RootItem();
            navigationTreeList.ForceInitialize();
-            navigationTreeList.Nodes[0].Expand();
-            if (navigationTreeList.Nodes[0].Nodes.Count > 2)
-            {
-                navigationTreeList.Nodes[0].Nodes[1].Expand();
-                navigationTreeList.FocusedNode = navigationTreeList.Nodes[0].Nodes[1];
-            }
-            else
-                navigationTreeList.FocusedNode = navigationTreeList.Nodes[0];
+            //navigationTreeList.Nodes[0].Expand();
+            //if (navigationTreeList.Nodes[0].Nodes.Count > 2)
+            //{
+            //    navigationTreeList.Nodes[0].Nodes[1].Expand();
+            //    navigationTreeList.FocusedNode = navigationTreeList.Nodes[0].Nodes[1];
+            //}
+            //else
+            //    navigationTreeList.FocusedNode = navigationTreeList.Nodes[0];
         }
         void OnNavigationTreeListGetCellValue(object sender, VirtualTreeGetCellValueInfo e)
         {
@@ -128,6 +135,36 @@ namespace ZtgeoGISDesktop.Resources
         }
         #endregion
 
+        #region resource checker author JZW
+        /// <summary>
+        /// 初始化可选择列表
+        /// </summary>
+        private void InitializeCheckResourceComboBox()
+        {
+            CheckedResourceCombox.EditValueChanged += (sender, e) =>
+            {
+                navigationTreeList.CollapseAll();
+            };
+            IResourceMetaDataProvider resourceMetaDataProvider = IocManager.Instance.Resolve<IResourceMetaDataProvider>();
+            ITypeList<IResourceMetaData> resourceMetaDatas = resourceMetaDataProvider.AllResourceMetaDataProviders;
+            if (resourceMetaDatas.Count > 0) {
+                foreach (Type t in resourceMetaDatas) {
+                    IResourceMetaData metaData = IocManager.Instance.Resolve(t) as IResourceMetaData;
+                    CheckedResourceCombox.Properties.Items.Add(metaData,metaData.Name, CheckState.Unchecked, true);
+                }
+            } 
+        }
+
+        /// <summary>
+        /// 获得选中的MetaData
+        /// </summary>
+        /// <returns></returns>
+        private IList<IResourceMetaData> CheckedResourceMetaData() {
+            return CheckedResourceCombox.Properties.GetCheckedItems() as IList<IResourceMetaData>;
+        }
+        #endregion
+
+        #region resource Panel component ,author JZW
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -136,6 +173,11 @@ namespace ZtgeoGISDesktop.Resources
             this.svgImageCollection1 = new DevExpress.Utils.SvgImageCollection(this.components);
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.LocalResourceTabPage = new DevExpress.XtraTab.XtraTabPage();
+            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.CheckedResourceCombox = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.DBResourceTabPage = new DevExpress.XtraTab.XtraTabPage();
             this.WebTabPage = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.navigationTreeList)).BeginInit();
@@ -143,6 +185,12 @@ namespace ZtgeoGISDesktop.Resources
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.LocalResourceTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckedResourceCombox.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // navigationTreeList
@@ -150,8 +198,7 @@ namespace ZtgeoGISDesktop.Resources
             this.navigationTreeList.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.navigationTreeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.treeListColumn1});
-            this.navigationTreeList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationTreeList.Location = new System.Drawing.Point(0, 0);
+            this.navigationTreeList.Location = new System.Drawing.Point(2, 26);
             this.navigationTreeList.Name = "navigationTreeList";
             this.navigationTreeList.OptionsBehavior.Editable = false;
             this.navigationTreeList.OptionsFind.AllowFindPanel = false;
@@ -164,7 +211,7 @@ namespace ZtgeoGISDesktop.Resources
             this.navigationTreeList.OptionsView.ShowVertLines = false;
             this.navigationTreeList.RowHeight = 22;
             this.navigationTreeList.SelectImageList = this.svgImageCollection1;
-            this.navigationTreeList.Size = new System.Drawing.Size(317, 702);
+            this.navigationTreeList.Size = new System.Drawing.Size(313, 674);
             this.navigationTreeList.TabIndex = 1;
             // 
             // treeListColumn1
@@ -194,21 +241,77 @@ namespace ZtgeoGISDesktop.Resources
             // 
             // LocalResourceTabPage
             // 
-            this.LocalResourceTabPage.Controls.Add(this.navigationTreeList);
+            this.LocalResourceTabPage.Controls.Add(this.layoutControl1);
             this.LocalResourceTabPage.Name = "LocalResourceTabPage";
             this.LocalResourceTabPage.Size = new System.Drawing.Size(317, 702);
             this.LocalResourceTabPage.Text = "本地资源";
             // 
+            // layoutControl1
+            // 
+            this.layoutControl1.Controls.Add(this.CheckedResourceCombox);
+            this.layoutControl1.Controls.Add(this.navigationTreeList);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.Root = this.Root;
+            this.layoutControl1.Size = new System.Drawing.Size(317, 702);
+            this.layoutControl1.TabIndex = 3;
+            this.layoutControl1.Text = "layoutControl1";
+            // 
+            // CheckedResourceCombox
+            // 
+            this.CheckedResourceCombox.EditValue = "";
+            this.CheckedResourceCombox.Location = new System.Drawing.Point(2, 2);
+            this.CheckedResourceCombox.Name = "CheckedResourceCombox";
+            this.CheckedResourceCombox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.CheckedResourceCombox.Size = new System.Drawing.Size(313, 20);
+            this.CheckedResourceCombox.StyleController = this.layoutControl1;
+            this.CheckedResourceCombox.TabIndex = 2;
+            // 
+            // Root
+            // 
+            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.Root.GroupBordersVisible = false;
+            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1,
+            this.layoutControlItem2});
+            this.Root.Name = "Root";
+            this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.Root.Size = new System.Drawing.Size(317, 702);
+            this.Root.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.navigationTreeList;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(317, 678);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.CheckedResourceCombox;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(317, 24);
+            this.layoutControlItem2.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
             // DBResourceTabPage
             // 
             this.DBResourceTabPage.Name = "DBResourceTabPage";
-            this.DBResourceTabPage.Size = new System.Drawing.Size(294, 271);
-            this.DBResourceTabPage.Text = "远程数据库资源";
+            this.DBResourceTabPage.Size = new System.Drawing.Size(317, 702);
+            this.DBResourceTabPage.Text = "数据库资源";
             // 
             // WebTabPage
             // 
             this.WebTabPage.Name = "WebTabPage";
-            this.WebTabPage.Size = new System.Drawing.Size(0, 0);
+            this.WebTabPage.Size = new System.Drawing.Size(317, 702);
             this.WebTabPage.Text = "Web资源";
             // 
             // ResourcePanel
@@ -226,6 +329,12 @@ namespace ZtgeoGISDesktop.Resources
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.LocalResourceTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CheckedResourceCombox.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -234,6 +343,11 @@ namespace ZtgeoGISDesktop.Resources
         private DevExpress.XtraTab.XtraTabPage LocalResourceTabPage;
         private DevExpress.XtraTab.XtraTabPage DBResourceTabPage;
         private DevExpress.XtraTab.XtraTabPage WebTabPage;
+        private CheckedComboBoxEdit CheckedResourceCombox;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
 
         /// <summary>
         /// Required designer variable.
@@ -257,6 +371,7 @@ namespace ZtgeoGISDesktop.Resources
         private TreeList navigationTreeList;
         private DevExpress.Utils.SvgImageCollection svgImageCollection1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn1;
+        #endregion
     }
 
 }

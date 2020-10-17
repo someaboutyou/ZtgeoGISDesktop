@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.Resources;
 
 namespace Ztgeo.Gis.Winform.MainFormDocument.Resources
@@ -12,6 +13,6 @@ namespace Ztgeo.Gis.Winform.MainFormDocument.Resources
         /// <summary>
         /// 该元数据对应的资源类。 例如打开资源时，可以根据resource 判断怎么打开
         /// </summary>
-        Type TypeOfDocumentResource { get; } 
+        IType<IDocumentResource> TypeOfDocumentResource { get; } 
     }
 }

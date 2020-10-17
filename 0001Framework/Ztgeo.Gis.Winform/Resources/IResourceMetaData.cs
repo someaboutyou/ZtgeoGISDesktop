@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.Actions;
 
 namespace Ztgeo.Gis.Winform.Resources
@@ -26,15 +27,17 @@ namespace Ztgeo.Gis.Winform.Resources
         /// <summary>
         ///  单击事件
         /// </summary>
-        Type ClickResourceActionType { get; }
+        IType<IResourceAction> ClickResourceActionType { get; }
         /// <summary>
         /// 双击事件 当资源元数据是IDocumentResourceMetaData时，且为空默认是打开。 
         /// type is IResourceAction
         /// </summary>
-        Type DoubleClickResourceActionType { get; }
+        IType<IResourceAction> DoubleClickResourceActionType { get; }
         /// <summary>
-        /// 资源上的右键事件,在右键时显示命令按钮 type is IContextMenuItemAction
+        /// 资源上的右键事件,在右键时显示命令按钮 type is IContextMenuItemAction 
         /// </summary>
         ITypeList<IContextMenuItemAction> ContextActionTypes { get; } 
+         
+        IType<IResource> ResourceType { get; } 
     }
 }

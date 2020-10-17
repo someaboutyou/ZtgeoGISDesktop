@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.CAD.Toolbars;
 using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument;
@@ -42,7 +43,7 @@ namespace Ztgeo.Gis.CAD.Controls
          
         public IResourceMetaData ResourceMetaData { get { return SingleFileDocumentResourceMetaData; } }
 
-        public Type DocumentControlType { get { return typeof(CADViewerControl); } }
+        public IType<IDocumentControl> DocumentControlType { get { return new AbpType<IDocumentControl>(typeof(CADViewerControl)); } }
         public IResourceAction ClickAction { get { return null; } }
 
         public IResourceAction DoubleClickAction { get { return null; } }
@@ -56,7 +57,7 @@ namespace Ztgeo.Gis.CAD.Controls
             if (string.IsNullOrEmpty(FilePath)) {
                 throw new FileNotFoundException("未发现文件：" + FilePath);
             }
-            IDocumentControl docControl = IocManager.Resolve(DocumentControlType) as IDocumentControl;
+            IDocumentControl docControl = IocManager.Resolve(DocumentControlType.Type) as IDocumentControl;
             if (docControl != null)
             {
                  IDocumentControl documentControl = DocumentManager.AddADocument<CADViewerControl>(Path.GetFileNameWithoutExtension(FilePath));
@@ -64,7 +65,7 @@ namespace Ztgeo.Gis.CAD.Controls
                  ToolbarControl.CADFileOpen();
             }
             else {
-                throw new DocumentOpenException("未找到打开文档的Control,"+ DocumentControlType.Name);
+                throw new DocumentOpenException("未找到打开文档的Control,"+ DocumentControlType.TypeName);
             }
         }
 

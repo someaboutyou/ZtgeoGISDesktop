@@ -191,7 +191,7 @@ namespace Ztgeo.Gis.CAD.Controls
                 ISingleFileDocumentResource singleFileDocumentResource = documentResource as ISingleFileDocumentResource;
                 LoadFromFile(singleFileDocumentResource.FilePath, otherParams);
             }
-            else if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.FromWeb)
+            else if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.FromWebGet)
             {
                 IWebDocumentResource webDocumentResource = documentResource as IWebDocumentResource;
                 LoadFromWeb(webDocumentResource.Url, otherParams);

@@ -7,9 +7,11 @@ using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.CAD.Actions.Toolbar;
 using Ztgeo.Gis.CAD.Controls;
 using Ztgeo.Gis.Winform.ABPForm;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.ToolBar;
 using Ztgeo.Utils;
@@ -44,42 +46,42 @@ namespace Ztgeo.Gis.CAD.Toolbars
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomIn16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomIn_dis16.png"),
                 false,"zoom in",group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(ZoomIn)
+                , AbpType.GetType<IToolbarAction>(typeof(ZoomIn)) 
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.ZoomOut,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomOut16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.ZoomOut_dis16.png"),
                 false, "zoom out", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(ZoomOut)
+                , AbpType.GetType<IToolbarAction>(typeof(ZoomOut))  
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.Pan,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.pan16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.pan_dis16.png"), 
                 true, "pan", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(Pan)
+                , AbpType.GetType<IToolbarAction>(typeof(Pan))  
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.ShowLayerManager,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.layer16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.layer_dis16.png"), 
                 false, "layer manager", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(ShowLayer)
+                , AbpType.GetType<IToolbarAction>(typeof(ShowLayer)) 
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.FitDrawing,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.fitDraw16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.fitdraw_dis16.png"), 
                 false, "fit drawing", group, null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(FitDraw)
+                , AbpType.GetType<IToolbarAction>(typeof(FitDraw)) 
             ));
             group.AddToolbar(new WinformToolbar(
                 CADToolbarNames.SelectionModel,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.select16.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.select_dis16.png"), 
                 false, "select entities", group,null, MultiTenancySides.Host | MultiTenancySides.Tenant
-                ,typeof(Select) 
+                , AbpType.GetType<IToolbarAction>(typeof(Select)) 
             )); 
         } 
     }
