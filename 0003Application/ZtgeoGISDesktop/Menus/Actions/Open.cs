@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
+using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Gis.Winform.Resources;
 
 namespace ZtgeoGISDesktop.Menus.Actions
@@ -17,6 +18,7 @@ namespace ZtgeoGISDesktop.Menus.Actions
     {
         private readonly IocManager iocManager;
         private readonly IResourceMetaDataProvider resourceProvider;
+        public WinformMenu SenderMenu { set; private get; }
         public Open(IocManager _iocManager,
             IResourceMetaDataProvider _resourceProvider
             ) {

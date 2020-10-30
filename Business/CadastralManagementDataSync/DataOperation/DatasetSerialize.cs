@@ -36,9 +36,9 @@ namespace CadastralManagementDataSync.DataOperation
             {
                 ds = (DataSet)sfFormatter.Deserialize(ms);//反序列化
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -66,9 +66,9 @@ namespace CadastralManagementDataSync.DataOperation
             {
                 ds = (DataSet)sfFormatter.Deserialize(fs);//反序列化
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

@@ -105,14 +105,14 @@ namespace CadastralManagementDataSync.DataOperation
         /// 获取脏数据并且将数据保存在文件中
         /// </summary>
         /// <returns></returns>
-        public bool CaptureDirtyFromDBAndSave(DataSyncConfig dataSyncConfig, DataSyncDirection dataSyncDirection) {
+        public string CaptureDirtyFromDBAndSave(DataSyncConfig dataSyncConfig, DataSyncDirection dataSyncDirection) {
             try
             {
                 DataSet ds = CaptureDirtyFromDB(dataSyncConfig, dataSyncDirection);
                 string savePath = dataPathManager.GetDataCaptureSavePath(dataSyncDirection);
                 DatasetSerialize.DataSetSerialize(savePath, ds);
                 SetUnDirty(dataSyncConfig, dataSyncDirection);
-                return false;
+                return savePath;
             }
             catch (Exception ex) {
                 Logger.Error("获取脏数据，存储在本地出现错误！", ex);

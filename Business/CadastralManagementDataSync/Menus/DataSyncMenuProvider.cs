@@ -2,6 +2,7 @@
 using Abp.Dependency;
 using Abp.MultiTenancy;
 using Abp.Threading.BackgroundWorkers;
+using CadastralManagementDataSync.Actions;
 using CadastralManagementDataSync.DataOperation;
 using CadastralManagementDataSync.DBOperation;
 using CadastralManagementDataSync.Setting;
@@ -15,8 +16,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Hybrid;
 using Ztgeo.Gis.Hybrid.FormIO;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Utils;
 using ZtgeoGISDesktop.Winform.Share;
@@ -27,28 +30,9 @@ namespace CadastralManagementDataSync.Menus
     /// 数据同步菜单
     /// </summary>
     public class DataSyncMenuProvider:MenuProvider
-    {
-        private readonly IocManager iocManager;
-        private readonly IFormIOSchemeManager formIOSchemeManager;
-        private readonly IDataSyncSettingsManager dataSyncSettingManager;
-        private readonly DataSyncOperator dataSyncOperator;
-        private readonly DataCapture dataCapture;
-        private readonly TriggerOperation triggerOperation;
-        public ILogger Logger { get; set; }
-        public DataSyncMenuProvider(IocManager _iocManager,
-            IFormIOSchemeManager _formIOSchemeManager,
-            IDataSyncSettingsManager _dataSyncSettingManager,
-            DataSyncOperator _dataSyncOperator,
-            DataCapture _dataCapture,
-            TriggerOperation _triggerOperation
-            ) {
-            iocManager = _iocManager;
-            formIOSchemeManager = _formIOSchemeManager;
-            dataSyncSettingManager = _dataSyncSettingManager;
-            dataSyncOperator = _dataSyncOperator;
-            dataCapture = _dataCapture;
-            triggerOperation = _triggerOperation;
-            Logger = NullLogger.Instance;
+    { 
+        public DataSyncMenuProvider( 
+            ) { 
         }
         public override void SetMenus(IMenuDefinitionContext context)
         { 
@@ -59,11 +43,7 @@ namespace CadastralManagementDataSync.Menus
             systemSettingGroup.CreateChildMenu(DataSyncMenuNames.SystemSettingGroup_DataSync, MenuType.Button, "数据同步设置", "数据同步设置", null,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.DataSync.png"),
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.DataSync_dis.png"),
-                0, true, MultiTenancySides.Host| MultiTenancySides.Tenant,null
-                //,m =>
-                //{ 
-                //    MenuActions.DataSyncSettingClick(iocManager, formIOSchemeManager, dataSyncSettingManager, Logger);
-                //}
+                0, true, MultiTenancySides.Host| MultiTenancySides.Tenant,null,AbpType.GetType<IMenuAction>(typeof(DataSyncSettingAction))
             );
 
             var DataSyncPageMenu = context.CreateMenu(DataSyncMenuNames.DataSyncPageMenu, MenuType.Page, "数据同步", "", null,
@@ -72,39 +52,21 @@ namespace CadastralManagementDataSync.Menus
             DataSynvSqlCreateMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageSqlCreateGroupInnerDataInitMenu, MenuType.Button,"内网数据库初始化", "内网数据库初始化",null,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.innerDB32.png"), 
                 null,
-                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null
-                //, m => {
-                //    MenuActions.DoDBTriggerOperationCilck(iocManager, DataSyncDirection.InnerDataSync, triggerOperation, Logger);
-                //}
-                );
+                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null, AbpType.GetType<IMenuAction>(typeof(DoDBTriggerMenuAction)) 
+            );
             DataSynvSqlCreateMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageSqlCreateGroupOuterDataInitMenu, MenuType.Button, "外网数据库初始化", "外网数据库初始化", null,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.outDB32.png"), 
                 null,
-                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null
-                //, m => {
-                //    MenuActions.DoDBTriggerOperationCilck(iocManager, DataSyncDirection.OuterDataSync, triggerOperation, Logger);
-                //}
-                );
-             
+                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null, AbpType.GetType<IMenuAction>(typeof(DoDBTriggerMenuAction)) ); 
             var DataSynvDoDataSyncMenu = DataSyncPageMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageDoDataSyncGroupMenu, MenuType.Group, "同步操作");
             DataSynvDoDataSyncMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageDoDataSyncGroupInnerDoDataSyncMenu, MenuType.Button, "内网数据同步", "内网数据和本地数据同步", null,
                 AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.DataOut32.png"),
                 null,
-                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null
-                //,  m =>
-                //{
-                //    MenuActions.DataSyncOperationClick(iocManager, DataSyncDirection.InnerDataSync, dataCapture, dataSyncOperator, Logger);
-                //}
-            ); 
+                0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null, AbpType.GetType<IMenuAction>(typeof(DataSysncMenuAction))); 
             DataSynvDoDataSyncMenu.CreateChildMenu(DataSyncMenuNames.DataSyncPageDoDataSyncGroupOuterDoDataSyncMenu, MenuType.Button, "外网数据同步", "外网数据和本地数据同步", null,
                  AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "CadastralManagementDataSync.Icons.DataIn32.png"),
                  null,
-                 0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null
-                 //, m =>
-                 //  {
-                 //      MenuActions.DataSyncOperationClick(iocManager, DataSyncDirection.OuterDataSync, dataCapture, dataSyncOperator, Logger);
-                 //  }
-                 );
+                 0, true, MultiTenancySides.Host | MultiTenancySides.Tenant, null, AbpType.GetType<IMenuAction>(typeof(DataSysncMenuAction)));
         }
     }
 

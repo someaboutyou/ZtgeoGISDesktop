@@ -31,7 +31,7 @@ namespace ZtgeoGISDesktop
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Utils.AppearanceObject.DefaultFont = new Font("Segoe UI", 8);
-            //DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
             DevExpress.Skins.SkinManager.EnableMdiFormSkins();
             //加载IOC容器
             IIocManager iocManager = AbpApplicationBuilderExtensions.UseAbp<ZtgeoGISDesktopMoudle>(new SplashScreenFormManager(),

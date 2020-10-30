@@ -189,7 +189,7 @@ namespace Ztgeo.Gis.CAD.Controls
             if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.SingleFile)
             {
                 ISingleFileDocumentResource singleFileDocumentResource = documentResource as ISingleFileDocumentResource;
-                LoadFromFile(singleFileDocumentResource.FilePath, otherParams);
+                LoadFromFile(singleFileDocumentResource.FullName, otherParams);
             }
             else if (documentResource.ResourceMetaData.ResourceStorageMode == ResourceStorageMode.FromWebGet)
             {

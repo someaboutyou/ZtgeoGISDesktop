@@ -1,4 +1,5 @@
 ﻿using Abp.Dependency;
+using CadastralManagementDataSync.Resource;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,7 @@ namespace CadastralManagementDataSync.DataOperation
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
             }
-            return path +"/" + Timestamp(); 
+            return path +"/" + Timestamp()+ SyncDataResourceMetaData.ExtenstionName; 
         }
         public string GetDataCaptureSaveDirectory(DataSyncDirection dataSyncDirection)
         {

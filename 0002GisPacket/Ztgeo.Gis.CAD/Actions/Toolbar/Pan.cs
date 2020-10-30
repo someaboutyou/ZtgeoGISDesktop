@@ -14,10 +14,10 @@ namespace Ztgeo.Gis.CAD.Actions.Toolbar
     {
         private readonly IDocumentManager DocumentManager;
         private readonly IWinformToolbarViewManager WinformToolbarViewManager;
-        private readonly ICADToolbarControl CADToolbarControl;
+        private readonly ICADToolbarManager CADToolbarControl;
         public Pan(IDocumentManager documentManager,
             IWinformToolbarViewManager winformToolbarViewManager,
-            ICADToolbarControl cadToolbarControl
+            ICADToolbarManager cadToolbarControl
             )
         {
             DocumentManager = documentManager;

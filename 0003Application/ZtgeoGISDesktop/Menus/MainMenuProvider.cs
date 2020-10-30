@@ -6,6 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Ztgeo.Gis.AbpExtension;
+using Ztgeo.Gis.Winform.Actions;
 using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Utils;
 using ZtgeoGISDesktop.Forms;
@@ -31,7 +33,8 @@ namespace ZtgeoGISDesktop.Menus
             var fileNew = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileNew, MenuType.Button, "新建", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.New.png"));
             var fileOpen = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileOpen, MenuType.Button, "打开", "", null
-               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Open.png"),menuActionType:typeof(Open));
+               , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Open.png"),
+               menuActionType: AbpType.GetType<IMenuAction>(typeof(Open)));
             var fileSave = filePageGroup.CreateChildMenu(MainFormMenuNames.FilePageGroup_FileSave, MenuType.Button, "保存", "", null
                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save32.png")
                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Save_dis32.png")
@@ -76,18 +79,8 @@ namespace ZtgeoGISDesktop.Menus
             var uiDesign = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_UiDesign, MenuType.Button, "界面设置", "", null
                 , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.UIDesign.png")); 
             var menuOrder = systemSettingGroup.CreateChildMenu(MainFormMenuNames.SystemSettingGroup_MenuOrderSetting, MenuType.Button, "菜单设置", "", null
-                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.MenuOrderSetting.png")
-                //menuEvent: m =>
-                //{
-                //    DialogHybirdForm<MenuSettingControl> dialog = new DialogHybirdForm<MenuSettingControl>(iocManager, typeof(ZtgeoGISDesktopMoudle).Assembly, new string[] {
-                //        "WebViews","MenuSetting","index.html"
-                //    }); 
-                //    dialog.Size = new Size(1260, 560);
-                //    dialog.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-                //    dialog.StartPosition = FormStartPosition.CenterScreen;
-                //    dialog.ShowDialog();
-                //}
-                ); 
+                , AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.MenuOrderSetting.png"), 
+                menuActionType: AbpType.GetType<IMenuAction>(typeof(Setting)));
         } 
     }
 

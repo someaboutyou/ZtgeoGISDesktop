@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,17 @@ namespace CadastralManagementDataSync.DataOperation.Model
         public IList<DBOutput> InnerDBOutputs { get; set; }
 
         public IList<DBOutput> OutDBOutputs { get; set; }
+
+        public static DataSyncConfig GetDataSyncConfig() {
+            string configPath = System.Windows.Forms.Application.StartupPath + "/DataOperation/DataCaptureConfig.json";
+            DataSyncConfig config = null;
+            using (System.IO.StreamReader file = System.IO.File.OpenText(configPath))
+            {
+                string json = file.ReadToEnd();
+                config = JsonConvert.DeserializeObject<DataSyncConfig>(json);
+            }
+            return config;
+        }
     }
 
     public class DBOutput {

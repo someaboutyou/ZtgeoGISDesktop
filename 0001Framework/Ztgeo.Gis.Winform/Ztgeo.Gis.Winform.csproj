@@ -202,6 +202,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbpApplicationBuilderExtensions.cs" />
+    <Compile Include="Actions\CommonAction\OpenResourceAction.cs" />
+    <Compile Include="Actions\ContextMenuItemSplitor.cs" />
     <Compile Include="Actions\IContextMenuItemAction.cs" />
     <Compile Include="Actions\IMenuAction.cs" />
     <Compile Include="Actions\IToolbarAction.cs" />
@@ -216,6 +218,8 @@
     <Compile Include="MainFormDocument\IDocument.cs" />
     <Compile Include="MainFormDocument\IDocumentControl.cs" />
     <Compile Include="MainFormDocument\IDocumentManager.cs" />
+    <Compile Include="Actions\CommonAction\ContextMenuDelete.cs" />
+    <Compile Include="Actions\CommonAction\ContextMenuOpen.cs" />
     <Compile Include="Resources\ILocalResourceManager.cs" />
     <Compile Include="Resources\IMixedFileFoldResource.cs" />
     <Compile Include="Resources\IMixedFileFoldResourceMetaData.cs" />
@@ -228,6 +232,7 @@
     <Compile Include="Resources\ISingleFolderResourceMetaData.cs" />
     <Compile Include="Resources\IStreamResourceMetaData.cs" />
     <Compile Include="Resources\IWebResourceMetaData.cs" />
+    <Compile Include="Resources\LocalResourceManager.cs" />
     <Compile Include="Resources\ResourceMetaDataProvider.cs" />
     <Compile Include="MainFormDocument\Resources\IDocumentResourceMetaData.cs" />
     <Compile Include="MainFormDocument\Resources\ISingleFileDocumentResource.cs" />
@@ -293,6 +298,16 @@
       <Project>{16AE7B14-BCFF-40C7-8B4C-B3BCAEBC7569}</Project>
       <Name>Ztgeo.Gis.AbpExtension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ztgeo.Utils\Ztgeo.Utils.csproj">
+      <Project>{62F52FC0-FC60-4237-BDEE-89E90646483F}</Project>
+      <Name>Ztgeo.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Open16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Delete16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -26,12 +26,12 @@ namespace Ztgeo.Gis.CAD.Toolbars
         private readonly IocManager iocManager;
         private readonly IWinformToolbarViewManager winformToolbarViewManager;
         private readonly IWinformToolbarManager winformToolbarManager;
-        private readonly ICADToolbarControl cadToolbarControl;
+        private readonly ICADToolbarManager cadToolbarControl;
 
         public CADToolbarProvider(IocManager _iocmanager,
             IWinformToolbarViewManager _winformToolbarViewManager,
             IWinformToolbarManager _winformToolbarManager,
-            ICADToolbarControl _cadToolbarControl
+            ICADToolbarManager _cadToolbarControl
             ) {
             iocManager = _iocmanager;
             winformToolbarViewManager = _winformToolbarViewManager;

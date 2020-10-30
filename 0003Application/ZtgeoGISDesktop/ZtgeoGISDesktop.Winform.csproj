@@ -375,6 +375,7 @@
       <DependentUpon>TestForm1.cs</DependentUpon>
     </Compile>
     <Compile Include="Menus\Actions\Open.cs" />
+    <Compile Include="Menus\Actions\Setting.cs" />
     <Compile Include="Menus\MainMenuProvider.cs" />
     <Compile Include="Menus\MenuSettingApp2JSAdapterApi.cs" />
     <Compile Include="Menus\MenuSettingControl.cs">
@@ -473,6 +474,10 @@
       <Project>{62F52FC0-FC60-4237-BDEE-89E90646483F}</Project>
       <Name>Ztgeo.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\0002GisPacket\Ztgeo.Gis.Base\Ztgeo.Gis.Base.csproj">
+      <Project>{2868F9D9-C2D4-4187-8AF7-B1072504C1B2}</Project>
+      <Name>Ztgeo.Gis.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\0002GisPacket\Ztgeo.Gis.CAD\Ztgeo.Gis.CAD.csproj">
       <Project>{DF3DA29B-651A-4671-953A-EDC0CC23BC8F}</Project>
       <Name>Ztgeo.Gis.CAD</Name>
@@ -525,6 +530,8 @@
     <EmbeddedResource Include="Icons\Save_dis32.png" />
     <EmbeddedResource Include="Icons\ResourceFile16.png" />
     <EmbeddedResource Include="Icons\ResourceFile32.png" />
+    <EmbeddedResource Include="Icons\Refesh16.png" />
+    <EmbeddedResource Include="Icons\ResourceManager16.png" />
     <Content Include="logo.ico" />
     <EmbeddedResource Include="Icons\file16.png" />
     <Content Include="Icons\logo.ico" />

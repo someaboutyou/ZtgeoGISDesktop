@@ -20,7 +20,7 @@ namespace Ztgeo.Gis.AbpExtension
     {
         private Type _t;
         public AbpType(Type t) {
-            if (typeof(TBaseType).IsAssignableFrom(t)) {
+            if (!typeof(TBaseType).IsAssignableFrom(t)) {
                 throw new TypeMarchException(typeof(TBaseType).FullName+"和"+ t.FullName+ "类型不匹配");
             }
             _t = t;

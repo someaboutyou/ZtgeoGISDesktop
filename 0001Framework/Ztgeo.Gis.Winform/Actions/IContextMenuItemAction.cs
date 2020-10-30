@@ -14,10 +14,12 @@ namespace Ztgeo.Gis.Winform.Actions
     {
         Image ItemIcon { get; } //item 图标 
 
-        object Sender { get; }
+        object Sender { get; set; }
         /// <summary>
         /// 是否为分割线，作为分割线，不能执行事件
         /// </summary>
         bool IsSplitor { get; }
+
+        string Caption { get;  }
     }
 }

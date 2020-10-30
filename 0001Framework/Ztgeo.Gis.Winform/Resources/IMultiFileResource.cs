@@ -11,7 +11,6 @@ namespace Ztgeo.Gis.Winform.Resources
         string MainFilePath { get; set; }
 
         IList<string> OtherFilePath { get; set; }
-
-        IList<string> OtherFolderPath { get; set; }
+         
     }
 }

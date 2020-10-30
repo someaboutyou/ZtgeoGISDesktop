@@ -18,6 +18,7 @@ using CadastralManagementDataSync;
 using Abp.Dependency;
 using Castle.Core.Logging;
 using Ztgeo.Gis.CAD;
+using Ztgeo.Gis.Base;
 
 namespace ZtgeoGISDesktop
 {
@@ -28,7 +29,8 @@ namespace ZtgeoGISDesktop
         ,typeof(ZtgeoGISDesktopCoreMoudle)
         ,typeof(ZtgeoGISDesktopEntityFrameworkMoudle)
         ,typeof(CadastralManagementDataSyncMoudle)
-        ,typeof(ZtgeoGisCADModule))]
+        ,typeof(ZtgeoGisCADModule)
+        ,typeof(ZtgeoGisBaseModule))]
     public class ZtgeoGISDesktopMoudle : AbpModule
     {
         public override void PreInitialize()

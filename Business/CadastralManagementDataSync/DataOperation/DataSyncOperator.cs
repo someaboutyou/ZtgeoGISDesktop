@@ -11,6 +11,7 @@ using CadastralManagementDataSync.DataOperation.Model;
 using CadastralManagementDataSync.DataOperation.Dal;
 using Castle.Core.Logging;
 using DevExpress.Utils.Extensions;
+using Microsoft.SqlServer.Server;
 
 namespace CadastralManagementDataSync.DataOperation
 {
@@ -42,7 +43,7 @@ namespace CadastralManagementDataSync.DataOperation
                 OutdBOutputs = dataSyncConfig.InnerDBOutputs;
             }
             
-            string[] filePaths = Directory.GetFiles(outerCurrentPath);
+            string[] filePaths = Directory.GetFiles(outerCurrentPath).OrderBy(f=>Path.GetFileNameWithoutExtension(f)).ToArray();
             if (filePaths.Length > 0) {
                 foreach (string filePath in filePaths)
                 {
@@ -53,6 +54,12 @@ namespace CadastralManagementDataSync.DataOperation
                         for (int i = 0; i < ds.Tables.Count; i++) {
                             Logger.Debug("开始" + ds.Tables[i].TableName);
                             string tableName = ds.Tables[i].TableName;
+                            if (tableName.ToUpper().EndsWith("_HIS")) { // 同步的时候要注意历史
+                                DBOutput deleteDBOutput = GetConfigByTableName(OutdBOutputs, tableName.Replace("_HIS",""));
+                                for(int j = 0; j < ds.Tables[i].Rows.Count; j++){
+                                    DeleteATableRow(dataSyncDirection, ds.Tables[i], j, deleteDBOutput, dataSyncConfig.DirtyField);
+                                } 
+                            }
                             DBOutput dBOutput = GetConfigByTableName(OutdBOutputs, tableName);
                             for (int j = 0; j < ds.Tables[i].Rows.Count; j++) {
                                 if (IfExistsData(dataSyncConfig, dataSyncDirection, ds.Tables[i].TableName, dBOutput.KeyColumn, ds.Tables[i].Rows[j][dBOutput.KeyColumn]))
@@ -95,8 +102,7 @@ namespace CadastralManagementDataSync.DataOperation
                 oracleParameters[cols.Length] = new Oracle.ManagedDataAccess.Client.OracleParameter(dBOutput.KeyColumn, dataTable.Rows[rowNum][dBOutput.KeyColumn]);
                 string connStr = GetconStrByDirection(dataSyncDirection);
                 OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
-            } 
-            
+            }  
         }
 
         private void CreateUpdateATableRow(DataSyncDirection dataSyncDirection, DataTable dataTable, int rowNum, DBOutput dBOutput, string dirtyField) {
@@ -114,6 +120,14 @@ namespace CadastralManagementDataSync.DataOperation
             oracleParameters[cols.Length] = new Oracle.ManagedDataAccess.Client.OracleParameter(dirtyField, (object)-1);
             oracleParameters[cols.Length+1] = new Oracle.ManagedDataAccess.Client.OracleParameter(dBOutput.KeyColumn, dataTable.Rows[rowNum][dBOutput.KeyColumn]);
             string connStr = GetconStrByDirection(dataSyncDirection);
+            OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
+        }
+
+        private void DeleteATableRow(DataSyncDirection dataSyncDirection, DataTable dataTable, int rowNum, DBOutput dBOutput, string dirtyField) {
+            string sql =string.Format("Delete {0} where {1} =:{1}", dBOutput.TableName,dBOutput.KeyColumn);
+            string connStr = GetconStrByDirection(dataSyncDirection);
+            Oracle.ManagedDataAccess.Client.OracleParameter[] oracleParameters = new Oracle.ManagedDataAccess.Client.OracleParameter[1];
+            oracleParameters[0] = new Oracle.ManagedDataAccess.Client.OracleParameter(dBOutput.KeyColumn, dataTable.Rows[rowNum][dBOutput.KeyColumn]);
             OracleHelper.ExecuteNonQuery(connStr, sql, oracleParameters);
         }
         /// <summary>

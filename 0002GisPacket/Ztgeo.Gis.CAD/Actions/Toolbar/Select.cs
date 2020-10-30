@@ -12,9 +12,9 @@ namespace Ztgeo.Gis.CAD.Actions.Toolbar
     public class Select :IToolbarAction
     {
         private readonly IWinformToolbarViewManager WinformToolbarViewManager;
-        private readonly ICADToolbarControl CADToolbarControl;
+        private readonly ICADToolbarManager CADToolbarControl;
         public Select(IWinformToolbarViewManager winformToolbarViewManager,
-                ICADToolbarControl cadToolbarControl
+                ICADToolbarManager cadToolbarControl
             ) {
             WinformToolbarViewManager = winformToolbarViewManager;
             CADToolbarControl = cadToolbarControl;

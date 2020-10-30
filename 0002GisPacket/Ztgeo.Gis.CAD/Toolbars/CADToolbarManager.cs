@@ -9,7 +9,7 @@ using Ztgeo.Gis.Winform.ToolBar;
 
 namespace Ztgeo.Gis.CAD.Toolbars
 {
-    public interface ICADToolbarControl : Abp.Dependency.ITransientDependency {
+    public interface ICADToolbarManager : Abp.Dependency.ITransientDependency {
         void CADFileOpen();
         /// <summary>
         /// 设置pan 激活时，选中按钮不能是激活状态
@@ -20,11 +20,11 @@ namespace Ztgeo.Gis.CAD.Toolbars
         /// </summary>
         void SetSelectorActive();
     }
-    public class CADToolbarControl : ICADToolbarControl
+    public class CADToolbarManager : ICADToolbarManager
     {
         private readonly IWinformToolbarViewManager winformToolbarViewManager;
         private readonly IWinformToolbarManager toolbarManager;
-        public CADToolbarControl(IWinformToolbarViewManager _winformToolbarViewManager, IWinformToolbarManager _toolbarManager) {
+        public CADToolbarManager(IWinformToolbarViewManager _winformToolbarViewManager, IWinformToolbarManager _toolbarManager) {
             winformToolbarViewManager = _winformToolbarViewManager;
             toolbarManager = _toolbarManager;
         }

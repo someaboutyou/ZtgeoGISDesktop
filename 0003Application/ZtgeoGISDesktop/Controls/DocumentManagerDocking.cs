@@ -21,7 +21,7 @@ namespace ZtgeoGISDesktop.Controls
         public StandaloneBarDockControl StandaloneBarDockControl { get { return this.standaloneBarDockControl1; } }
 
         public Control PropertiesControl { get { return this.PropertiesDockPanel; } }
-
+        public Control LayerControl { get { return this.LayersDockPanel; } }
         public Control ResourceControl { get { return this.ResourceContainer; } }
         public TabbedView TabbedView { get { return this.tabbedView; } }
         public DocumentManagerDocking()

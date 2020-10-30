@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.MainFormLayer;
 using Ztgeo.Gis.Winform.MainFormProperty;
 
@@ -20,10 +21,13 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         ILayerControl LayerControl { get; }
 
         IPropertiesControl PropertiesControl { get; }  
+         
         /// <summary>
         /// 关闭
         /// </summary>
         void Close();
+
+        void Open(IDocumentResource documentResource);
         /// <summary>
         /// 不可用状态
         /// </summary>
@@ -31,5 +35,9 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         void SetBusyCursor(); 
         void SetCommonCursor(); 
         bool Focus();
+        /// <summary>
+        /// 控件激活时触发事件
+        /// </summary>
+        void Activated();
     }
 }

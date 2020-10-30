@@ -27,6 +27,7 @@ using Abp.Events.Bus;
 using Ztgeo.Gis.Winform.Events;
 using DevExpress.XtraEditors.Controls;
 using ZtgeoGISDesktop.Resources;
+using DevExpress.XtraBars.Docking2010.Views;
 
 namespace ZtgeoGISDesktop.Forms
 {
@@ -59,7 +60,7 @@ namespace ZtgeoGISDesktop.Forms
             }
         } 
         public IDocumentControl ActiveDocumentControl { get; private set; }
-        public Control LayerPanel { get; private set; }
+        public Control LayerPanel { get { return this.documentManagerDocking.LayerControl; } }
 
         public Control PropertiesPanel { get { return this.documentManagerDocking.PropertiesControl; } }
 
@@ -73,7 +74,9 @@ namespace ZtgeoGISDesktop.Forms
         } 
         public void StartInitializeComponent()
         {
-            InitializeComponent();  
+            InitializeComponent();
+            this.documentManagerDocking.TabbedView.DocumentClosing += this.ClosingDocument;
+            this.documentManagerDocking.TabbedView.DocumentActivated += this.ActivatedDocument;
             this.Text = productInfo.ProductName;
             var loginManager = IocManager.Resolve<ILoginManager>();
             if (!loginManager.IsLogined())
@@ -91,7 +94,7 @@ namespace ZtgeoGISDesktop.Forms
             if (!(documentControl is Control)) {
                 throw new WinformUIExceptionDeal("Type of " + documentControl.GetType().FullName +" is not a control.");
             }
-            XtraUserControl child = new XtraUserControl();
+            //XtraUserControl child = new XtraUserControl();
             DocumentSettings DocumentSettings = new DocumentSettings();
             if (documentControl.Document != null)
             {
@@ -99,26 +102,15 @@ namespace ZtgeoGISDesktop.Forms
                 if (documentControl.DocumentImage!=null)
                     DocumentSettings.Image = documentControl.DocumentImage;
             } 
-            DocumentSettings.Attach(child, DocumentSettings); 
-            ((Control)documentControl).Parent = child;
+            //DocumentSettings.Attach(child, DocumentSettings); 
+            //((Control)documentControl).Parent = child;
             ((Control)documentControl).Dock = DockStyle.Fill;
             ((Control)documentControl).GotFocus += (sender,e) => {
-                var tempActiveDocument = this.ActiveDocumentControl;
-                this.ActiveDocumentControl = sender as IDocumentControl;
-                if (this.ActiveDocumentControl.PropertiesControl != null)
-                {
-                    Control propertiesControl = (Control)this.ActiveDocumentControl.PropertiesControl;
-                    propertiesControl.Dock = DockStyle.Fill;
-                    if (this.PropertiesPanel.Controls.Count > 0) {
-                        this.PropertiesPanel.Controls.Clear();
-                    }
-                    this.PropertiesPanel.AddControl(propertiesControl);
-                }
-                EventBus.Default.Trigger(new DocumentActiveChangeEventData { ChangeFromDocumentControl = tempActiveDocument,ChangeToDocumentControl = ActiveDocumentControl });
+                
             };
             ((Control)documentControl).Visible = true;
-            this.documentManagerDocking.TabbedView.AddDocument(child);
-            
+            DocumentSettings.Attach((Control)documentControl, DocumentSettings);
+            this.documentManagerDocking.TabbedView.AddDocument((Control)documentControl); 
             return documentControl;
         }
 
@@ -200,9 +192,47 @@ namespace ZtgeoGISDesktop.Forms
         /// <param name="documentControl"></param>
         public void ManualActiveADocumentControl(IDocumentControl documentControl) {
             var control = documentControl as Control;
-            if (control != null) { 
-                this.tabbedView.ActivateDocument(control);
+            if (control != null) {
+                this.documentManagerDocking.TabbedView.ActivateDocument(control);
             } 
+        }
+        private void ClosingDocument(object sender, DocumentCancelEventArgs e) {
+            IDocumentManager documentManager= IocManager.Resolve<IDocumentManager>();
+            documentManager.CloseADocumentControl(e.Document.Control as IDocumentControl);
+        }
+
+        private void ActivatedDocument(object sender, DocumentEventArgs e) {
+            var tempActiveDocument = this.ActiveDocumentControl;
+            this.ActiveDocumentControl = e.Document.Control as IDocumentControl;
+            if (this.ActiveDocumentControl.PropertiesControl != null)
+            {
+                Control propertiesControl = (Control)this.ActiveDocumentControl.PropertiesControl;
+                propertiesControl.Dock = DockStyle.Fill;
+                if (this.PropertiesPanel.Controls.Count > 0)
+                {
+                    this.PropertiesPanel.Controls.Clear();
+                }
+                this.PropertiesPanel.AddControl(propertiesControl);
+            }
+            else
+            { //为空隐藏
+                this.PropertiesPanel.Controls.Clear(); 
+            }
+            if (this.ActiveDocumentControl.LayerControl != null) {
+                Control layerControl = (Control)this.ActiveDocumentControl.LayerControl;
+                layerControl.Dock = DockStyle.Fill;
+                if (this.LayerPanel.Controls.Count > 0)
+                {
+                    this.LayerPanel.Controls.Clear();
+                }
+                this.LayerPanel.AddControl(layerControl);
+            }
+            else
+            { //为空隐藏
+                this.LayerPanel.Controls.Clear(); 
+            }
+            this.ActiveDocumentControl.Activated();
+            EventBus.Default.Trigger(new DocumentActiveChangeEventData { ChangeFromDocumentControl = tempActiveDocument, ChangeToDocumentControl = ActiveDocumentControl });
         }
     }
 }

@@ -9,7 +9,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Ztgeo.Gis.AbpExtension;
+
 using Ztgeo.Gis.Winform.Actions;
+using Ztgeo.Gis.Winform.Actions.CommonAction;
 using Ztgeo.Gis.Winform.MainFormDocument;
 using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.Resources;
@@ -30,10 +32,26 @@ namespace Ztgeo.Gis.CAD.Controls
 
         public ResourceStorageMode ResourceStorageMode { get { return ResourceStorageMode.SingleFile; } }
 
-        public ITypeList<IContextMenuItemAction> ContextActionTypes => throw new NotImplementedException();
+        public ITypeList<IContextMenuItemAction> ContextActionTypes { get {
+                ITypeList<IContextMenuItemAction> types = new TypeList<IContextMenuItemAction>();
+                types.Add<ContextMenuOpen>();
+                types.Add<ContextMenuDelete>();
+                types.Add<ContextMenuItemSplitor>();
+                return types;
+            } }
 
-        public IType<IResourceAction> ClickResourceActionType => throw new NotImplementedException();
-        public IType<IResourceAction> DoubleClickResourceActionType => throw new NotImplementedException();
+        public IType<IResourceAction> ClickResourceActionType {
+            get {
+                return null;
+            }
+        }
+        public IType<IResourceAction> DoubleClickResourceActionType
+        {
+            get
+            {
+                return AbpType.GetType<IResourceAction>(typeof(OpenResourceAction));
+            }
+        }
 
         public IType<IResource> ResourceType { get { return new AbpType<IResource>(typeof(CADViewSingleFileDocumentResource)); } }
 
@@ -45,7 +63,7 @@ namespace Ztgeo.Gis.CAD.Controls
                 return files.Where(f => this.Identified(f)).Select(f =>
                 {
                     var r = IocManager.Resolve<CADViewSingleFileDocumentResource>();
-                    r.FilePath = f;
+                    r.FullName = f;
                     return (ISingleFileResource)r;
                 }).ToList();
             }
@@ -56,7 +74,7 @@ namespace Ztgeo.Gis.CAD.Controls
         }
         public bool Identified(string filePath)
         {
-            return SelectFilterExtensionName.Any(en => en.Trim(new char[2] { ' ', '.' }).Equals(Path.GetExtension(filePath)));
+            return SelectFilterExtensionName.Any(en =>("."+en.Trim(new char[2] { ' ', '.' })).Equals(Path.GetExtension(filePath)));
         }
          
     }

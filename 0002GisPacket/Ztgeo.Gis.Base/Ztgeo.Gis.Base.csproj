@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,7 +60,27 @@
     <Compile Include="Bootstrapper\ILicenseInitializer.cs" />
     <Compile Include="Bootstrapper\LicenseInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeFile\ShapeFileSingleFileResource.cs" />
+    <Compile Include="ShapeFile\ShapeFileSingleFileResourceMetaData.cs" />
     <Compile Include="ZtgeoGisBaseModule.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\0000ABP\Ztgeo.Gis.AbpExtension\Ztgeo.Gis.AbpExtension.csproj">
+      <Project>{16ae7b14-bcff-40c7-8b4c-b3bcaebc7569}</Project>
+      <Name>Ztgeo.Gis.AbpExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Gis.Winform\Ztgeo.Gis.Winform.csproj">
+      <Project>{33F00612-EACB-45BE-80A3-AEEAC74D117F}</Project>
+      <Name>Ztgeo.Gis.Winform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\0001Framework\Ztgeo.Utils\Ztgeo.Utils.csproj">
+      <Project>{62F52FC0-FC60-4237-BDEE-89E90646483F}</Project>
+      <Name>Ztgeo.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\shapefile16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

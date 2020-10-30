@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
+using Ztgeo.Gis.AbpExtension;
 using Ztgeo.Gis.Winform.ABPForm;
 using Ztgeo.Gis.Winform.MainFormDocument;
 
@@ -49,6 +50,21 @@ namespace ZtgeoGISDesktop.Documents
             this.DocumentList.Add(documentCtr);
             SetDocumentControlActive(documentCtr);
             return documentCtr;
+        }
+
+        public IDocumentControl AddADocument(IType<IDocumentControl> documentControlType,string DocumentName) 
+        {
+            var documentCtr = iocManager.Resolve(documentControlType.Type) as IDocumentControl;
+            mainForm.AddADocument(documentCtr, DocumentName);
+            this.DocumentList.Add(documentCtr);
+            SetDocumentControlActive(documentCtr);
+            return documentCtr;
+        }
+
+        public void CloseADocumentControl(IDocumentControl documentContorl) {
+            if (DocumentList != null && DocumentList.Contains(documentContorl)) {
+                DocumentList.Remove(documentContorl);
+            }
         }
 
         public void SetDocumentControlActive(IDocumentControl documentContorl) {

@@ -81,7 +81,7 @@
     <Compile Include="Controls\ICADViewDocument.cs" />
     <Compile Include="Events\PropertyControlChangeEventHandler.cs" />
     <Compile Include="Menus\CadBaseMenuProvider.cs" />
-    <Compile Include="Toolbars\CADToolbarControl.cs" />
+    <Compile Include="Toolbars\CADToolbarManager.cs" />
     <Compile Include="Toolbars\CADToolbarProvider.cs" />
     <Compile Include="ZtgeoGisCADModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Actions\Resource\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\OpenCad16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

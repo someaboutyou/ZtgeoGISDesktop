@@ -18,60 +18,18 @@ using Ztgeo.Utils;
 
 namespace Ztgeo.Gis.CAD.Controls
 {
-    public class CADViewSingleFileDocumentResource : ISingleFileDocumentResource 
-    {
-        private readonly IocManager IocManager;
-        private readonly IDocumentManager DocumentManager;
-        private readonly ICADToolbarControl ToolbarControl;
+    public class CADViewSingleFileDocumentResource : SingleFileDocumentResourceBase 
+    { 
         public CADViewSingleFileDocumentResource(IocManager iocManager,
-            IDocumentManager documentManager, 
-            ICADToolbarControl toolbarControl
-            ) {
-            IocManager = iocManager;
-            DocumentManager = documentManager;
-            ToolbarControl = toolbarControl;
-        }
-        public string FilePath { get; set; } 
-
-        public string ExtensionName { get { return Path.GetExtension(FilePath); } } 
-
-        public ISingleFileDocumentResourceMetaData SingleFileDocumentResourceMetaData {
+            IDocumentManager documentManager 
+            ) :base(iocManager, documentManager)
+        { 
+        }  
+        public override ISingleFileDocumentResourceMetaData SingleFileDocumentResourceMetaData {
             get {
                 return this.IocManager.Resolve<CADViewSingleFileDocumentResourceMetaData>();
             }
-        }
-         
-        public IResourceMetaData ResourceMetaData { get { return SingleFileDocumentResourceMetaData; } }
-
-        public IType<IDocumentControl> DocumentControlType { get { return new AbpType<IDocumentControl>(typeof(CADViewerControl)); } }
-        public IResourceAction ClickAction { get { return null; } }
-
-        public IResourceAction DoubleClickAction { get { return null; } }
-
-        public IOrderedEnumerable<IContextMenuItemAction> ContextActions { get { return null; } }
-
-        public string Caption { get { if (string.IsNullOrEmpty(this.FilePath)) return ""; else return Path.GetFileName(FilePath); } } 
-
-        public void Open()
-        {
-            if (string.IsNullOrEmpty(FilePath)) {
-                throw new FileNotFoundException("未发现文件：" + FilePath);
-            }
-            IDocumentControl docControl = IocManager.Resolve(DocumentControlType.Type) as IDocumentControl;
-            if (docControl != null)
-            {
-                 IDocumentControl documentControl = DocumentManager.AddADocument<CADViewerControl>(Path.GetFileNameWithoutExtension(FilePath));
-                 ((CADViewerControl)documentControl).OpenFile(FilePath);
-                 ToolbarControl.CADFileOpen();
-            }
-            else {
-                throw new DocumentOpenException("未找到打开文档的Control,"+ DocumentControlType.TypeName);
-            }
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
+        }  
+        public override IType<IDocumentControl> DocumentControlType { get { return new AbpType<IDocumentControl>(typeof(CADViewerControl)); } }
     }
 }

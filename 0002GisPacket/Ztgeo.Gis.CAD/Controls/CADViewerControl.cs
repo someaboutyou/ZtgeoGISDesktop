@@ -18,6 +18,9 @@ using Ztgeo.Gis.CAD.Controls.CADLayer;
 using Ztgeo.Gis.CAD.Toolbars;
 using Ztgeo.Gis.Winform.ToolBar;
 using CADImport.CADImportForms;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
+using System.Reflection;
+using Ztgeo.Utils;
 
 namespace Ztgeo.Gis.CAD.Controls
 {
@@ -25,6 +28,7 @@ namespace Ztgeo.Gis.CAD.Controls
     {
         private readonly IWinformToolbarManager winformToolbarManager;
         private readonly IocManager iocManager;
+        private readonly ICADToolbarManager cadToolbarManager;
         private WinformToolbar selectToolbar; 
         private CADImport.CADImportForms.LayerForm CADLayerForm;
         private bool useSelectEntity {
@@ -44,6 +48,7 @@ namespace Ztgeo.Gis.CAD.Controls
             ICADPropertiesControl _cadPropertiesControl,
             ICADLayerControl _cadLayerControl,
             IWinformToolbarManager _winformToolbarManager,
+            ICADToolbarManager _cadToolbarManager,
             IocManager _iocmanager
             )
         {
@@ -52,6 +57,7 @@ namespace Ztgeo.Gis.CAD.Controls
             CADPropertiesControl = _cadPropertiesControl;
             CADLayerControl = _cadLayerControl;
             iocManager = _iocmanager;
+            cadToolbarManager = _cadToolbarManager;
             InitializeComponent();
             InitializePicutreBox();
             InitExtParam();
@@ -111,7 +117,7 @@ namespace Ztgeo.Gis.CAD.Controls
 
         //public bool IsActive { get { return this.isActive; }  private set { this.isActive = value; } }
 
-        public Image DocumentImage { get; private set; }
+        public Image DocumentImage { get { return AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "Ztgeo.Gis.CAD.Icons.cad16.png"); } }
 
         public void Close()
         {
@@ -126,11 +132,8 @@ namespace Ztgeo.Gis.CAD.Controls
             this.Cursor = Cursors.Default;
         }
 
-        public void OpenFile(string filePath) {
-            CADViewSingleFileDocumentResource cADViewSingleFileDocumentResource= iocManager.Resolve<CADViewSingleFileDocumentResource>();
-            cADViewSingleFileDocumentResource.FilePath = filePath;
-            this.Document.LoadFromResource(cADViewSingleFileDocumentResource);
-            
+        public void Open(IDocumentResource resource) { 
+            this.Document.LoadFromResource(resource); 
         }
 
         private void cadPictBox_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -424,6 +427,12 @@ namespace Ztgeo.Gis.CAD.Controls
             if (h1 > VirtualSize.Height)
                 h1 = VirtualSize.Height;
            SetPositionNoInvalidate(new Point(w1, h1));
-        } 
+        }
+        /// <summary>
+        /// 激活时要刷新Toolbar
+        /// </summary>
+        public void Activated() {
+            cadToolbarManager.CADFileOpen(); // 设置toolbar 
+        }
     }
 }

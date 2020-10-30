@@ -1,0 +1,267 @@
+{
+  "DirtyField": "DIRTY", //脏数据标识
+  "InnerDBOutputs": [ //内网数据导出
+    {
+      "TableName": "DBZD", //表名 
+      "Columns": "zddm,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,dah,bdcdyh,zdtzm,ytbz,qllx,qlrmc,rjl,zdt,zl,qlsdfs,lsid,ywh,bsm,mjdw,ysdm,bz,xzqdm,zdmj,jzmd,jg,djmj,jzxg,jzxs", //字段
+      "KeyColumn": "objectid"
+    },
+    {
+      "TableName": "DC_BDCDYLSGXB", //表名 
+      "Columns": "lx,bsm,zddm,bdcdyh,fwbh,xwbsm,xwzddm,xwbdcdyh,xwfwbh,ywh,zt,cssj,zhxgr,zhxgrid,scyc", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_BDCDYLSGXB_HIS", //表名 
+      "Columns": "lx,bsm,zddm,bdcdyh,fwbh,xwbsm,xwzddm,xwbdcdyh,xwfwbh,ywh,zt,cssj,zhxgr,zhxgrid,scyc,zxywh,xssjid,sjlylx", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_DJDCBXX", //表名 
+      "Columns": "zddm,djh,zdtzm,qlsdfs,dj,qlrmc,qlrzjlx,qlrzjhm,qlrtxdz,tdzl,fddbrzjhm,fddbrtel,dlrtel,gmjjhyfldm,ybzddm,zdszb,zdszd,zdszn,zdszx,pzytdlmc,pzytdlbm,qsrq,zzrq,gyqlrqk,sm,jzdwsm,zyqsjxzxsm,dcy,dcrq,kzy,kzrq,dcshryj,dcshr,zjwts,xmbh,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,isftp,sjytdlbm,sjytdlmc,dlcid,xzqdm,mjdw,cldy,shrq,fj,jg,fjsm,sxh,jzwqfsyqyzgybfqlr,dcshrq,xmmc,bdcdyh,qlrlx,qllx,tdqslyzmcl,fddbrmc,fddbrzjlx,dlrmc,dlrzjlx,dlrzjhm,blc,sztfh,zdsz,pzmj,zdmj,jzzdmj,jzmj,bdcdys,tdsyqmjhj,dytdmjhj,fttdmjhj,tdzmj,nydmj,gdmj,ydmj,ldmj,mcdmj,nydqtmj,jsydmj,jmdjgkydmj,jtydmj,symj,jsydqtmj,wlydmj,jzmd,jzxg,zdlx,rjl,sfgyz,qdfs,zdctfilepath,zdtfilepath,syqx,cjr,zhxgr,qlxz,zdt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_DJDCBXX_HIS", //表名 
+      "Columns": "djh,zdtzm,qlsdfs,dj,qlrmc,qlrzjlx,qlrzjhm,qlrtxdz,qllx,qlxz,tdqslyzmcl,tdzl,fddbrmc,fddbrzjlx,fddbrzjhm,fddbrtel,dlrtel,gmjjhyfldm,zdszb,zdszd,zdszn,zdszx,pzytdlmc,qsrq,zzrq,gyqlrqk,sm,jzdwsm,zyqsjxzxsm,dcy,dcrq,kzy,kzrq,dcshr,zdlx,sfgyz,qdfs,zjwts,xmbh,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,isftp,rjl,zxywh,xssjid,sjlylx,sjytdlbm,sjytdlmc,dlcid,xzqdm,mjdw,cldy,shrq,fj,jg,syqx,fjsm,jzwqfsyqyzgybfqlr,zddm,xmmc,bdcdyh,qlrlx,dlrmc,dlrzjlx,dlrzjhm,ybzddm,blc,sztfh,zdsz,pzytdlbm,pzmj,zdmj,jzzdmj,jzmj,dcshryj,bdcdys,tdsyqmjhj,dytdmjhj,fttdmjhj,tdzmj,nydmj,gdmj,ydmj,ldmj,mcdmj,nydqtmj,jsydmj,jmdjgkydmj,jtydmj,symj,jsydqtmj,wlydmj,jzmd,jzxg,zdt,zdtfilepath,zdctfilepath,sxh,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    //{
+    //  "TableName": "DBZD_HIS", //表名 
+    //  "Columns": "zddm,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,dah,bdcdyh,zdtzm,ytbz,qllx,qlrmc,rjl,zdt,zl,qlsdfs,lsid,ywh,bsm,mjdw,ysdm,bz,xzqdm,zdmj,jzmd,jg,djmj,jzxg,jzxs", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "DC_H", //表名 
+      "Columns": "zddm,fwbh,zl,qlrmc,qlrlx,zjhm,tel,zz,xmmc,gyqk,cb,fwqjxsyt,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlmc,xmbh,ysdm,xzqdm,bdcdyh,zjzl,lszfwbh,lszbdcdyh,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,glmj,edemyssymj,edemyxsymj,cjr,zhxgr,pzytdlbm,ghyt,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_FWZK", //表名 
+      "Columns": "ysdm,bdcdyh,fwbh,sxh,zrzh,ch,dyh,myc,hh,shbw,hx,hxjg,szc,fwjg,fwlx,cqly,qtgsd,qtgsn,qtgsx,qtgsb,glmj,edemyssymj,edemyxsymj,zl,mjdw,fwyt1,fwyt2,fwyt3,fwxz,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,scftxs,lszbdcdyh,lszfwbh,fcfht,ywh,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,sjytdlbm,bz2,gytdmj,fttdmj,dytdmj,qh,xnx,xny,xnh,qllx,jgrq,sjly,xzqdm,fwlxmc,fwxzmc,ytbz,xmbh,fj,jgsj,sjcs,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_FWZK_HIS", //表名 
+      "Columns": "ysdm,ch,dyh,myc,hh,shbw,hx,hxjg,szc,cqly,qtgsd,qtgsn,qtgsx,qtgsb,sctnjzmj,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,zxywh,xssjid,sjlylx,qh,xnx,xny,xnh,qllx,sjly,xzqdm,fwlxmc,fwxzmc,xmbh,bdcdyh,fwbh,zrzh,fwjg,fwlx,sxh,glmj,edemyssymj,edemyxsymj,zl,mjdw,sjcs,fwyt1,fwyt2,fwyt3,fwxz,scjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,scftxs,lszbdcdyh,lszfwbh,gytdmj,fttdmj,dytdmj,jgrq,ytbz,fj,cjr,zhxgr,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_HIS", //表名 
+      "Columns": "zddm,zl,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,zxywh,xssjid,sjlylx,pzytdlbm,pzytdlmc,fwqjxsyt,xmbh,ysdm,xzqdm,bdcdyh,fwbh,ghyt,lszfwbh,lszbdcdyh,cjr,zhxgr,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,glmj,edemyssymj,edemyxsymj,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH", //表名 
+      "Columns": "zddm,fwbh,xzqdm,zl,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fwqjxsyt,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlbm,xmbh,pzytdlmc,yctnjzmj,edemyssymj,edemyxsymj,ysdm,bdcdyh,ghyt,lszfwbh,lszbdcdyh,cjr,zhxgr,ycjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,glmj,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_FWZK", //表名 
+      "Columns": "ysdm,fwbh,dyh,myc,hh,shbw,hx,hxjg,szc,fwlx,cqly,qtgsd,qtgsn,qtgsx,qtgsb,mjdw,fwxz,lszfwbh,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,sjly,xnx,xny,xnh,xzqdm,fwlxmc,fwxzmc,qllx,qh,jgrq,xmbh,bdcdyh,sxh,zrzh,ch,fwjg,glmj,edemyssymj,edemyxsymj,zl,sjcs,fwyt1,fwyt2,fwyt3,ytbz,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,ycftxs,lszbdcdyh,gytdmj,fttdmj,dytdmj,fj,cjr,zhxgr,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_FWZK_HIS", //表名 
+      "Columns": "ysdm,dyh,myc,hh,shbw,hx,hxjg,szc,cqly,qtgsd,qtgsn,qtgsx,qtgsb,fwxz,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,sjly,zxywh,xssjid,sjlylx,qh,xnx,xny,xnh,qllx,xzqdm,fwlxmc,fwxzmc,bdcdyh,fwbh,sxh,zrzh,ch,fwjg,fwlx,glmj,edemyssymj,edemyxsymj,zl,mjdw,sjcs,fwyt1,fwyt2,fwyt3,ytbz,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,ycftxs,gytdmj,fttdmj,dytdmj,lszbdcdyh,lszfwbh,jgrq,cjr,zhxgr,xmbh,fj,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_HIS", //表名 
+      "Columns": "bdcdyh,zddm,xzqdm,zl,ghyt,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlbm,zxywh,xssjid,sjlylx,pzytdlmc,ysdm,fwbh,fwqjxsyt,lszfwbh,xmbh,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,glmj,edemyssymj,edemyxsymj,lszbdcdyh,cjr,zhxgr,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCZ", //表名 
+      "Columns": "fwbh,zddm,mph,xmmc,jzwmc,jgrq,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,xmbh,ljzh,ysdm,bdcdyh,zrzh,jzwgd,zzdmj,zydmj,ycjzmj,ycdxmj,ycqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,zts,dscs,dxcs,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCZ_HIS", //表名 
+      "Columns": "mph,xmmc,jzwmc,jgrq,ycjzmj,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,zxywh,xssjid,sjlylx,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,ysdm,bdcdyh,fwbh,zddm,zrzh,xmbh,jzwgd,zzdmj,zydmj,ycdxmj,ycqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,dscs,dxcs,zts,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_Z", //表名 
+      "Columns": "fwbh,zddm,mph,xmmc,jzwmc,jgrq,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,xmbh,ljzh,ysdm,zrzh,jzwgd,zzdmj,zydmj,scjzmj,scdxmj,scqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,dscs,dxcs,zts,cjr,zhxgr,bdcdyh", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_Z_HIS", //表名 
+      "Columns": "bdcdyh,fwbh,zddm,zrzh,mph,xmmc,jzwmc,jgrq,jzwgd,zzdmj,zydmj,scjzmj,scdxmj,scqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,jzwzt,fwyt1,fwyt2,fwyt3,bz,zcs,dscs,dxcs,zts,ywh,zt,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,sjly,zxywh,xssjid,sjlylx,ysdm,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DSZD", //表名 
+      "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,xzqdm,dah,bdcdyh,zdtzm,qllx,rjl,zdt,lsid,ywh,zl,bsm,qlrmc,ysdm,bz,ytbz,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+      "KeyColumn": "objectid"
+    },
+    //{
+    //  "TableName": "DSZD_HIS", //表名 
+    //  "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,xzqdm,dah,bdcdyh,zdtzm,qllx,rjl,zdt,lsid,ywh,zl,bsm,qlrmc,ysdm,bz,ytbz,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "DXZD", //表名 
+      "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,f_id,xzqdm,dah,bdcdyh,zdtzm,ytbz,qllx,rjl,zdsz,zdt,zl,lsid,bsm,qlrmc,ysdm,bz,ywh,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+      "KeyColumn": "objectid"
+    },
+    //{
+    //  "TableName": "DXZD_HIS", //表名 
+    //  "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,f_id,xzqdm,dah,bdcdyh,zdtzm,ytbz,qllx,rjl,zdsz,zdt,zl,lsid,bsm,qlrmc,ysdm,bz,ywh,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "YW_SHXX", //表名 
+      "Columns": "xmbh,shbh,shrxm,shsj,shyj,czjg,czjgmc,shrdzqm,sgzyzgzh,pf,ywh,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,bz1,bz2,bz3,bz4,dj", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "YW_SQXX", //表名 
+      "Columns": "ywh,ywmc,chlx,lxr,lxrtel,sqr,sqsj,xb,zjlx,zjhm,txdz,xzfw,dtxx,tzm1,tzm2,ylzddmgs,chdwmc,qddwxx,zddm,xzdz,xmdz,chyt,kfs,xmmc,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,bz2,bz3,bz4,xzqdm", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "YCZRZ", //表名 
+      "Columns": "bdcdyh,zddm,zrzh,xmmc,jzwmc,jgrq,zcs,fwjg,zts,bz,sfyx,zhxgr,zhxgrmc,zhxgsj,zt,f_id,sjly,xzqdm,dah,xmbh,dscs,ghyt,ytbz,tfh,cjsj,lsid,ywh,jzwjbyt,bsm,cjr,cjrmc,fwbh,ysdm,dxcs,jzwgd,zzdmj,zydmj,dxsd,ycjzmj", //字段
+      "KeyColumn": "objectid"
+    },
+    {
+      "TableName": "ZRZ", //表名 
+      "Columns": "bdcdyh,zddm,zrzh,xmmc,jzwmc,jgrq,fwjg,bz,sfyx,zhxgr,zhxgrmc,zhxgsj,zt,f_id,sjly,xzqdm,dah,xmbh,dscs,ghyt,ytbz,tfh,cjsj,lsid,ywh,jzwjbyt,bsm,cjr,cjrmc,fwbh,ysdm,zcs,zts,dxcs,jzwgd,zzdmj,zydmj,dxsd,scjzmj", //字段
+      "KeyColumn": "objectid"
+    }
+  ],
+  "OutDBOutputs": [ //外网数据导出
+    {
+      "TableName": "DBZD", //表名 
+      "Columns": "zddm,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,dah,bdcdyh,zdtzm,ytbz,qllx,qlrmc,rjl,zdt,zl,qlsdfs,lsid,ywh,bsm,mjdw,ysdm,bz,xzqdm,zdmj,jzmd,jg,djmj,jzxg,jzxs", //字段
+      "KeyColumn": "objectid"
+    },
+    {
+      "TableName": "DC_BDCDYLSGXB", //表名 
+      "Columns": "lx,bsm,zddm,bdcdyh,fwbh,xwbsm,xwzddm,xwbdcdyh,xwfwbh,ywh,zt,cssj,zhxgr,zhxgrid,scyc", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_BDCDYLSGXB_HIS", //表名 
+      "Columns": "lx,bsm,zddm,bdcdyh,fwbh,xwbsm,xwzddm,xwbdcdyh,xwfwbh,ywh,zt,cssj,zhxgr,zhxgrid,scyc,zxywh,xssjid,sjlylx", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_DJDCBXX", //表名 
+      "Columns": "zddm,djh,zdtzm,qlsdfs,dj,qlrmc,qlrzjlx,qlrzjhm,qlrtxdz,tdzl,fddbrzjhm,fddbrtel,dlrtel,gmjjhyfldm,ybzddm,zdszb,zdszd,zdszn,zdszx,pzytdlmc,pzytdlbm,qsrq,zzrq,gyqlrqk,sm,jzdwsm,zyqsjxzxsm,dcy,dcrq,kzy,kzrq,dcshryj,dcshr,zjwts,xmbh,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,isftp,sjytdlbm,sjytdlmc,dlcid,xzqdm,mjdw,cldy,shrq,fj,jg,fjsm,sxh,jzwqfsyqyzgybfqlr,dcshrq,xmmc,bdcdyh,qlrlx,qllx,tdqslyzmcl,fddbrmc,fddbrzjlx,dlrmc,dlrzjlx,dlrzjhm,blc,sztfh,zdsz,pzmj,zdmj,jzzdmj,jzmj,bdcdys,tdsyqmjhj,dytdmjhj,fttdmjhj,tdzmj,nydmj,gdmj,ydmj,ldmj,mcdmj,nydqtmj,jsydmj,jmdjgkydmj,jtydmj,symj,jsydqtmj,wlydmj,jzmd,jzxg,zdlx,rjl,sfgyz,qdfs,zdctfilepath,zdtfilepath,syqx,cjr,zhxgr,qlxz,zdt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_DJDCBXX_HIS", //表名 
+      "Columns": "djh,zdtzm,qlsdfs,dj,qlrmc,qlrzjlx,qlrzjhm,qlrtxdz,qllx,qlxz,tdqslyzmcl,tdzl,fddbrmc,fddbrzjlx,fddbrzjhm,fddbrtel,dlrtel,gmjjhyfldm,zdszb,zdszd,zdszn,zdszx,pzytdlmc,qsrq,zzrq,gyqlrqk,sm,jzdwsm,zyqsjxzxsm,dcy,dcrq,kzy,kzrq,dcshr,zdlx,sfgyz,qdfs,zjwts,xmbh,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,isftp,rjl,zxywh,xssjid,sjlylx,sjytdlbm,sjytdlmc,dlcid,xzqdm,mjdw,cldy,shrq,fj,jg,syqx,fjsm,jzwqfsyqyzgybfqlr,zddm,xmmc,bdcdyh,qlrlx,dlrmc,dlrzjlx,dlrzjhm,ybzddm,blc,sztfh,zdsz,pzytdlbm,pzmj,zdmj,jzzdmj,jzmj,dcshryj,bdcdys,tdsyqmjhj,dytdmjhj,fttdmjhj,tdzmj,nydmj,gdmj,ydmj,ldmj,mcdmj,nydqtmj,jsydmj,jmdjgkydmj,jtydmj,symj,jsydqtmj,wlydmj,jzmd,jzxg,zdt,zdtfilepath,zdctfilepath,sxh,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    //{
+    //  "TableName": "DBZD_HIS", //表名 
+    //  "Columns": "zddm,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,dah,bdcdyh,zdtzm,ytbz,qllx,qlrmc,rjl,zdt,zl,qlsdfs,lsid,ywh,bsm,mjdw,ysdm,bz,xzqdm,zdmj,jzmd,jg,djmj,jzxg,jzxs", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "DC_H", //表名 
+      "Columns": "zddm,fwbh,zl,qlrmc,qlrlx,zjhm,tel,zz,xmmc,gyqk,cb,fwqjxsyt,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlmc,xmbh,ysdm,xzqdm,bdcdyh,zjzl,lszfwbh,lszbdcdyh,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,glmj,edemyssymj,edemyxsymj,cjr,zhxgr,pzytdlbm,ghyt,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_FWZK", //表名 
+      "Columns": "ysdm,bdcdyh,fwbh,sxh,zrzh,ch,dyh,myc,hh,shbw,hx,hxjg,szc,fwjg,fwlx,cqly,qtgsd,qtgsn,qtgsx,qtgsb,glmj,edemyssymj,edemyxsymj,zl,mjdw,fwyt1,fwyt2,fwyt3,fwxz,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,scftxs,lszbdcdyh,lszfwbh,fcfht,ywh,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,sjytdlbm,bz2,gytdmj,fttdmj,dytdmj,qh,xnx,xny,xnh,qllx,jgrq,sjly,xzqdm,fwlxmc,fwxzmc,ytbz,xmbh,fj,jgsj,sjcs,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_FWZK_HIS", //表名 
+      "Columns": "ysdm,ch,dyh,myc,hh,shbw,hx,hxjg,szc,cqly,qtgsd,qtgsn,qtgsx,qtgsb,sctnjzmj,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,zxywh,xssjid,sjlylx,qh,xnx,xny,xnh,qllx,sjly,xzqdm,fwlxmc,fwxzmc,xmbh,bdcdyh,fwbh,zrzh,fwjg,fwlx,sxh,glmj,edemyssymj,edemyxsymj,zl,mjdw,sjcs,fwyt1,fwyt2,fwyt3,fwxz,scjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,scftxs,lszbdcdyh,lszfwbh,gytdmj,fttdmj,dytdmj,jgrq,ytbz,fj,cjr,zhxgr,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_H_HIS", //表名 
+      "Columns": "zddm,zl,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,zxywh,xssjid,sjlylx,pzytdlbm,pzytdlmc,fwqjxsyt,xmbh,ysdm,xzqdm,bdcdyh,fwbh,ghyt,lszfwbh,lszbdcdyh,cjr,zhxgr,scjzmj,sctnjzmj,scftjzmj,scdxbfjzmj,scqtjzmj,glmj,edemyssymj,edemyxsymj,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH", //表名 
+      "Columns": "zddm,fwbh,xzqdm,zl,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fwqjxsyt,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlbm,xmbh,pzytdlmc,yctnjzmj,edemyssymj,edemyxsymj,ysdm,bdcdyh,ghyt,lszfwbh,lszbdcdyh,cjr,zhxgr,ycjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,glmj,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_FWZK", //表名 
+      "Columns": "ysdm,fwbh,dyh,myc,hh,shbw,hx,hxjg,szc,fwlx,cqly,qtgsd,qtgsn,qtgsx,qtgsb,mjdw,fwxz,lszfwbh,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,sjly,xnx,xny,xnh,xzqdm,fwlxmc,fwxzmc,qllx,qh,jgrq,xmbh,bdcdyh,sxh,zrzh,ch,fwjg,glmj,edemyssymj,edemyxsymj,zl,sjcs,fwyt1,fwyt2,fwyt3,ytbz,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,ycftxs,lszbdcdyh,gytdmj,fttdmj,dytdmj,fj,cjr,zhxgr,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_FWZK_HIS", //表名 
+      "Columns": "ysdm,dyh,myc,hh,shbw,hx,hxjg,szc,cqly,qtgsd,qtgsn,qtgsx,qtgsb,fwxz,fcfht,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjytdlbm,bz2,sjly,zxywh,xssjid,sjlylx,qh,xnx,xny,xnh,qllx,xzqdm,fwlxmc,fwxzmc,bdcdyh,fwbh,sxh,zrzh,ch,fwjg,fwlx,glmj,edemyssymj,edemyxsymj,zl,mjdw,sjcs,fwyt1,fwyt2,fwyt3,ytbz,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,ycftxs,gytdmj,fttdmj,dytdmj,lszbdcdyh,lszfwbh,jgrq,cjr,zhxgr,xmbh,fj,jgsj,bz1", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCH_HIS", //表名 
+      "Columns": "bdcdyh,zddm,xzqdm,zl,ghyt,qlrmc,qlrlx,zjzl,zjhm,tel,zz,xmmc,gyqk,cb,fjsm,qsdcjs,dcy,dcrq,ywh,zt,sfyx,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,tdsyqmj,gytdmj,fttdmj,dytdmj,qsrq,zzrq,pzytdlbm,zxywh,xssjid,sjlylx,pzytdlmc,ysdm,fwbh,fwqjxsyt,lszfwbh,xmbh,ycjzmj,yctnjzmj,ycftjzmj,ycdxbfjzmj,ycqtjzmj,glmj,edemyssymj,edemyxsymj,lszbdcdyh,cjr,zhxgr,syqx,bz1,sbzt", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCZ", //表名 
+      "Columns": "fwbh,zddm,mph,xmmc,jzwmc,jgrq,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,xmbh,ljzh,ysdm,bdcdyh,zrzh,jzwgd,zzdmj,zydmj,ycjzmj,ycdxmj,ycqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,zts,dscs,dxcs,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_YCZ_HIS", //表名 
+      "Columns": "mph,xmmc,jzwmc,jgrq,ycjzmj,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,zxywh,xssjid,sjlylx,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,ysdm,bdcdyh,fwbh,zddm,zrzh,xmbh,jzwgd,zzdmj,zydmj,ycdxmj,ycqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,dscs,dxcs,zts,cjr,zhxgr", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_Z", //表名 
+      "Columns": "fwbh,zddm,mph,xmmc,jzwmc,jgrq,jzwzt,bz,ywh,zt,cjrmc,cjsj,zhxgrmc,zhxgsj,sjly,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx,xmbh,ljzh,ysdm,zrzh,jzwgd,zzdmj,zydmj,scjzmj,scdxmj,scqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,fwyt1,fwyt2,fwyt3,zcs,dscs,dxcs,zts,cjr,zhxgr,bdcdyh", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DC_Z_HIS", //表名 
+      "Columns": "bdcdyh,fwbh,zddm,zrzh,mph,xmmc,jzwmc,jgrq,jzwgd,zzdmj,zydmj,scjzmj,scdxmj,scqtmj,dxsd,ghyt,fwjg1,fwjg2,fwjg3,jzwzt,fwyt1,fwyt2,fwyt3,bz,zcs,dscs,dxcs,zts,ywh,zt,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,sjly,zxywh,xssjid,sjlylx,ysdm,xzqdm,ytbz,fcpmt,tfh,xnx,xny,xnh,chlx", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "DSZD", //表名 
+      "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,xzqdm,dah,bdcdyh,zdtzm,qllx,rjl,zdt,lsid,ywh,zl,bsm,qlrmc,ysdm,bz,ytbz,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+      "KeyColumn": "objectid"
+    },
+    //{
+    //  "TableName": "DSZD_HIS", //表名 
+    //  "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,zdsz,f_id,xzqdm,dah,bdcdyh,zdtzm,qllx,rjl,zdt,lsid,ywh,zl,bsm,qlrmc,ysdm,bz,ytbz,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "DXZD", //表名 
+      "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,f_id,xzqdm,dah,bdcdyh,zdtzm,ytbz,qllx,rjl,zdsz,zdt,zl,lsid,bsm,qlrmc,ysdm,bz,ywh,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+      "KeyColumn": "objectid"
+    },
+    //{
+    //  "TableName": "DXZD_HIS", //表名 
+    //  "Columns": "zddm,mjdw,yt,dj,qlxz,zdszd,zdszn,zdszx,zdszb,tfh,djh,ybzddm,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,zt,xmbh,bgrq,f_id,xzqdm,dah,bdcdyh,zdtzm,ytbz,qllx,rjl,zdsz,zdt,zl,lsid,bsm,qlrmc,ysdm,bz,ywh,zdmj,jzmd,jg,djmj,jzqsgd,jzzzgd", //字段
+    //  "KeyColumn": "objectid"
+    //},
+    {
+      "TableName": "YW_SHXX", //表名 
+      "Columns": "xmbh,shbh,shrxm,shsj,shyj,czjg,czjgmc,shrdzqm,sgzyzgzh,pf,ywh,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,bz1,bz2,bz3,bz4,dj", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "YW_SQXX", //表名 
+      "Columns": "ywh,ywmc,chlx,lxr,lxrtel,sqr,sqsj,xb,zjlx,zjhm,txdz,xzfw,dtxx,tzm1,tzm2,ylzddmgs,chdwmc,qddwxx,zddm,xzdz,xmdz,chyt,kfs,xmmc,zt,sfyx,cjr,cjrmc,cjsj,zhxgr,zhxgrmc,zhxgsj,bz2,bz3,bz4,xzqdm", //字段
+      "KeyColumn": "id"
+    },
+    {
+      "TableName": "YCZRZ", //表名 
+      "Columns": "bdcdyh,zddm,zrzh,xmmc,jzwmc,jgrq,zcs,fwjg,zts,bz,sfyx,zhxgr,zhxgrmc,zhxgsj,zt,f_id,sjly,xzqdm,dah,xmbh,dscs,ghyt,ytbz,tfh,cjsj,lsid,ywh,jzwjbyt,bsm,cjr,cjrmc,fwbh,ysdm,dxcs,jzwgd,zzdmj,zydmj,dxsd,ycjzmj", //字段
+      "KeyColumn": "objectid"
+    },
+    {
+      "TableName": "ZRZ", //表名 
+      "Columns": "bdcdyh,zddm,zrzh,xmmc,jzwmc,jgrq,fwjg,bz,sfyx,zhxgr,zhxgrmc,zhxgsj,zt,f_id,sjly,xzqdm,dah,xmbh,dscs,ghyt,ytbz,tfh,cjsj,lsid,ywh,jzwjbyt,bsm,cjr,cjrmc,fwbh,ysdm,zcs,zts,dxcs,jzwgd,zzdmj,zydmj,dxsd,scjzmj", //字段
+      "KeyColumn": "objectid"
+    }
+  ]
+}

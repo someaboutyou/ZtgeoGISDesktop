@@ -59,8 +59,8 @@ namespace ZtgeoGISDesktop.Toolbars
                         buttonItem.Enabled = toolbar.DefaultEnable; 
                         buttonItem.ItemClick += (sender, e) => {
                             //toolbar.ToolbarEvent?.Invoke(toolbar); 
-                            if (toolbar.ToolbarAction != null) {
-                                var toolActiono= iocManager.Resolve(toolbar.ToolbarAction);
+                            if (toolbar.ToolbarActionType != null) {
+                                var toolActiono= iocManager.Resolve(toolbar.ToolbarActionType.Type);
                                 if (toolActiono is IToolbarAction) {
                                     var toolAction = (IToolbarAction)toolActiono;
                                     toolAction.WinformToolbar = toolbar;

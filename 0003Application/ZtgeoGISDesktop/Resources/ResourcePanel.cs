@@ -2,13 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using Abp.Collections;
 using Abp.Dependency;
 using Abp.Events.Bus.Factories;
+using Abp.Reflection;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
+using Ztgeo.Gis.AbpExtension;
+using Ztgeo.Gis.Winform.Actions;
+using Ztgeo.Gis.Winform.MainFormDocument.Resources;
 using Ztgeo.Gis.Winform.Resources;
+using Ztgeo.Utils;
 
 namespace ZtgeoGISDesktop.Resources
 {
@@ -39,14 +48,18 @@ namespace ZtgeoGISDesktop.Resources
         /// <summary>
         /// 初始化本地资源树
         /// </summary>
-        private void InitializeLocalResourceTreeList() { 
+        private void InitializeLocalResourceTreeList()
+        {
             navigationTreeList.VirtualTreeGetChildNodes += OnNavigationTreeListGetChildNodes;
+            navigationTreeList.BeforeExpand += OnNavigationTreeNodeBeforeExpand;
             navigationTreeList.VirtualTreeGetCellValue += OnNavigationTreeListGetCellValue;
             navigationTreeList.FocusedNodeChanged += OnNavigationTreeListFocusedNodeChanged;
             navigationTreeList.CustomDrawNodeImages += OnTreeListCustomDrawNodeImages;
             navigationTreeList.GetSelectImage += OnTreeListGetStateImage;
-            navigationTreeList.DataSource = new RootItem();
-           navigationTreeList.ForceInitialize();
+            navigationTreeList.PopupMenuShowing += OnTreeListPopMenuShow;
+            navigationTreeList.MouseDoubleClick += OnTreeListDoubleClick;
+            navigationTreeList.DataSource = new RootItem(); 
+            navigationTreeList.ForceInitialize();
             //navigationTreeList.Nodes[0].Expand();
             //if (navigationTreeList.Nodes[0].Nodes.Count > 2)
             //{
@@ -61,10 +74,11 @@ namespace ZtgeoGISDesktop.Resources
             e.CellData = ((Item)e.Node).DisplayName;
         }
         void OnNavigationTreeListGetChildNodes(object sender, VirtualTreeGetChildNodesInfo e)
-        {
+        { 
             Cursor current = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
-            e.Children = ((Item)e.Node).GetDirectories();
+            if(e.Children==null)
+                e.Children = ((Item)e.Node).GetDirectories(checkedResourceMetaData);
             Cursor.Current = current;
         }
         //</navigationTreeList>
@@ -80,6 +94,9 @@ namespace ZtgeoGISDesktop.Resources
             //breadCrumbEdit.Properties.RootGlyph = _item.Image;
             //treeList1.DataSource = _item.GetFilesSystemInfo();
             Cursor.Current = current;
+        }
+        void OnNavigationTreeNodeBeforeExpand(object sender, BeforeExpandEventArgs e) {
+            
         }
         void OnTreeListCustomDrawNodeImages(object sender, CustomDrawNodeImagesEventArgs e)
         {
@@ -111,7 +128,132 @@ namespace ZtgeoGISDesktop.Resources
         void OnBreadCrumbEditPathChanged(object sender, BreadCrumbPathChangedEventArgs e)
         {
             UpdateButtonsState();
-        }  
+        }
+        /// <summary>
+        /// 资源树的右键事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnTreeListPopMenuShow(object sender, PopupMenuShowingEventArgs e) {
+            TreeList tree = sender as TreeList;
+            TreeListHitInfo treeListHitInfo = tree.CalcHitInfo(e.Point);
+            if (treeListHitInfo.HitInfoType == HitInfoType.Cell)
+            {
+                tree.SetFocusedNode(treeListHitInfo.Node);
+            }
+            if (tree.FocusedNode != null)
+            {
+                var item =navigationTreeList.GetRow(tree.FocusedNode.Id);
+                if (item is ResourceItem)
+                {
+                    ResourceItem _item = item as ResourceItem;
+                    popupMenu1.ClearLinks();
+                    IResource resource = _item.Resource;
+                    if (resource.ResourceMetaData != null
+                        && resource.ResourceMetaData.ContextActionTypes != null
+                        && resource.ResourceMetaData.ContextActionTypes.Count > 0)
+                    {
+                        foreach (Type itemActionType in resource.ResourceMetaData.ContextActionTypes)
+                        {
+                            IContextMenuItemAction contextMenuItemAction = IocManager.Instance.Resolve(itemActionType) as IContextMenuItemAction;
+                            if (contextMenuItemAction.IsSplitor)
+                            {
+                                var link = popupMenu1.AddItem(new BarLargeButtonItem());
+                                link.BeginGroup = true;
+                            }
+                            else
+                            {
+
+                                contextMenuItemAction.Sender = resource;
+                                var buttonItem = new DevExpress.XtraBars.BarButtonItem(this.barManager1, contextMenuItemAction.Caption);
+                                buttonItem.ImageOptions.Image = contextMenuItemAction.ItemIcon;
+                                buttonItem.ItemClick += (itemSender, ee) =>
+                                {
+                                    contextMenuItemAction.Excute();
+                                };
+
+                                popupMenu1.AddItem(
+                                       buttonItem
+                                    );
+                            }
+
+                        }
+                        Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                        popupMenu1.ShowPopup(p);
+                    }
+                }
+                else if (item is DirectoryItem)
+                {
+                    popupMenu1.ClearLinks();
+                    var barbutton = new DevExpress.XtraBars.BarButtonItem(this.barManager1, "打开资源文件目录");
+                    barbutton.ImageOptions.Image = AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.ResourceManager16.png");
+                    barbutton.ItemClick += (itemSender, ee) =>
+                     {
+                         System.Diagnostics.Process.Start("explorer.exe", ((DirectoryItem)item).FullName);
+                     };
+                    var barbutton2 = new DevExpress.XtraBars.BarButtonItem(this.barManager1, "刷新");
+                    barbutton2.ImageOptions.Image = AssemblyResource.GetResourceImage(Assembly.GetExecutingAssembly(), "ZtgeoGISDesktop.Icons.Refesh16.png");
+                    barbutton2.ItemClick += (itemSender, ee) =>
+                    {
+                        //tree.FocusedNode.Collapse(); 
+                        //tree.FocusedNode.HasChildren = true;
+                        //tree.RefreshNode(tree.FocusedNode);
+                        tree.RefreshDataSource();
+                    };
+                    popupMenu1.AddItem(barbutton); popupMenu1.AddItem(barbutton2);
+                    Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                    popupMenu1.ShowPopup(p);
+                }
+                else if (item is FileItem) { 
+                    
+                } 
+            }
+        }
+        /// <summary>
+        /// 资源树的双击事件
+        /// </summary>
+        void OnTreeListDoubleClick(object sender, MouseEventArgs e) {
+            TreeList tree = sender as TreeList;
+            TreeListHitInfo treeListHitInfo = tree.CalcHitInfo(e.Location);
+            if (treeListHitInfo.HitInfoType == HitInfoType.Cell)
+            {
+                tree.SetFocusedNode(treeListHitInfo.Node);
+            }
+            if (tree.FocusedNode != null)
+            {
+                var item = navigationTreeList.GetRow(tree.FocusedNode.Id);
+                if (item is ResourceItem)
+                {
+                    ResourceItem _item = item as ResourceItem;
+                    IResource resource = _item.Resource;
+                    if (resource.ResourceMetaData != null
+                        && resource.ResourceMetaData.DoubleClickResourceActionType != null)
+                    {
+                        IType<IResourceAction> resourceActionType = resource.ResourceMetaData.DoubleClickResourceActionType;
+                        IResourceAction resourceAction = IocManager.Instance.Resolve(resourceActionType.Type) as IResourceAction;
+                        resourceAction.Resource = resource;
+                        resourceAction.Excute();
+                    }
+                }
+                else if (item is FileItem) {
+                    IResourceMetaDataProvider resourceMetaDataProvider = IocManager.Instance.Resolve<IResourceMetaDataProvider>();
+                    ITypeList<IDocumentResourceMetaData> resourceMetaDatas = resourceMetaDataProvider.DocumentResourceMetaDataProviders;
+                    if (resourceMetaDatas.Count > 0) {
+                        foreach (var mt in resourceMetaDatas) {
+                            var m = IocManager.Instance.Resolve(mt);
+                            if (m is ISingleFileDocumentResourceMetaData) {
+                                if (((ISingleFileDocumentResourceMetaData)m).Identified(((FileItem)item).FullName)){
+                                    ISingleFileDocumentResource singleFileDocumentResource = IocManager.Instance.Resolve(((ISingleFileDocumentResourceMetaData)m).ResourceType.Type) as ISingleFileDocumentResource;
+                                    singleFileDocumentResource.FullName = ((FileItem)item).FullName;
+                                    singleFileDocumentResource.Open();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         void UpdateButtonsState()
         {
@@ -143,7 +285,8 @@ namespace ZtgeoGISDesktop.Resources
         {
             CheckedResourceCombox.EditValueChanged += (sender, e) =>
             {
-                navigationTreeList.CollapseAll();
+                GetCheckedResourceMetaData(); 
+                navigationTreeList.RefreshDataSource(); 
             };
             IResourceMetaDataProvider resourceMetaDataProvider = IocManager.Instance.Resolve<IResourceMetaDataProvider>();
             ITypeList<IResourceMetaData> resourceMetaDatas = resourceMetaDataProvider.AllResourceMetaDataProviders;
@@ -155,13 +298,41 @@ namespace ZtgeoGISDesktop.Resources
             } 
         }
 
+        private DevExpress.XtraBars.PopupMenu popupMenu1;
+        private DevExpress.XtraBars.BarManager barManager1;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem1;
+        private IList<IResourceMetaData> checkedResourceMetaData;
         /// <summary>
         /// 获得选中的MetaData
         /// </summary>
         /// <returns></returns>
-        private IList<IResourceMetaData> CheckedResourceMetaData() {
-            return CheckedResourceCombox.Properties.GetCheckedItems() as IList<IResourceMetaData>;
+        private void GetCheckedResourceMetaData() {
+            var checkedItemString = CheckedResourceCombox.EditValue as string;
+            if (string.IsNullOrEmpty(checkedItemString))
+            {
+                checkedResourceMetaData = null;
+            }
+            else
+            {
+                string[] checkTypes = checkedItemString.Split(',');
+                ITypeFinder _typeFinder = IocManager.Instance.Resolve<ITypeFinder>();
+                checkedResourceMetaData = new List<IResourceMetaData>();
+                foreach (string typeName in checkTypes) {
+                    if (!string.IsNullOrEmpty(typeName)) { 
+                        var typess = _typeFinder.Find(t => t.FullName.Equals(typeName.Trim()));
+                        if (typess.Length > 0) {
+                            checkedResourceMetaData.Add(IocManager.Instance.Resolve(typess[0]) as IResourceMetaData);
+                        }
+                    }
+                } 
+            }
         }
+         
         #endregion
 
         #region resource Panel component ,author JZW
@@ -180,6 +351,14 @@ namespace ZtgeoGISDesktop.Resources
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.DBResourceTabPage = new DevExpress.XtraTab.XtraTabPage();
             this.WebTabPage = new DevExpress.XtraTab.XtraTabPage();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             ((System.ComponentModel.ISupportInitialize)(this.navigationTreeList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -191,6 +370,8 @@ namespace ZtgeoGISDesktop.Resources
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // navigationTreeList
@@ -314,6 +495,70 @@ namespace ZtgeoGISDesktop.Resources
             this.WebTabPage.Size = new System.Drawing.Size(317, 702);
             this.WebTabPage.Text = "Web资源";
             // 
+            // popupMenu1
+            // 
+            this.popupMenu1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1)});
+            this.popupMenu1.Manager = this.barManager1;
+            this.popupMenu1.Name = "popupMenu1";
+            // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "barButtonItem1";
+            this.barButtonItem1.Id = 2;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
+            // barManager1
+            // 
+            this.barManager1.DockControls.Add(this.barDockControlTop);
+            this.barManager1.DockControls.Add(this.barDockControlBottom);
+            this.barManager1.DockControls.Add(this.barDockControlLeft);
+            this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.Form = this;
+            this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barButtonItem1,
+            this.barStaticItem1});
+            this.barManager1.MaxItemId = 4;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Manager = this.barManager1;
+            this.barDockControlTop.Size = new System.Drawing.Size(323, 0);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 731);
+            this.barDockControlBottom.Manager = this.barManager1;
+            this.barDockControlBottom.Size = new System.Drawing.Size(323, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Manager = this.barManager1;
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 731);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(323, 0);
+            this.barDockControlRight.Manager = this.barManager1;
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 731);
+            // 
+            // barStaticItem1
+            // 
+            this.barStaticItem1.Caption = "barStaticItem1";
+            this.barStaticItem1.Id = 3;
+            this.barStaticItem1.Name = "barStaticItem1";
+            // 
             // ResourcePanel
             // 
             this.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -322,6 +567,10 @@ namespace ZtgeoGISDesktop.Resources
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xtraTabControl1);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Name = "ResourcePanel";
             this.Size = new System.Drawing.Size(323, 731);
             ((System.ComponentModel.ISupportInitialize)(this.navigationTreeList)).EndInit();
@@ -335,7 +584,10 @@ namespace ZtgeoGISDesktop.Resources
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

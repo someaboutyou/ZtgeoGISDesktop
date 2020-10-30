@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ztgeo.Gis.CAD.Controls;
 using Ztgeo.Gis.Winform.Actions;
+using Ztgeo.Gis.Winform.Menu;
 using Ztgeo.Utils;
 
 namespace Ztgeo.Gis.CAD.Actions.Menu
@@ -20,6 +21,9 @@ namespace Ztgeo.Gis.CAD.Actions.Menu
             cadFileDocMetaData = iocManager.Resolve<CADViewSingleFileDocumentResourceMetaData>();
             IocManager = iocManager;
         }
+
+        public WinformMenu SenderMenu { set; private get; } 
+
         public void Excute()
         {
             XtraOpenFileDialog openFileDialog = new XtraOpenFileDialog();
@@ -30,7 +34,7 @@ namespace Ztgeo.Gis.CAD.Actions.Menu
             {
                 string fileName = openFileDialog.FileName;
                 var cadViewSingleFileDocumentResource = IocManager.Resolve( cadFileDocMetaData.TypeOfDocumentResource.Type) as CADViewSingleFileDocumentResource;
-                cadViewSingleFileDocumentResource.FilePath = fileName;
+                cadViewSingleFileDocumentResource.FullName = fileName;
                 cadViewSingleFileDocumentResource.Open(); 
                 //IDocumentControl documentControl = documentManager.AddADocument<CADViewerControl>(Path.GetFileNameWithoutExtension(fileName));
                 //((CADViewerControl)documentControl).OpenFile(fileName);

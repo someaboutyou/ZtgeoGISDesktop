@@ -188,13 +188,12 @@ namespace ZtgeoGISDesktop.Core.Menus
                         };
                         SetSubItemImage4Default(button, newButton);
                         if (button.MenuActionType != null) {
-                            IWinformAction winformAction= iocManager.Resolve(button.MenuActionType) as IWinformAction;
-                            if (winformAction != null) {
-                                newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
-                                {
-                                    winformAction.Excute();
-                                }; 
-                            }
+                            newButton.ItemClick += (object sender, ItemClickEventArgs e) =>
+                            {
+                                IMenuAction winformAction = iocManager.Resolve(button.MenuActionType.Type) as IMenuAction;
+                                winformAction.SenderMenu = button; 
+                                winformAction.Excute(); 
+                            }; 
                         }
                         pageGroup.ItemLinks.Add(newButton);
                     }

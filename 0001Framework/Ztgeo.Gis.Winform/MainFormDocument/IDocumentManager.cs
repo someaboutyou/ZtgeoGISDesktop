@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ztgeo.Gis.AbpExtension;
 
 namespace Ztgeo.Gis.Winform.MainFormDocument
 {
@@ -18,6 +19,10 @@ namespace Ztgeo.Gis.Winform.MainFormDocument
         /// <param name="cocument"></param>
         /// <returns></returns>
         IDocumentControl AddADocument<T>(string documentName) where T :IDocumentControl;
+
+        IDocumentControl AddADocument(IType<IDocumentControl> documentControlType, string documentName);
+
+        void CloseADocumentControl(IDocumentControl documentContorl);
         /// <summary>
         /// 增加一个文档的子文档
         /// </summary>
