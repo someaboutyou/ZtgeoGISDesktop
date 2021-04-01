@@ -9,6 +9,7 @@ namespace Ztgeo.Gis.AbpExtension.SettingExtension
 {
     /// <summary>
     /// Implements methods to convert objects between SettingInfo and Setting classes.
+    /// https://www.cnblogs.com/crazyboy/p/8064387.html
     /// </summary>
     internal static class SettingExtensions
     {
